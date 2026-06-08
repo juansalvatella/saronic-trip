@@ -1,0 +1,1146 @@
+import React, { useState, useEffect } from 'react';
+import { Anchor, Wind, Compass, LifeBuoy, Map, BookOpen, Users, Package, Radio, ShieldAlert, ChevronRight, Check, Ship, Fish, Gamepad2 } from 'lucide-react';
+
+export default function SaronicoTrip() {
+  const [activeSection, setActiveSection] = useState('barco');
+  const [activeDay, setActiveDay] = useState(1);
+  const [activeKnot, setActiveKnot] = useState(0);
+  const [checkedItems, setCheckedItems] = useState({});
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('saronico-checked-items');
+      if (stored) setCheckedItems(JSON.parse(stored));
+    } catch (e) { /* no items yet */ }
+  }, []);
+
+  const toggleCheck = (id) => {
+    const updated = { ...checkedItems, [id]: !checkedItems[id] };
+    setCheckedItems(updated);
+    try {
+      localStorage.setItem('saronico-checked-items', JSON.stringify(updated));
+    } catch (e) { /* silent */ }
+  };
+
+  const sections = [
+    { id: 'barco', label: 'El Barco', icon: Ship, num: 'I' },
+    { id: 'ruta', label: 'La Travesía', icon: Map, num: 'II' },
+    { id: 'curso', label: 'Escuela de Mar', icon: BookOpen, num: 'III' },
+    { id: 'roles', label: 'Tripulación', icon: Users, num: 'IV' },
+    { id: 'equipaje', label: 'Pertrechos', icon: Package, num: 'V' },
+    { id: 'ocio', label: 'Ocio & Pesca', icon: Fish, num: 'VI' },
+    { id: 'glosario', label: 'Léxico & VHF', icon: Radio, num: 'VII' },
+    { id: 'seguridad', label: 'Seguridad', icon: ShieldAlert, num: 'VIII' },
+  ];
+
+  const dias = [
+    {
+      n: 1, ruta: 'Alimos → Egina', millas: 20, horas: '4h',
+      salida: '10:00', llegada: '18:00', viento: 'N/NE 8-12 kn',
+      texto: 'Salida desde Marina Alimos. Etapa corta para coger confianza con el barco. Rumbo aprox. 220°. Entrada en el puerto de Egina por el muelle norte. Amarre de popa con muerto. Cena en la ciudad y prueba del pistacho local — denominación de origen.',
+      hito: 'Templo de Afaia al atardecer si llegáis con margen',
+      alt: 'Cala de Agistri (oeste) si el puerto está saturado'
+    },
+    {
+      n: 2, ruta: 'Egina → Poros', millas: 22, horas: '4-5h',
+      salida: '09:30', llegada: '16:00', viento: 'NE 10-15 kn',
+      texto: 'Etapa de través, normalmente la más cómoda y la mejor para aprender a trimar velas. Atención al tráfico de ferrys a la altura de Methana. Entrada al canal de Poros entre la isla y el Peloponeso — uno de los pasos más bonitos del Egeo.',
+      hito: 'Paseo nocturno por el malecón',
+      alt: 'Russian Bay para fondear si preferís noche tranquila'
+    },
+    {
+      n: 3, ruta: 'Poros → Hidra', millas: 15, horas: '3h',
+      salida: '10:00', llegada: '14:00', viento: 'NE 12-18 kn',
+      texto: 'Día estrella. Hidra no permite ni coches ni motos: solo burros, gatos y barcos. Puerto pequeño, llegad temprano o reservad. Si está lleno, fondeo en Mandraki (10 min en zodiac al pueblo).',
+      hito: 'Cena en una taverna con vistas al puerto',
+      alt: 'Bahía de Mandraki o cala de Bisti'
+    },
+    {
+      n: 4, ruta: 'Hidra → Spetses (vía Dokos)', millas: 18, horas: '4h',
+      salida: '10:00', llegada: '15:00', viento: 'NE 12-18 kn',
+      texto: 'Parada en Dokos para baño y comida — isla deshabitada, agua turquesa, restos arqueológicos sumergidos. Tarde en Spetses, isla más cosmopolita y con vida nocturna. Alquilad bicis o caballos para dar la vuelta.',
+      hito: 'Baño en Dokos al mediodía',
+      alt: 'Porto Heli (Peloponeso) si Spetses está caro'
+    },
+    {
+      n: 5, ruta: 'Spetses → Epidauro → Alimos', millas: 50, horas: '9-10h',
+      salida: '07:00', llegada: '19:00', viento: 'Variable',
+      texto: 'Etapa larga de vuelta. Parada técnica en Epidauro antiguo — la ciudad sumergida se ve con gafas de buceo desde el puerto. Resto de la jornada navegando a Alimos. Si el viento ayuda, izad todo el trapo. Devolución del barco al día siguiente, normalmente 09:00.',
+      hito: 'Snorkel sobre las ruinas sumergidas de Epidauro',
+      alt: 'Aguas Methana si el tiempo empeora'
+    }
+  ];
+
+  const nudos = [
+    { nombre: 'As de guía', uso: 'Hace una gaza fija que no se corre. El rey de los nudos: para amarrar a un noray, asegurar una persona, o cualquier lazo que no debe apretarse.', mnemo: 'El conejo sale del agujero, da la vuelta al árbol y vuelve al agujero' },
+    { nombre: 'Ballestrinque', uso: 'Para amarrar provisionalmente a un noray o un cabo a un pasamanos. Rápido de hacer y deshacer.', mnemo: 'Dos vueltas cruzadas, la segunda por debajo' },
+    { nombre: 'Cote (medio nudo)', uso: 'Asegurar el ballestrinque o cualquier amarre. Casi siempre se hacen dos cotes seguidos.', mnemo: 'Vuelta sobre la propia firme' },
+    { nombre: 'Ocho', uso: 'Tope para que un cabo no se escape por una polea o pasacabos. Se hace al final de las escotas.', mnemo: 'Dibujar un 8 con el cabo' },
+    { nombre: 'Vuelta de rezón', uso: 'Para tensar cabos contra una bita o cornamusa. Es el nudo de amarrar al muelle.', mnemo: 'Dos vueltas redondas + dos cotes invertidos' }
+  ];
+
+  const partes = [
+    { es: 'Proa', en: 'Bow', def: 'Parte delantera del barco' },
+    { es: 'Popa', en: 'Stern', def: 'Parte trasera' },
+    { es: 'Babor', en: 'Port', def: 'Lado izquierdo mirando a proa (rojo)' },
+    { es: 'Estribor', en: 'Starboard', def: 'Lado derecho mirando a proa (verde)' },
+    { es: 'Mayor', en: 'Main', def: 'La vela grande, sujeta a la botavara' },
+    { es: 'Génova / Foque', en: 'Genoa / Jib', def: 'La vela de proa' },
+    { es: 'Botavara', en: 'Boom', def: 'Palo horizontal que sujeta el pie de la mayor' },
+    { es: 'Escota', en: 'Sheet', def: 'Cabo que controla la posición de una vela' },
+    { es: 'Driza', en: 'Halyard', def: 'Cabo que iza la vela' },
+    { es: 'Winche', en: 'Winch', def: 'Cabrestante para cobrar escotas con palanca' },
+    { es: 'Caña / Rueda', en: 'Tiller / Wheel', def: 'Control del timón' },
+    { es: 'Orza', en: 'Keel', def: 'Quilla bajo el casco que da estabilidad' }
+  ];
+
+  const maniobras = [
+    { nombre: 'Virar por avante', desc: 'Cambiar de amura pasando la proa por el viento. Orden: "¡Listos para virar!" → "¡Viramos!"', clave: 'La vela cruza por delante del palo' },
+    { nombre: 'Trasluchar', desc: 'Cambiar de amura pasando la popa por el viento. Más peligroso por la botavara — atención a las cabezas.', clave: 'La botavara cruza con fuerza, controlarla con la escota' },
+    { nombre: 'Capear', desc: 'Detener prácticamente el barco con velas contrapuestas. Útil para descansar en alta mar o esperar.', clave: 'Mayor a sotavento, foque al revés, timón a la orza' },
+    { nombre: 'Amarre de popa', desc: 'El amarre estándar en Grecia. Se entra dando atrás, se larga el ancla a unos 4 cascos del muelle, se acerca y se amarra con dos cabos.', clave: 'Ancla recta y bien filada, sin cruzar con vecinos' }
+  ];
+
+  const rolesData = [
+    { rol: 'Patrón (Skipper)', tareas: 'Decisión final en meteo, ruta, maniobras de puerto y emergencias. Responsable legal del barco y la tripulación. No tiene turno de cocina ni limpieza.', persona: 'PER #1 — [NOMBRE]' },
+    { rol: 'Segundo de a bordo', tareas: 'Releva al patrón al timón en travesías largas. Lidera maniobras cuando el patrón descansa. Apoya en meteo del día siguiente y comunicación VHF.', persona: 'PER #2 — [NOMBRE]' },
+    { rol: 'Jefe de maniobra (Bosun)', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.', persona: 'PER #3 — [NOMBRE]' },
+    { rol: 'Navegante', tareas: 'Plotter, waypoints, posición en Navionics, bitácora horaria (posición, viento, rumbo). Aprende muchísimo sin tener que maniobrar.', persona: 'Tripulante metódico' },
+    { rol: 'Trimmer de escotas (×2)', tareas: 'Cobran y largan escotas en virajes, manejan winches en trasluchadas, ajustan trimado. Rotar cada día para que más gente aprenda.', persona: '2 tripulantes ágiles' },
+    { rol: 'Proa (Foredeck)', tareas: 'Marinero de proa en maniobras. Suelta y recoge defensas, maneja cabos, ayuda con el ancla. Donde más se moja uno.', persona: 'Tripulante joven con equilibrio' },
+    { rol: 'Chef de bord', tareas: 'Organiza menús de los 5 días, compra inicial, gestión de nevera, coordina turnos de cocina. No cocina solo: planifica.', persona: 'Quien disfrute con esto' },
+    { rol: 'Tesorero / Logística', tareas: 'Caja común (Splitwise o Tricount), amarres, gasoil, agua, gas, tasas portuarias, dinghy. Trato con marineros de muelle.', persona: 'Persona organizada' },
+    { rol: 'Comodín / aprendiz', tareas: 'Rota por todos los puestos durante la semana. Próximo viaje ya domina el barco.', persona: 'Tripulante motivado' },
+    { rol: 'Roles secundarios', tareas: 'Responsable de seguridad/botiquín, responsable de pesca (caña y curricán), DJ de a bordo (Bluetooth y playlists). Se asignan como rol secundario sobre los anteriores.', persona: 'Tripulación rotativa' }
+  ];
+
+  const guardiasData = [
+    { tramo: '08:00 - 10:00', tipo: 'Timón PER #1', tareas: 'Salida de puerto, primera ceñida del día' },
+    { tramo: '10:00 - 12:00', tipo: 'Timón PER #2', tareas: 'Travesía principal, ajustes de rumbo' },
+    { tramo: '12:00 - 14:00', tipo: 'Timón PER #3', tareas: 'Aproximación a destino, fondeo o amarre' },
+    { tramo: '14:00 - 18:00', tipo: 'Fondeo / baño', tareas: 'Comida, snorkel, descanso. Patrón disponible' },
+    { tramo: '18:00 - 22:00', tipo: 'Puerto', tareas: 'Cena, paseo, briefing del día siguiente' }
+  ];
+
+  const equipaje = {
+    'Documentación': [
+      'Pasaporte o DNI (en Grecia DNI vale para UE)',
+      'Título de patrón + Radioperador SRC (originales, no copias)',
+      'Tarjeta sanitaria europea',
+      'Seguro de viaje y de cancelación de franquicia',
+      'Reserva del charter impresa'
+    ],
+    'Ropa (julio en Sarónico)': [
+      'Bañadores (2-3)',
+      'Camisetas técnicas de manga corta',
+      'Una sudadera o forro polar (las noches refrescan)',
+      'Chubasquero ligero (chubascos vespertinos)',
+      'Pantalón corto deportivo (2)',
+      'Pantalón largo ligero para cenas',
+      'Gorra con cordón (clave: se pierden constantemente)',
+      'Gafas de sol polarizadas con flotador'
+    ],
+    'Calzado': [
+      'Náuticos de suela blanca antideslizante (no negro, deja marcas)',
+      'Chanclas para puerto',
+      'Escarpines para entrar al agua en calas con erizos'
+    ],
+    'Aseo y salud': [
+      'Protector solar SPF 50 reef-safe (2 botes mínimo)',
+      'After-sun',
+      'Biodramina o pulseras anti-mareo',
+      'Botiquín personal (medicación habitual)',
+      'Toalla de microfibra'
+    ],
+    'A bordo (lo que cada uno aporta)': [
+      'Linterna frontal con luz roja (no daña visión nocturna)',
+      'Cargador y power bank',
+      'Bolsa estanca para móvil',
+      'Auriculares (camarotes pequeños)',
+      'Mochila pequeña para excursiones en isla'
+    ],
+    'Equipo común (el grupo)': [
+      'Pack agua: 6L/persona para los 5 días',
+      'Sal, aceite, vinagre, café, té (lo más caro a bordo)',
+      'Papel higiénico (consumo brutal)',
+      'Bolsas de basura grandes',
+      'Tupper para sobras',
+      'Pinzas de la ropa (para tender toallas)'
+    ]
+  };
+
+  const compraInicial = [
+    { cat: 'Desayunos', items: 'Café, leche UHT, yogures, fruta fresca, pan, mermelada, mantequilla, cereales' },
+    { cat: 'Comidas a bordo', items: 'Pasta, arroz, tomate frito, atún, huevos, queso feta, aceitunas, ensaladas, pan de molde' },
+    { cat: 'Snacks', items: 'Frutos secos, fruta deshidratada, galletas, chocolate, chips' },
+    { cat: 'Bebidas', items: 'Agua (mucha), refrescos, cervezas, vino, ouzo o tsipouro' },
+    { cat: 'Frescos (cada 2 días)', items: 'Tomate, pepino, cebolla, limón, hierbas. Mejor comprar poco y reponer' }
+  ];
+
+  const glosario = [
+    { t: 'Amura', d: 'Lado del barco respecto al viento. "Amura de babor" = viento entra por la izquierda' },
+    { t: 'Sotavento', d: 'El lado hacia donde sopla el viento (donde el viento se va)' },
+    { t: 'Barlovento', d: 'El lado de donde viene el viento' },
+    { t: 'Ceñida', d: 'Navegar lo más cerca del viento posible (aprox 45°)' },
+    { t: 'Través', d: 'Viento entrando perpendicular al barco. Rumbo más rápido' },
+    { t: 'Empopada', d: 'Viento por la popa' },
+    { t: 'Aparente', d: 'Viento que percibes a bordo (= real + el del movimiento del barco)' },
+    { t: 'Cabo', d: 'Cualquier cuerda en un barco. Nunca digas "cuerda"' },
+    { t: 'Drizar', d: 'Izar una vela' },
+    { t: 'Arriar', d: 'Bajar una vela o un cabo' },
+    { t: 'Cobrar', d: 'Tirar de un cabo para tensarlo' },
+    { t: 'Lascar', d: 'Aflojar un cabo de forma controlada' },
+    { t: 'Tomar rizos', d: 'Reducir superficie de la mayor cuando hay mucho viento' },
+    { t: 'Fondear', d: 'Echar el ancla' },
+    { t: 'Garrear', d: 'Cuando el ancla no agarra y el barco se desplaza' },
+    { t: 'Roca', d: 'En Grecia, atención: muchas calas tienen rocas a poca profundidad' }
+  ];
+
+  const vhfData = [
+    { canal: '16', uso: 'Emergencia y llamada internacional. Escucha permanente obligatoria' },
+    { canal: '70', uso: 'DSC — llamada digital de socorro (botón rojo)' },
+    { canal: '06, 08, 72, 77', uso: 'Comunicación entre barcos' },
+    { canal: '12, 14', uso: 'Capitanías y puertos griegos' },
+    { canal: '09', uso: 'Marinas' }
+  ];
+
+  const protocolos = [
+    { tipo: 'MAYDAY', cuando: 'Peligro inminente de muerte (hundimiento, incendio, hombre al agua sin recuperar)', formula: '"MAYDAY MAYDAY MAYDAY, este es velero [NOMBRE], posición [LAT/LON], naturaleza del peligro [...], personas a bordo [...], cambio"' },
+    { tipo: 'PAN-PAN', cuando: 'Urgencia sin peligro vital inmediato (avería grave, médica no crítica)', formula: '"PAN-PAN PAN-PAN PAN-PAN, a todas las estaciones, este es velero [NOMBRE]..."' },
+    { tipo: 'SÉCURITÉ', cuando: 'Aviso de seguridad para otros (objeto a la deriva, meteo)', formula: '"SÉCURITÉ SÉCURITÉ SÉCURITÉ, a todas las estaciones..."' }
+  ];
+
+  const checklistSeguridad = [
+    { cat: 'Antes de zarpar (cada día)', items: [
+      'Parte meteorológico (Windy + Poseidon)',
+      'Nivel de combustible y agua',
+      'Briefing a la tripulación: ruta del día, viento esperado, hora estimada',
+      'Repaso de defensas y cabos antes de salir',
+      'Cocina y bodega: nada suelto que pueda volar',
+      'Chalecos accesibles en bañera'
+    ]},
+    { cat: 'Equipo de seguridad a bordo (verificar al check-in)', items: [
+      'Balsa salvavidas con caducidad vigente',
+      'Chalecos para todos + 1 extra (con luz y silbato)',
+      'Arneses y líneas de vida si hay navegación nocturna',
+      'Bengalas en vigor (revisar fecha)',
+      'Extintor por compartimento',
+      'Botiquín completo',
+      'VHF fijo + portátil con batería',
+      'Bocina de niebla',
+      'Aro salvavidas con luz auto-encendido'
+    ]},
+    { cat: 'Hombre al agua', items: [
+      'Gritar "¡HOMBRE AL AGUA POR [BABOR/ESTRIBOR]!"',
+      'Tirar aro salvavidas y boya luminosa INMEDIATAMENTE',
+      'Designar un vigía que NO le quita la vista de encima',
+      'Marcar MOB en el plotter',
+      'Maniobra del 8 o Williamson para volver al punto',
+      'Aproximación con viento por proa, motor en punto muerto al llegar',
+      'Recuperación por banda (escala de baño)'
+    ]},
+    { cat: 'Emergencias frecuentes', items: [
+      'Mareo: hidratación, jengibre, vista al horizonte, Biodramina',
+      'Quemadura solar: hidratar y sombra; no exponer al sol al día siguiente',
+      'Corte profundo: presión + elevación; si no para → Pan-Pan VHF 16',
+      'Avería motor: vela + radio a charter (no toques motor en marcha)',
+      'Anclar garreando: arriar más cadena (5x profundidad mínimo)'
+    ]}
+  ];
+
+  const renderContent = () => {
+    switch(activeSection) {
+      case 'barco': return <BarcoSection checkedItems={checkedItems} toggleCheck={toggleCheck} />;
+      case 'ruta': return <RutaSection dias={dias} activeDay={activeDay} setActiveDay={setActiveDay} />;
+      case 'curso': return <CursoSection nudos={nudos} activeKnot={activeKnot} setActiveKnot={setActiveKnot} partes={partes} maniobras={maniobras} />;
+      case 'roles': return <RolesSection roles={rolesData} guardias={guardiasData} />;
+      case 'equipaje': return <EquipajeSection equipaje={equipaje} compra={compraInicial} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
+      case 'ocio': return <OcioSection />;
+      case 'glosario': return <GlosarioSection glosario={glosario} vhf={vhfData} protocolos={protocolos} />;
+      case 'seguridad': return <SeguridadSection checklist={checklistSeguridad} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
+      default: return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen" style={{ background: '#f1e8d4', fontFamily: 'Georgia, "Times New Roman", serif', color: '#1a3147' }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Special+Elite&display=swap');
+        .display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
+        .mono-font { font-family: 'Special Elite', 'Courier New', monospace; }
+        .paper {
+          background-color: #f1e8d4;
+          background-image:
+            radial-gradient(at 47% 33%, hsl(35.00, 35%, 88%) 0, transparent 59%),
+            radial-gradient(at 82% 65%, hsl(40.00, 28%, 82%) 0, transparent 55%);
+        }
+        .rule {
+          height: 1px;
+          background: linear-gradient(90deg, transparent 0%, #1a3147 20%, #1a3147 80%, transparent 100%);
+        }
+        .double-rule { border-top: 1px solid #1a3147; border-bottom: 3px double #1a3147; padding-top: 2px; padding-bottom: 4px; }
+        .compass-rose {
+          background: radial-gradient(circle, #1a3147 1px, transparent 1.5px);
+          background-size: 16px 16px;
+          opacity: 0.06;
+        }
+        .nav-item-active { background: #1a3147; color: #f1e8d4; }
+        .ink-shadow { box-shadow: 4px 4px 0 #1a3147; }
+        .stamp {
+          border: 2px solid #8b2a14;
+          color: #8b2a14;
+          padding: 4px 12px;
+          transform: rotate(-3deg);
+          display: inline-block;
+          letter-spacing: 0.15em;
+          font-family: 'Special Elite', monospace;
+        }
+      `}</style>
+
+      {/* Header */}
+      <header className="border-b-4 border-double" style={{ borderColor: '#1a3147' }}>
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex items-start justify-between flex-wrap gap-4">
+            <div>
+              <div className="mono-font text-xs tracking-widest uppercase opacity-70 mb-2">Cuaderno de Bitácora · Julio MMXXVI</div>
+              <h1 className="display-font text-5xl md:text-7xl font-semibold leading-none tracking-tight">
+                Golfo Sarónico
+              </h1>
+              <div className="display-font italic text-xl md:text-2xl mt-2 opacity-80">
+                Cinco días desde Alimos
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="stamp text-sm">5 días · 125 mn</div>
+              <div className="mono-font text-xs mt-3 opacity-70">
+                37°54′N · 23°42′E
+              </div>
+            </div>
+          </div>
+          <div className="rule mt-6"></div>
+          <div className="flex items-center gap-4 mt-4 text-sm">
+            <span className="flex items-center gap-1"><Wind size={14} /> Meltemi flojo</span>
+            <span className="opacity-30">·</span>
+            <span className="flex items-center gap-1"><Anchor size={14} /> Marina Alimos</span>
+            <span className="opacity-30">·</span>
+            <span className="flex items-center gap-1"><Compass size={14} /> Rumbo SW</span>
+          </div>
+        </div>
+      </header>
+
+      {/* Navigation */}
+      <nav className="sticky top-0 z-10 border-b-2" style={{ borderColor: '#1a3147', background: '#f1e8d4' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex overflow-x-auto -mx-1">
+            {sections.map(s => {
+              const Icon = s.icon;
+              const isActive = activeSection === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => setActiveSection(s.id)}
+                  className={`flex items-center gap-2 px-4 py-3 mx-1 transition-all duration-200 ${isActive ? 'nav-item-active' : 'hover:bg-stone-200'}`}
+                  style={{ whiteSpace: 'nowrap' }}
+                >
+                  <span className="display-font text-xs italic opacity-60">{s.num}.</span>
+                  <Icon size={16} />
+                  <span className="display-font text-base">{s.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </nav>
+
+      {/* Content */}
+      <main className="max-w-6xl mx-auto px-6 py-10">
+        {renderContent()}
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-20 border-t-4 border-double pt-6 pb-12 px-6" style={{ borderColor: '#1a3147' }}>
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="display-font italic text-lg mb-2">"Una vela no se ata, se asegura"</div>
+          <div className="mono-font text-xs opacity-60 tracking-widest uppercase">
+            Hidra · Egina · Poros · Spetses · Dokos · Epidauro
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function RutaSection({ dias, activeDay, setActiveDay }) {
+  const dia = dias.find(d => d.n === activeDay);
+  const total = dias.reduce((sum, d) => sum + d.millas, 0);
+
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-6 flex-wrap gap-4">
+        <h2 className="display-font text-4xl font-semibold">La travesía</h2>
+        <div className="mono-font text-xs tracking-widest uppercase opacity-70">
+          {total} millas náuticas totales
+        </div>
+      </div>
+
+      {/* Day tabs */}
+      <div className="grid grid-cols-5 gap-2 mb-8">
+        {dias.map(d => (
+          <button
+            key={d.n}
+            onClick={() => setActiveDay(d.n)}
+            className={`p-3 border-2 transition-all ${activeDay === d.n ? 'ink-shadow' : 'opacity-60 hover:opacity-100'}`}
+            style={{ borderColor: '#1a3147', background: activeDay === d.n ? '#1a3147' : 'transparent', color: activeDay === d.n ? '#f1e8d4' : '#1a3147' }}
+          >
+            <div className="display-font italic text-xs">Día</div>
+            <div className="display-font text-3xl font-semibold leading-none">{d.n}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Day detail */}
+      <div className="grid md:grid-cols-3 gap-8">
+        <div className="md:col-span-2">
+          <div className="display-font text-3xl font-semibold mb-1">{dia.ruta}</div>
+          <div className="double-rule mb-6 inline-block w-32"></div>
+          <p className="text-lg leading-relaxed mb-6">{dia.texto}</p>
+
+          <div className="border-l-4 pl-4 mb-4" style={{ borderColor: '#8b2a14' }}>
+            <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-1">Hito del día</div>
+            <div className="display-font italic text-lg">{dia.hito}</div>
+          </div>
+
+          <div className="border-l-4 pl-4" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
+            <div className="mono-font text-xs uppercase tracking-widest opacity-80 mb-1">Plan B</div>
+            <div className="display-font italic text-lg">{dia.alt}</div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <DataBlock label="Distancia" value={`${dia.millas} mn`} />
+          <DataBlock label="Tiempo estimado" value={dia.horas} />
+          <DataBlock label="Salida" value={dia.salida} />
+          <DataBlock label="Llegada prevista" value={dia.llegada} />
+          <DataBlock label="Viento esperado" value={dia.viento} />
+        </div>
+      </div>
+
+      <div className="rule mt-12 mb-6"></div>
+      <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-4">Carta de la travesía</div>
+      <div className="border-2 p-4" style={{ borderColor: '#1a3147' }}>
+        <RouteMap dias={dias} activeDay={activeDay} />
+      </div>
+    </div>
+  );
+}
+
+function RouteMap({ dias, activeDay }) {
+  // Coords aprox de cada hito (lat, lon) -> normalizadas al SVG
+  const points = [
+    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 0 },
+    { name: 'Egina', lat: 37.74, lon: 23.42, d: 1 },
+    { name: 'Poros', lat: 37.50, lon: 23.45, d: 2 },
+    { name: 'Hidra', lat: 37.35, lon: 23.47, d: 3 },
+    { name: 'Spetses', lat: 37.27, lon: 23.15, d: 4 },
+    { name: 'Epidauro', lat: 37.64, lon: 23.16, d: 5 },
+    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 5 }
+  ];
+  const minLat = 37.20, maxLat = 38.00;
+  const minLon = 23.05, maxLon = 23.85;
+  const W = 600, H = 400;
+  const toX = (lon) => ((lon - minLon) / (maxLon - minLon)) * W;
+  const toY = (lat) => H - ((lat - minLat) / (maxLat - minLat)) * H;
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" style={{ background: '#e8dcc0' }}>
+      <defs>
+        <pattern id="waves" patternUnits="userSpaceOnUse" width="30" height="20">
+          <path d="M0,10 Q7.5,5 15,10 T30,10" stroke="#1a3147" strokeWidth="0.3" fill="none" opacity="0.2" />
+        </pattern>
+      </defs>
+      <rect width={W} height={H} fill="url(#waves)" />
+
+      {/* Compass rose */}
+      <g transform={`translate(${W - 60} 50)`}>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#1a3147" strokeWidth="0.5" />
+        <circle cx="0" cy="0" r="20" fill="none" stroke="#1a3147" strokeWidth="0.5" />
+        <path d="M0,-25 L4,0 L0,25 L-4,0 Z" fill="#1a3147" />
+        <path d="M-25,0 L0,-4 L25,0 L0,4 Z" fill="#1a3147" opacity="0.4" />
+        <text x="0" y="-32" textAnchor="middle" fontSize="10" fill="#1a3147" fontFamily="Cormorant Garamond">N</text>
+      </g>
+
+      {/* Route lines */}
+      {points.slice(0, -1).map((p, i) => {
+        const next = points[i + 1];
+        const isActive = activeDay === p.d + 1 || activeDay === next.d;
+        return (
+          <line
+            key={i}
+            x1={toX(p.lon)} y1={toY(p.lat)}
+            x2={toX(next.lon)} y2={toY(next.lat)}
+            stroke="#1a3147"
+            strokeWidth={isActive ? 2 : 1}
+            strokeDasharray="4 3"
+            opacity={isActive ? 1 : 0.4}
+          />
+        );
+      })}
+
+      {/* Points */}
+      {points.slice(0, -1).map((p, i) => {
+        const isActive = activeDay === p.d + 1 || (i > 0 && activeDay === p.d);
+        return (
+          <g key={i}>
+            <circle cx={toX(p.lon)} cy={toY(p.lat)} r={isActive ? 6 : 4} fill="#1a3147" />
+            <circle cx={toX(p.lon)} cy={toY(p.lat)} r={isActive ? 9 : 0} fill="none" stroke="#8b2a14" strokeWidth="1.5" />
+            <text
+              x={toX(p.lon) + 10} y={toY(p.lat) + 4}
+              fontSize="13"
+              fill="#1a3147"
+              fontFamily="Cormorant Garamond"
+              fontStyle="italic"
+              fontWeight={isActive ? 600 : 400}
+            >
+              {p.name}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function DataBlock({ label, value }) {
+  return (
+    <div className="border-l-2 pl-4 py-1" style={{ borderColor: '#1a3147' }}>
+      <div className="mono-font text-xs uppercase tracking-widest opacity-60">{label}</div>
+      <div className="display-font text-2xl">{value}</div>
+    </div>
+  );
+}
+
+function CursoSection({ nudos, activeKnot, setActiveKnot, partes, maniobras }) {
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Escuela de mar</h2>
+      <div className="display-font italic opacity-70 mb-8">Lo mínimo que la tripulación debería saber al embarcar</div>
+
+      {/* Nudos */}
+      <section className="mb-12">
+        <div className="flex items-baseline justify-between mb-4">
+          <h3 className="display-font text-2xl">I. Los cinco nudos</h3>
+          <span className="mono-font text-xs opacity-60">CABULLERÍA BÁSICA</span>
+        </div>
+        <div className="rule mb-6"></div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            {nudos.map((n, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveKnot(i)}
+                className={`w-full text-left p-4 border-2 transition-all ${activeKnot === i ? 'ink-shadow' : 'opacity-70 hover:opacity-100'}`}
+                style={{ borderColor: '#1a3147', background: activeKnot === i ? '#1a3147' : 'transparent', color: activeKnot === i ? '#f1e8d4' : '#1a3147' }}
+              >
+                <div className="display-font italic text-xs opacity-70">N° {i + 1}</div>
+                <div className="display-font text-xl">{n.nombre}</div>
+              </button>
+            ))}
+          </div>
+          <div className="p-6 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-3xl font-semibold mb-2">{nudos[activeKnot].nombre}</div>
+            <div className="double-rule w-20 mb-4"></div>
+            <p className="mb-4 leading-relaxed">{nudos[activeKnot].uso}</p>
+            <div className="mono-font text-xs uppercase opacity-60 mb-1">Truco mnemotécnico</div>
+            <div className="display-font italic text-lg" style={{ color: '#8b2a14' }}>{nudos[activeKnot].mnemo}</div>
+            <div className="mt-6 p-3 bg-stone-100" style={{ background: 'rgba(26, 49, 71, 0.05)' }}>
+              <div className="mono-font text-xs opacity-70">
+                💡 Practica cada nudo 20 veces antes de embarcar. En el barco, con manos mojadas y prisa, solo sale lo que tienes automatizado.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partes del barco */}
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">II. Partes del barco</h3>
+        <div className="rule mb-6"></div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {partes.map((p, i) => (
+            <div key={i} className="p-3 border-l-2" style={{ borderColor: '#8b2a14' }}>
+              <div className="flex items-baseline justify-between">
+                <span className="display-font text-xl font-semibold">{p.es}</span>
+                <span className="mono-font text-xs opacity-60">{p.en}</span>
+              </div>
+              <div className="text-sm opacity-80 mt-1">{p.def}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Maniobras */}
+      <section>
+        <h3 className="display-font text-2xl mb-2">III. Maniobras esenciales</h3>
+        <div className="rule mb-6"></div>
+        <div className="space-y-4">
+          {maniobras.map((m, i) => (
+            <div key={i} className="border-l-4 pl-4 py-2" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-xl font-semibold mb-1">{m.nombre}</div>
+              <div className="mb-2">{m.desc}</div>
+              <div className="mono-font text-xs uppercase opacity-60">Punto clave: <span className="opacity-100" style={{ color: '#8b2a14' }}>{m.clave}</span></div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function RolesSection({ roles, guardias }) {
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Tripulación</h2>
+      <div className="display-font italic opacity-70 mb-8">Asignación de roles y guardias</div>
+
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Roles a bordo</h3>
+        <div className="rule mb-6"></div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {roles.map((r, i) => (
+            <div key={i} className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="flex items-start justify-between mb-2">
+                <div className="display-font text-xl font-semibold">{r.rol}</div>
+                <div className="mono-font text-xs opacity-60">#{i + 1}</div>
+              </div>
+              <p className="mb-3 text-sm leading-relaxed">{r.tareas}</p>
+              <div className="mono-font text-xs uppercase opacity-60 border-t pt-2" style={{ borderColor: '#1a3147' }}>
+                Asignar a: <span style={{ color: '#8b2a14' }}>{r.persona}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="display-font text-2xl mb-2">Sistema de guardias</h3>
+        <div className="rule mb-6"></div>
+        <div className="mb-4 text-sm leading-relaxed opacity-80">
+          Para 5 días navegando solo de día, basta con turnar el timón cada 1-2 horas. Si hay etapa nocturna (no es vuestro caso), sistema rotativo en bloques de 4h con mínimo 2 personas despiertas.
+        </div>
+        <div className="space-y-2">
+          {guardias.map((g, i) => (
+            <div key={i} className="flex items-center gap-4 p-3 border" style={{ borderColor: '#1a3147' }}>
+              <div className="mono-font text-sm w-32 opacity-80">{g.tramo}</div>
+              <div className="display-font text-lg font-semibold w-28">{g.tipo}</div>
+              <div className="text-sm opacity-80 flex-1">{g.tareas}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+          <div className="display-font text-lg font-semibold mb-2" style={{ color: '#8b2a14' }}>Regla de oro</div>
+          <div className="display-font italic">
+            El patrón puede delegar pero nunca desentenderse. Si alguien tiene dudas, despierta al patrón. Despertarlo por nada es mejor que no despertarlo cuando hace falta.
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function EquipajeSection({ equipaje, compra, checkedItems, toggleCheck }) {
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Pertrechos</h2>
+      <div className="display-font italic opacity-70 mb-8">Equipaje individual y compra inicial</div>
+
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Lista de equipaje</h3>
+        <div className="rule mb-6"></div>
+        <div className="text-sm opacity-70 mb-4">Marca lo que ya tienes preparado. La progresión se guarda.</div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {Object.entries(equipaje).map(([cat, items]) => (
+            <div key={cat} className="border-2 p-4" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-lg font-semibold mb-3 pb-2 border-b" style={{ borderColor: '#1a3147' }}>{cat}</div>
+              <ul className="space-y-2">
+                {items.map((item, i) => {
+                  const id = `eq-${cat}-${i}`;
+                  const checked = checkedItems[id];
+                  return (
+                    <li key={id} className="flex items-start gap-2 cursor-pointer" onClick={() => toggleCheck(id)}>
+                      <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
+                        {checked && <Check size={14} strokeWidth={3} />}
+                      </div>
+                      <span className={`text-sm ${checked ? 'line-through opacity-50' : ''}`}>{item}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="display-font text-2xl mb-2">Compra inicial en Alimos</h3>
+        <div className="rule mb-6"></div>
+        <div className="text-sm opacity-80 mb-4 leading-relaxed">
+          Hay un Sklavenitis a 10 min andando de la marina. Calculad ~50€/persona para los 5 días. Comprad lo justo para 2-3 días y reponed en isla — el espacio en cocina es limitado y los frescos no aguantan.
+        </div>
+        <div className="space-y-3">
+          {compra.map((c, i) => (
+            <div key={i} className="border-l-4 pl-4 py-2" style={{ borderColor: '#8b2a14' }}>
+              <div className="display-font text-lg font-semibold">{c.cat}</div>
+              <div className="text-sm opacity-80">{c.items}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function GlosarioSection({ glosario, vhf, protocolos }) {
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Léxico & VHF</h2>
+      <div className="display-font italic opacity-70 mb-8">Vocabulario náutico y protocolos de radio</div>
+
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Glosario esencial</h3>
+        <div className="rule mb-6"></div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {glosario.map((g, i) => (
+            <div key={i} className="p-3 border" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-lg font-semibold">{g.t}</div>
+              <div className="text-sm opacity-80 mt-1">{g.d}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Canales VHF</h3>
+        <div className="rule mb-6"></div>
+        <div className="space-y-2">
+          {vhf.map((v, i) => (
+            <div key={i} className="flex items-center gap-4 p-3 border" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-3xl font-semibold w-20 text-center" style={{ color: '#8b2a14' }}>{v.canal}</div>
+              <div className="text-sm flex-1">{v.uso}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h3 className="display-font text-2xl mb-2">Protocolos de emergencia VHF</h3>
+        <div className="rule mb-6"></div>
+        <div className="space-y-4">
+          {protocolos.map((p, i) => (
+            <div key={i} className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="flex items-baseline gap-3 mb-2">
+                <div className="display-font text-2xl font-semibold" style={{ color: '#8b2a14' }}>{p.tipo}</div>
+                <div className="mono-font text-xs opacity-70 uppercase tracking-widest">Canal 16</div>
+              </div>
+              <div className="text-sm opacity-80 mb-3">{p.cuando}</div>
+              <div className="mono-font text-xs bg-stone-100 p-3" style={{ background: 'rgba(26, 49, 71, 0.05)' }}>{p.formula}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function SeguridadSection({ checklist, checkedItems, toggleCheck }) {
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Seguridad</h2>
+      <div className="display-font italic opacity-70 mb-8">Checklists y protocolos de emergencia</div>
+
+      <div className="space-y-8">
+        {checklist.map((section, sIdx) => (
+          <section key={sIdx}>
+            <h3 className="display-font text-2xl mb-2">{section.cat}</h3>
+            <div className="rule mb-6"></div>
+            <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
+              <ul className="space-y-3">
+                {section.items.map((item, i) => {
+                  const id = `seg-${sIdx}-${i}`;
+                  const checked = checkedItems[id];
+                  return (
+                    <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
+                      <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
+                        {checked && <Check size={14} strokeWidth={3} />}
+                      </div>
+                      <span className={`${checked ? 'line-through opacity-50' : ''}`}>{item}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <div className="mt-12 p-6 border-4 border-double" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+        <div className="display-font text-2xl font-semibold mb-3" style={{ color: '#8b2a14' }}>Teléfonos de emergencia · Grecia</div>
+        <div className="grid sm:grid-cols-2 gap-3 text-sm">
+          <div><span className="mono-font opacity-70">Emergencia europea:</span> <span className="display-font text-lg font-semibold">112</span></div>
+          <div><span className="mono-font opacity-70">Guardacostas (Limenikó):</span> <span className="display-font text-lg font-semibold">108</span></div>
+          <div><span className="mono-font opacity-70">JRCC Pireo (rescate marítimo):</span> <span className="display-font text-lg font-semibold">+30 210 4112500</span></div>
+          <div><span className="mono-font opacity-70">VHF socorro:</span> <span className="display-font text-lg font-semibold">Canal 16</span></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BarcoSection({ checkedItems, toggleCheck }) {
+  const specs = [
+    { label: 'Modelo', value: 'Bénéteau Cyclades 50.5' },
+    { label: 'Año / Refit', value: '2007 / 2018' },
+    { label: 'Eslora', value: '15,62 m (50 ft)' },
+    { label: 'Manga', value: '4,89 m' },
+    { label: 'Calado', value: '2,2 m' },
+    { label: 'Camarotes', value: '5 + 1' },
+    { label: 'Literas', value: '11 + 1' },
+    { label: 'Baños', value: '3 + 1' },
+    { label: 'Velocidad crucero', value: '8 nudos' },
+    { label: 'Velocidad máxima', value: '9 nudos' },
+    { label: 'Mayor', value: '60,5 m² · full batten' },
+    { label: 'Génova', value: '49,5 m² · enrollable' },
+    { label: 'Motor', value: 'Yanmar 110 HP' },
+    { label: 'Depósito agua', value: '930 L' },
+    { label: 'Depósito gasoil', value: '440 L' },
+    { label: 'Pasajeros registrados', value: '12 máx' }
+  ];
+
+  const equipo = {
+    'Navegación': ['Autopilot Raymarine', 'Plotter B&G GPS', 'Sonda + corredera Raymarine', 'Anemómetro', 'Bow thruster (hélice de proa)'],
+    'Seguridad incluida': ['12 chalecos salvavidas', 'EPIRB (radiobaliza de emergencia)', 'Bengalas en caja', 'Bocina de niebla', 'Botiquín'],
+    'Comodidad confirmada': ['Sábanas y ropa de cama', 'Lazy bag y lazy jacks (recogida mayor)']
+  };
+
+  const verificarCheckin = [
+    { item: 'Balsa salvavidas con revisión en vigor (no aparece en la ficha)', critico: true },
+    { item: 'Bimini y sprayhood (imprescindible en julio)', critico: true },
+    { item: 'Dinghy/zodiac con motor fueraborda y combustible', critico: true },
+    { item: 'Aire acondicionado en puerto y/o generador', critico: false },
+    { item: 'Documento de licencia de pesca a bordo', critico: false },
+    { item: 'WiFi/4G router a bordo', critico: false },
+    { item: '13º chaleco de cortesía (12 = justos)', critico: false },
+    { item: 'Edad real de mayor y génova', critico: false },
+    { item: 'Horas de motor desde último servicio', critico: false },
+    { item: 'Confirmar fianza/franquicia (€0 declarado es raro)', critico: true },
+    { item: 'Inventario de cocina (fuegos, horno, nevera, congelador)', critico: false },
+    { item: 'Inverter 220V para cargadores', critico: false },
+    { item: 'Material snorkel y/o paddle (si está incluido)', critico: false }
+  ];
+
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">El barco</h2>
+      <div className="display-font italic opacity-70 mb-2">Bénéteau Cyclades 50.5 — "Azzuro"</div>
+      <div className="mono-font text-xs opacity-60 mb-8">Marina Alimos · Atenas · Charter bareboat</div>
+
+      {/* Specs */}
+      <section className="mb-12">
+        <div className="flex items-baseline justify-between mb-2">
+          <h3 className="display-font text-2xl">Ficha técnica</h3>
+          <span className="mono-font text-xs opacity-60">NauSYS</span>
+        </div>
+        <div className="rule mb-6"></div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-2">
+          {specs.map((s, i) => (
+            <div key={i} className="flex items-baseline justify-between py-2 border-b" style={{ borderColor: 'rgba(26, 49, 71, 0.2)' }}>
+              <span className="mono-font text-xs uppercase opacity-70">{s.label}</span>
+              <span className="display-font text-base font-semibold text-right">{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Distribución */}
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Reparto de camarotes (sugerido)</h3>
+        <div className="rule mb-6"></div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <CabinCard num="1" pos="Proa" label="Patrón / pareja" tip="La más estrecha pero privada. Acceso al pañol del ancla por escotilla." />
+          <CabinCard num="2" pos="Babor proa" label="Pareja" tip="Tamaño medio, buena ventilación." />
+          <CabinCard num="3" pos="Estribor proa" label="Pareja" tip="Equivalente a la #2." />
+          <CabinCard num="4" pos="Babor popa" label="Pareja" tip="Las popas son más anchas, más cómodas en marcha." />
+          <CabinCard num="5" pos="Estribor popa" label="Pareja" tip="Cerca del baño común." />
+          <CabinCard num="6" pos="Cabina marinero" label="Bonus (proa extrema)" tip="Pequeña. Útil para dormir 1 persona suelta, almacén o equipaje." />
+        </div>
+        <div className="mt-4 p-4 border-l-4" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+          <div className="display-font italic text-sm">
+            Sugerencia: si vais 8 personas, usad las 4 cabinas dobles principales y dejad la #1 al patrón y la #6 vacía para equipaje. Más espacio común, mejor convivencia.
+          </div>
+        </div>
+      </section>
+
+      {/* Equipo incluido */}
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Equipo incluido</h3>
+        <div className="rule mb-6"></div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {Object.entries(equipo).map(([cat, items]) => (
+            <div key={cat} className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-lg font-semibold mb-3 pb-2 border-b" style={{ borderColor: '#1a3147' }}>{cat}</div>
+              <ul className="space-y-1 text-sm">
+                {items.map((it, i) => <li key={i}>· {it}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Check al recibir el barco */}
+      <section>
+        <h3 className="display-font text-2xl mb-2">Lo que debéis verificar al check-in</h3>
+        <div className="rule mb-6"></div>
+        <div className="text-sm opacity-80 mb-4 leading-relaxed">
+          La entrega es el momento clave. Tomaos 60-90 minutos. Lo que no anotéis en el inventario, después os lo cobran como daño. Marcad lo verificado.
+        </div>
+        <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
+          <ul className="space-y-3">
+            {verificarCheckin.map((v, i) => {
+              const id = `barco-check-${i}`;
+              const checked = checkedItems[id];
+              return (
+                <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
+                  <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
+                    {checked && <Check size={14} strokeWidth={3} />}
+                  </div>
+                  <span className={`flex-1 ${checked ? 'line-through opacity-50' : ''}`}>{v.item}</span>
+                  {v.critico && <span className="mono-font text-xs px-2 py-0.5" style={{ background: '#8b2a14', color: '#f1e8d4' }}>CRÍTICO</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        <div className="mt-8 grid md:grid-cols-2 gap-4">
+          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-lg font-semibold mb-2">Nota sobre la fianza</div>
+            <div className="text-sm leading-relaxed">
+              La ficha indica <strong>€0 de fianza</strong>, lo cual es muy poco habitual. Suele significar uno de estos casos:
+              <br/><br/>
+              · El charter incluye un seguro de franquicia completo (excelente).
+              <br/>
+              · La fianza se gestiona aparte y no aparece en la ficha pública.
+              <br/>
+              · Es un gancho comercial y al firmar bloquearán igualmente 2.000-3.000€ en tarjeta.
+              <br/><br/>
+              Pregúntalo por escrito antes de pagar.
+            </div>
+          </div>
+
+          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-lg font-semibold mb-2">Sobre la transmisión</div>
+            <div className="text-sm leading-relaxed">
+              El Cyclades 50 tiene <strong>2 ruedas pero un solo timón</strong> (no doble pala). Esto significa:
+              <br/><br/>
+              · A baja velocidad pierde gobierno. El bow thruster compensa.
+              <br/>
+              · Al amarrar de popa, dad atrás siempre con un poco de velocidad para que el timón muerda.
+              <br/>
+              · Si hay viento de través en el puerto, no dudéis en pedir ayuda al marinero del muelle.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function CabinCard({ num, pos, label, tip }) {
+  return (
+    <div className="border-2 p-4" style={{ borderColor: '#1a3147' }}>
+      <div className="flex items-baseline gap-3 mb-2">
+        <div className="display-font text-3xl font-semibold" style={{ color: '#8b2a14' }}>{num}</div>
+        <div>
+          <div className="mono-font text-xs uppercase opacity-60">{pos}</div>
+          <div className="display-font text-lg font-semibold">{label}</div>
+        </div>
+      </div>
+      <div className="text-sm opacity-80 leading-relaxed">{tip}</div>
+    </div>
+  );
+}
+
+function OcioSection() {
+  const snorkel = [
+    { lugar: 'Epidauro sumergido', dia: 'Día 5', desc: 'Restos de villa romana a 2-4m. Muros, columnas, mosaicos. Único yacimiento accesible con gafas en el Sarónico.', mejor: 'Por la mañana, agua plana' },
+    { lugar: 'Dokos', dia: 'Día 4', desc: 'Isla deshabitada. Pradera de posidonia, meros, sargos. Aguas turquesa cristalinas.', mejor: 'Mediodía con sol' },
+    { lugar: 'Bisti, Hidra', dia: 'Día 3', desc: 'Cala sur de Hidra solo accesible en barco. Acantilados, pulpos en rocas.', mejor: 'Tarde tranquila' },
+    { lugar: 'Moni, frente a Egina', dia: 'Día 1', desc: 'Reserva natural, fondos 5-15m. Peces de roca, a veces tortugas Caretta.', mejor: 'Cualquier hora' },
+    { lugar: 'Russian Bay, Poros', dia: 'Día 2', desc: 'Ruinas de base naval rusa del XIX. Paredes hundidas y ánforas (no tocar — ilegal sacar).', mejor: 'Media mañana' }
+  ];
+
+  const juegosNav = [
+    { n: 'Avistamiento', d: 'Sistema de puntos: delfines (10), tortugas (15), pez volador (20), pulpo (5). Quien gane al final del viaje elige restaurante en Atenas.' },
+    { n: 'Mafia / Hombre Lobo', d: 'Sin material, ideal para 6+. Una persona narra, los demás se acusan. Mejor jugado al atardecer.' },
+    { n: 'Cluedo náutico', d: 'Antes de zarpar, uno prepara un "asesinato" ficticio en el barco. Los demás resuelven durante la travesía recogiendo pistas.' },
+    { n: 'Cartas griegas', d: 'Compra una baraja en Alimos y aprende a jugar al "Bíriba" — el juego de cartas favorito de los abuelos griegos.' }
+  ];
+
+  const juegosFondeo = [
+    { n: 'Salto desde la cruceta', d: 'Solo si el patrón confirma profundidad mínima 4m y nadie debajo. Subida con arnés de mástil. Bautizo náutico clásico.' },
+    { n: 'Paddle surf', d: 'Si el charter lo incluye, brutal en calas tranquilas. Si no, alquílalo en Hidra o Spetses (~20€/día).' },
+    { n: 'Carrera alrededor del barco', d: 'Marca el tiempo, el más lento paga la siguiente ronda de ouzo.' },
+    { n: 'Apnea con boya', d: 'Quien aguanta más sumergido. Siempre con un compañero de seguridad — apnea sola mata.' }
+  ];
+
+  const juegosPuerto = [
+    { n: 'Tavli (backgammon)', d: 'EL juego griego. Lo juegan en todas las tavernas. Pide tablero prestado en cualquier kafenio y te enseñan en 10 min.' },
+    { n: 'Ouzo & meze maratón', d: 'Cada uno pide un meze (entrante pequeño) diferente y comparten. Ouzo, agua y hielo. Tradición griega pura.' },
+    { n: 'Bautizo náutico', d: 'Para quienes nunca han navegado: ouzo, agua de mar, un mote para el resto del viaje. Se elige al final del día 1.' },
+    { n: 'Premio Albatros', d: 'Última noche: votación al mejor maniobrante, peor cocinero, más mareado, más madrugador. Premio simbólico.' },
+    { n: 'Bitácora compartida', d: 'Cuaderno físico que pasa cada día a una persona distinta. Anota lo que quiera. Recuerdo irrepetible al volver.' }
+  ];
+
+  const pescaTecnicas = [
+    { n: 'Curricán navegando', cuando: 'Travesías a 4-6 nudos', captura: 'Bonito (palamida), llampuga, pequeños atunes', dificultad: 'Fácil — pesca sola' },
+    { n: 'Spinning desde el barco', cuando: 'Fondeo amanecer/atardecer', captura: 'Serranos, lubinas, palometas', dificultad: 'Media — requiere técnica' },
+    { n: 'Pesca a fondo', cuando: 'Bahía fondeada, mediodía', captura: 'Sargos, salpas, doradas pequeñas', dificultad: 'Muy fácil — infalible para novatos' }
+  ];
+
+  const pescaLegal = [
+    'La licencia se tramita por embarcación, no por persona. La gestiona el charter — pídela explícitamente al check-in.',
+    'Coste: ~10-15€/año. Suele estar incluida en charters serios.',
+    'Multa por pescar sin licencia: 300-1000€.',
+    'Límite legal: 5 kg/persona/día, o un solo pez si supera los 5 kg.',
+    'Prohibido: pesca con bombona, capturar tortugas/delfines/foca monje/coral, sacar objetos arqueológicos.',
+    'Prohibido: pescar en zonas marinas protegidas (parte del Sarónico oeste de Methana lo es).'
+  ];
+
+  const pescaMaterial = [
+    'Caña spinning desmontable 2,4-2,7m, acción 40-80g',
+    'Carrete 4000-5000 resistente a la sal (Daiwa BG, Shimano Nasci)',
+    'Línea trenzada 0,20-0,25mm + bajos de fluorocarbono',
+    'Cucharillas plateadas, vinilos, jigs 30-60g',
+    'Pinzas de desanzuelar y guantes',
+    'Cubo plegable y cuchillo dedicado a pescado'
+  ];
+
+  return (
+    <div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Ocio & Pesca</h2>
+      <div className="display-font italic opacity-70 mb-8">Lo que se hace mientras no se navega</div>
+
+      {/* Snorkel */}
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Puntos de snorkel</h3>
+        <div className="rule mb-6"></div>
+        <div className="text-sm opacity-80 mb-4 leading-relaxed">
+          Cada uno trae su tubo + gafas + aletas (alquilar en isla sale caro). Boya de señalización flotante imprescindible si os alejáis del barco — los ferrys griegos no miran.
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {snorkel.map((s, i) => (
+            <div key={i} className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="flex items-baseline justify-between mb-1">
+                <div className="display-font text-xl font-semibold">{s.lugar}</div>
+                <div className="mono-font text-xs px-2 py-0.5" style={{ background: '#1a3147', color: '#f1e8d4' }}>{s.dia}</div>
+              </div>
+              <div className="text-sm opacity-80 mb-2 leading-relaxed">{s.desc}</div>
+              <div className="mono-font text-xs opacity-60">Mejor: {s.mejor}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Juegos */}
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Juegos y tradiciones</h3>
+        <div className="rule mb-6"></div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          <JuegoCol title="En travesía" subtitle="Travesías largas, poco viento" items={juegosNav} />
+          <JuegoCol title="En fondeo" subtitle="Paradas de baño y comida" items={juegosFondeo} />
+          <JuegoCol title="En puerto" subtitle="Tardes y noches en tierra" items={juegosPuerto} />
+        </div>
+      </section>
+
+      {/* Pesca */}
+      <section>
+        <div className="flex items-baseline justify-between mb-2">
+          <h3 className="display-font text-2xl">Pesca recreativa</h3>
+          <span className="mono-font text-xs opacity-60">CON LICENCIA</span>
+        </div>
+        <div className="rule mb-6"></div>
+
+        <div className="mb-6 p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+          <div className="display-font text-lg font-semibold mb-3" style={{ color: '#8b2a14' }}>Lo legal — léelo antes de cualquier otra cosa</div>
+          <ul className="space-y-2 text-sm">
+            {pescaLegal.map((l, i) => <li key={i} className="flex gap-2"><span style={{ color: '#8b2a14' }}>·</span><span>{l}</span></li>)}
+          </ul>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <div className="display-font text-lg font-semibold mb-3">Material a llevar</div>
+            <ul className="space-y-2 text-sm">
+              {pescaMaterial.map((m, i) => (
+                <li key={i} className="flex gap-2 p-2 border-l-2" style={{ borderColor: '#1a3147' }}>
+                  <span>{m}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <div className="display-font text-lg font-semibold mb-3">Si solo quieres una opción</div>
+            <div className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="text-sm leading-relaxed">
+                Una <strong>caña de spinning desmontable</strong> + un <strong>set de curricán</strong>. Total: 80-150€ en cualquier tienda de pesca. Que quepa en funda dura tipo tubo.
+                <br/><br/>
+                Designa un <strong>responsable de pesca</strong> en los roles (alguien paciente que disfrute con esto). Pesca en travesías largas y al fondear.
+                <br/><br/>
+                Si pescas, cena a bordo. Si no, has entretenido tres horas mirando la caña.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="display-font text-lg font-semibold mb-3">Las tres técnicas que funcionan en julio</div>
+        <div className="space-y-3 mb-8">
+          {pescaTecnicas.map((p, i) => (
+            <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-3 p-4 border" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-lg font-semibold">{p.n}</div>
+              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Cuándo</span>{p.cuando}</div>
+              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Captura</span>{p.captura}</div>
+              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Dificultad</span>{p.dificultad}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+          <div className="display-font text-lg font-semibold mb-2">Si pescas, cocínalo</div>
+          <div className="text-sm leading-relaxed">
+            Pescado a la plancha en el barco con limón, aceite y orégano griego es uno de los mejores momentos del charter. Necesitas: plancha del barco, muchos limones (compra en Alimos), sal gorda, aceite bueno. Practica eviscerar y descamar una vez en casa antes de embarcar. Si pescas algo y no sabes qué es, foto y pregunta en cualquier taverna: te lo identifican y te dicen si vale la pena. Peces buenos de la zona: bonito, llampuga, sargo, dorada, serrano.
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function JuegoCol({ title, subtitle, items }) {
+  return (
+    <div>
+      <div className="display-font text-xl font-semibold">{title}</div>
+      <div className="mono-font text-xs uppercase opacity-60 mb-4">{subtitle}</div>
+      <div className="space-y-3">
+        {items.map((it, i) => (
+          <div key={i} className="border-l-4 pl-3 py-1" style={{ borderColor: '#8b2a14' }}>
+            <div className="display-font text-base font-semibold">{it.n}</div>
+            <div className="text-xs opacity-80 leading-relaxed mt-1">{it.d}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -35,39 +35,67 @@ export default function SaronicoTrip() {
 
   const dias = [
     {
-      n: 1, ruta: 'Alimos → Egina', millas: 20, horas: '4h',
-      salida: '10:00', llegada: '18:00', viento: 'N/NE 8-12 kn',
-      texto: 'Salida desde Marina Alimos. Etapa corta para coger confianza con el barco. Rumbo aprox. 220°. Entrada en el puerto de Egina por el muelle norte. Amarre de popa con muerto. Cena en la ciudad y prueba del pistacho local — denominación de origen.',
-      hito: 'Templo de Afaia al atardecer si llegáis con margen',
-      alt: 'Cala de Agistri (oeste) si el puerto está saturado'
+      n: 0, fecha: '8 jul', ruta: 'BCN → Atenas → Alimos', millas: 0, horas: '—',
+      salida: '06:30 BCN', llegada: '~12:00 Alimos', viento: '—',
+      texto: 'Vuelo Barcelona–Atenas (06:30–10:30). Traslado al puerto de Alimos incluido con el charter (~45 min, contactar para solicitarlo). Check-in del barco: tomarse 60-90 minutos para el inventario. Compra de provisiones en el Sklavenitis. Tarde de chill en Alimos: paseo por la marina, primer baño, tomar algo al atardecer.',
+      hito: 'Inventario exhaustivo del barco al check-in',
+      alt: 'Cena griega en el paseo marítimo de Alimos'
     },
     {
-      n: 2, ruta: 'Egina → Poros', millas: 22, horas: '4-5h',
-      salida: '09:30', llegada: '16:00', viento: 'NE 10-15 kn',
-      texto: 'Etapa de través, normalmente la más cómoda y la mejor para aprender a trimar velas. Atención al tráfico de ferrys a la altura de Methana. Entrada al canal de Poros entre la isla y el Peloponeso — uno de los pasos más bonitos del Egeo.',
-      hito: 'Paseo nocturno por el malecón',
-      alt: 'Russian Bay para fondear si preferís noche tranquila'
+      n: 1, fecha: '9 jul', ruta: 'Alimos → Egina', millas: 20, horas: '4h',
+      salida: '10:00', llegada: '14:00', viento: 'N/NE 8-12 kn',
+      texto: 'Briefing de seguridad a toda la tripulación antes de zarpar. Primera etapa corta para coger confianza con el barco. Rumbo aprox. 220°. Amarre de popa con muerto en el puerto de Egina.',
+      hito: 'Templo de Poseidón + probar los pistachos de Egina (denominación de origen)',
+      alt: 'Iglesia de Agios Nektarios (uno de los santos más venerados de Grecia). Playa de Agia Marina'
     },
     {
-      n: 3, ruta: 'Poros → Hidra', millas: 15, horas: '3h',
+      n: 2, fecha: '10 jul', ruta: 'Egina → Agistri (vía Moni)', millas: 8, horas: '2h',
+      salida: '10:00', llegada: '13:00', viento: 'N/NE 8-12 kn',
+      texto: 'Parada en la isla de Moni: deshabitada, aguas turquesas, fondeo libre. Snorkel, saltos, naturaleza. Después rumbo a Agistri (puerto de Skala). Isla para descansar, bañarse y desconectar.',
+      hito: 'Playa de Dragonera — cala pequeña de aguas turquesas casi sin gente',
+      alt: 'Playa de Skala (más animada, con chiringuito). Pasear en bici por la isla (se alquilan fácilmente)'
+    },
+    {
+      n: 3, fecha: '11 jul', ruta: 'Agistri → Poros', millas: 18, horas: '3-4h',
+      salida: '09:30', llegada: '14:00', viento: 'NE 10-15 kn',
+      texto: 'Etapa de través, la más cómoda para aprender a trimar velas. Atención al tráfico de ferrys. Entrada al canal de Poros entre la isla y el Peloponeso — uno de los pasos más bonitos del Egeo.',
+      hito: 'Subir al Reloj en lo alto del pueblo para las mejores vistas del canal',
+      alt: 'Cruzar en barca a Galatas (5 min, 2€) y pasear por el bosque de limoneros Lemonodasos. Ruinas del Templo de Poseidón'
+    },
+    {
+      n: 4, fecha: '12 jul', ruta: 'Poros → Hidra', millas: 15, horas: '3h',
       salida: '10:00', llegada: '14:00', viento: 'NE 12-18 kn',
-      texto: 'Día estrella. Hidra no permite ni coches ni motos: solo burros, gatos y barcos. Puerto pequeño, llegad temprano o reservad. Si está lleno, fondeo en Mandraki (10 min en zodiac al pueblo).',
-      hito: 'Cena en una taverna con vistas al puerto',
-      alt: 'Bahía de Mandraki o cala de Bisti'
+      texto: 'Día estrella. Hidra no permite ni coches ni motos: solo burros, gatos y barcos. Puerto pequeño, llegad temprano. Pasear sin rumbo por las callejuelas. Fundación DESTE de arte contemporáneo. Cine Gardenia por la noche. Pirate Bar con ambiente local e internacional.',
+      hito: 'Puesta de sol desde el Cannoni (cañón en la entrada del puerto). Excursión al Monasterio del Profeta Elías (1h subiendo, vistas espectaculares)',
+      alt: 'Baño en Vlychos o Kamini (20-30 min a pie o water taxi). Si el puerto está lleno, fondeo en Mandraki'
     },
     {
-      n: 4, ruta: 'Hidra → Spetses (vía Dokos)', millas: 18, horas: '4h',
-      salida: '10:00', llegada: '15:00', viento: 'NE 12-18 kn',
-      texto: 'Parada en Dokos para baño y comida — isla deshabitada, agua turquesa, restos arqueológicos sumergidos. Tarde en Spetses, isla más cosmopolita y con vida nocturna. Alquilad bicis o caballos para dar la vuelta.',
-      hito: 'Baño en Dokos al mediodía',
-      alt: 'Porto Heli (Peloponeso) si Spetses está caro'
+      n: 5, fecha: '13 jul', ruta: 'Hidra → Dokos', millas: 5, horas: '1h',
+      salida: '10:00', llegada: '11:00', viento: 'NE 10-15 kn',
+      texto: 'Isla deshabitada. Fondear y snorkel: agua cristalina y fauna marina interesante. Capillas abandonadas en tierra. Silencio total — no hay nada más que hacer, y eso es exactamente el punto.',
+      hito: 'Subir a la colina al atardecer con una botella de vino, como recomiendan los locales',
+      alt: 'Simplemente no hacer nada'
     },
     {
-      n: 5, ruta: 'Spetses → Epidauro → Alimos', millas: 50, horas: '9-10h',
-      salida: '07:00', llegada: '19:00', viento: 'Variable',
-      texto: 'Etapa larga de vuelta. Parada técnica en Epidauro antiguo — la ciudad sumergida se ve con gafas de buceo desde el puerto. Resto de la jornada navegando a Alimos. Si el viento ayuda, izad todo el trapo. Devolución del barco al día siguiente, normalmente 09:00.',
-      hito: 'Snorkel sobre las ruinas sumergidas de Epidauro',
-      alt: 'Aguas Methana si el tiempo empeora'
+      n: 6, fecha: '14 jul', ruta: 'Dokos → Spetses', millas: 12, horas: '2-3h',
+      salida: '10:00', llegada: '13:00', viento: 'NE 10-15 kn',
+      texto: 'Isla cosmopolita sin coches. Alquilar bici para recorrer la isla. Pasear por el puerto viejo (Palio Limani), más tranquilo y bonito que el principal. Spetses tiene buena oferta gastronómica.',
+      hito: 'Casa-Museo Bouboulina, heroína naval de la independencia griega',
+      alt: 'Playa de Agia Paraskevi o Agioi Anargyri (aguas muy limpias, accesibles en water taxi)'
+    },
+    {
+      n: 7, fecha: '15 jul', ruta: 'Spetses → Alimos', millas: 50, horas: '9-10h',
+      salida: '07:00', llegada: '17:00', viento: 'Variable',
+      texto: 'Etapa larga de vuelta. Si el viento ayuda, izad todo el trapo. Devolución del barco al día siguiente a las 09:00. Última noche a bordo en la marina de Alimos.',
+      hito: 'Última navegación: disfrutad cada milla',
+      alt: 'Si el tiempo empeora, parada técnica en Methana o Egina'
+    },
+    {
+      n: 8, fecha: '16 jul', ruta: 'Atenas → BCN', millas: 0, horas: '—',
+      salida: '—', llegada: '22:50 → 01:00+1', viento: '—',
+      texto: 'Devolución del barco por la mañana (09:00). Día libre en Atenas hasta el vuelo nocturno. Visitar la ciudad, comprar recuerdos o simplemente descansar.',
+      hito: 'Vuelo Atenas–Barcelona 22:50',
+      alt: 'Acrópolis, barrio de Plaka, o terraza con vistas'
     }
   ];
 
@@ -102,22 +130,21 @@ export default function SaronicoTrip() {
   ];
 
   const rolesData = [
-    { rol: 'Patrón (Skipper)', tareas: 'Decisión final en meteo, ruta, maniobras de puerto y emergencias. Responsable legal del barco y la tripulación. No tiene turno de cocina ni limpieza.', persona: 'PER #1 — [NOMBRE]' },
-    { rol: 'Segundo de a bordo', tareas: 'Releva al patrón al timón en travesías largas. Lidera maniobras cuando el patrón descansa. Apoya en meteo del día siguiente y comunicación VHF.', persona: 'PER #2 — [NOMBRE]' },
-    { rol: 'Jefe de maniobra (Bosun)', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.', persona: 'PER #3 — [NOMBRE]' },
-    { rol: 'Navegante', tareas: 'Plotter, waypoints, posición en Navionics, bitácora horaria (posición, viento, rumbo). Aprende muchísimo sin tener que maniobrar.', persona: 'Tripulante metódico' },
-    { rol: 'Trimmer de escotas (×2)', tareas: 'Cobran y largan escotas en virajes, manejan winches en trasluchadas, ajustan trimado. Rotar cada día para que más gente aprenda.', persona: '2 tripulantes ágiles' },
-    { rol: 'Proa (Foredeck)', tareas: 'Marinero de proa en maniobras. Suelta y recoge defensas, maneja cabos, ayuda con el ancla. Donde más se moja uno.', persona: 'Tripulante joven con equilibrio' },
-    { rol: 'Chef de bord', tareas: 'Organiza menús de los 5 días, compra inicial, gestión de nevera, coordina turnos de cocina. No cocina solo: planifica.', persona: 'Quien disfrute con esto' },
-    { rol: 'Tesorero / Logística', tareas: 'Caja común (Splitwise o Tricount), amarres, gasoil, agua, gas, tasas portuarias, dinghy. Trato con marineros de muelle.', persona: 'Persona organizada' },
-    { rol: 'Comodín / aprendiz', tareas: 'Rota por todos los puestos durante la semana. Próximo viaje ya domina el barco.', persona: 'Tripulante motivado' },
-    { rol: 'Roles secundarios', tareas: 'Responsable de seguridad/botiquín, responsable de pesca (caña y curricán), DJ de a bordo (Bluetooth y playlists). Se asignan como rol secundario sobre los anteriores.', persona: 'Tripulación rotativa' }
+    { rol: 'Patrón (Skipper)', tareas: 'Decisión final en meteo, ruta, maniobras de puerto y emergencias. Responsable legal del barco y la tripulación. No tiene turno de cocina ni limpieza.', persona: 'PER — Dani Yuste' },
+    { rol: 'Segundo de a bordo', tareas: 'Releva al patrón al timón en travesías largas. Lidera maniobras cuando el patrón descansa. Apoya en meteo del día siguiente y comunicación VHF.', persona: 'PER — Juan' },
+    { rol: 'Jefa de maniobra (Bosun)', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.', persona: 'PER — Rocío' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Marc' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Joan Pol' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Xavi' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Pilar' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Neus' },
+    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Judit' }
   ];
 
   const guardiasData = [
-    { tramo: '08:00 - 10:00', tipo: 'Timón PER #1', tareas: 'Salida de puerto, primera ceñida del día' },
-    { tramo: '10:00 - 12:00', tipo: 'Timón PER #2', tareas: 'Travesía principal, ajustes de rumbo' },
-    { tramo: '12:00 - 14:00', tipo: 'Timón PER #3', tareas: 'Aproximación a destino, fondeo o amarre' },
+    { tramo: '08:00 - 10:00', tipo: 'Timón Dani', tareas: 'Salida de puerto, primera ceñida del día' },
+    { tramo: '10:00 - 12:00', tipo: 'Timón Juan', tareas: 'Travesía principal, ajustes de rumbo' },
+    { tramo: '12:00 - 14:00', tipo: 'Timón Rocío', tareas: 'Aproximación a destino, fondeo o amarre' },
     { tramo: '14:00 - 18:00', tipo: 'Fondeo / baño', tareas: 'Comida, snorkel, descanso. Patrón disponible' },
     { tramo: '18:00 - 22:00', tipo: 'Puerto', tareas: 'Cena, paseo, briefing del día siguiente' }
   ];
@@ -307,11 +334,11 @@ export default function SaronicoTrip() {
                 Golfo Sarónico
               </h1>
               <div className="display-font italic text-xl md:text-2xl mt-2 opacity-80">
-                Cinco días desde Alimos
+                8–16 julio · Marina Alimos
               </div>
             </div>
             <div className="text-right">
-              <div className="stamp text-sm">5 días · 125 mn</div>
+              <div className="stamp text-sm">9 días · 128 mn</div>
               <div className="mono-font text-xs mt-3 opacity-70">
                 37°54′N · 23°42′E
               </div>
@@ -362,7 +389,7 @@ export default function SaronicoTrip() {
         <div className="max-w-6xl mx-auto text-center">
           <div className="display-font italic text-lg mb-2">"Una vela no se ata, se asegura"</div>
           <div className="mono-font text-xs opacity-60 tracking-widest uppercase">
-            Hidra · Egina · Poros · Spetses · Dokos · Epidauro
+            Egina · Agistri · Poros · Hidra · Dokos · Spetses
           </div>
         </div>
       </footer>
@@ -384,7 +411,7 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
       </div>
 
       {/* Day tabs */}
-      <div className="grid grid-cols-5 gap-2 mb-8">
+      <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2 mb-8">
         {dias.map(d => (
           <button
             key={d.n}
@@ -394,6 +421,7 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
           >
             <div className="display-font italic text-xs">Día</div>
             <div className="display-font text-3xl font-semibold leading-none">{d.n}</div>
+            <div className="mono-font text-xs opacity-60 mt-1">{d.fecha}</div>
           </button>
         ))}
       </div>
@@ -417,6 +445,7 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
         </div>
 
         <div className="space-y-4">
+          <DataBlock label="Fecha" value={dia.fecha} />
           <DataBlock label="Distancia" value={`${dia.millas} mn`} />
           <DataBlock label="Tiempo estimado" value={dia.horas} />
           <DataBlock label="Salida" value={dia.salida} />
@@ -439,11 +468,12 @@ function RouteMap({ dias, activeDay }) {
   const points = [
     { name: 'Alimos', lat: 37.91, lon: 23.70, d: 0 },
     { name: 'Egina', lat: 37.74, lon: 23.42, d: 1 },
-    { name: 'Poros', lat: 37.50, lon: 23.45, d: 2 },
-    { name: 'Hidra', lat: 37.35, lon: 23.47, d: 3 },
-    { name: 'Spetses', lat: 37.27, lon: 23.15, d: 4 },
-    { name: 'Epidauro', lat: 37.64, lon: 23.16, d: 5 },
-    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 5 }
+    { name: 'Agistri', lat: 37.69, lon: 23.33, d: 2 },
+    { name: 'Poros', lat: 37.50, lon: 23.45, d: 3 },
+    { name: 'Hidra', lat: 37.35, lon: 23.47, d: 4 },
+    { name: 'Dokos', lat: 37.33, lon: 23.35, d: 5 },
+    { name: 'Spetses', lat: 37.27, lon: 23.15, d: 6 },
+    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 7 }
   ];
   const minLat = 37.20, maxLat = 38.00;
   const minLon = 23.05, maxLon = 23.85;
@@ -626,7 +656,7 @@ function RolesSection({ roles, guardias }) {
         <h3 className="display-font text-2xl mb-2">Sistema de guardias</h3>
         <div className="rule mb-6"></div>
         <div className="mb-4 text-sm leading-relaxed opacity-80">
-          Para 5 días navegando solo de día, basta con turnar el timón cada 1-2 horas. Si hay etapa nocturna (no es vuestro caso), sistema rotativo en bloques de 4h con mínimo 2 personas despiertas.
+          Para 7 días de navegación diurna, basta con turnar el timón cada 1-2 horas. Si hay etapa nocturna (no es vuestro caso), sistema rotativo en bloques de 4h con mínimo 2 personas despiertas.
         </div>
         <div className="space-y-2">
           {guardias.map((g, i) => (
@@ -974,11 +1004,11 @@ function CabinCard({ num, pos, label, tip }) {
 
 function OcioSection() {
   const snorkel = [
-    { lugar: 'Epidauro sumergido', dia: 'Día 5', desc: 'Restos de villa romana a 2-4m. Muros, columnas, mosaicos. Único yacimiento accesible con gafas en el Sarónico.', mejor: 'Por la mañana, agua plana' },
-    { lugar: 'Dokos', dia: 'Día 4', desc: 'Isla deshabitada. Pradera de posidonia, meros, sargos. Aguas turquesa cristalinas.', mejor: 'Mediodía con sol' },
-    { lugar: 'Bisti, Hidra', dia: 'Día 3', desc: 'Cala sur de Hidra solo accesible en barco. Acantilados, pulpos en rocas.', mejor: 'Tarde tranquila' },
-    { lugar: 'Moni, frente a Egina', dia: 'Día 1', desc: 'Reserva natural, fondos 5-15m. Peces de roca, a veces tortugas Caretta.', mejor: 'Cualquier hora' },
-    { lugar: 'Russian Bay, Poros', dia: 'Día 2', desc: 'Ruinas de base naval rusa del XIX. Paredes hundidas y ánforas (no tocar — ilegal sacar).', mejor: 'Media mañana' }
+    { lugar: 'Moni', dia: 'Día 2', desc: 'Isla deshabitada frente a Egina. Fondos 5-15m. Peces de roca, a veces tortugas Caretta. Aguas turquesas para saltos.', mejor: 'Cualquier hora' },
+    { lugar: 'Agistri', dia: 'Día 2', desc: 'Fondo marino muy bueno alrededor de la isla. Dragonera y Skala tienen buenos puntos de entrada.', mejor: 'Media mañana' },
+    { lugar: 'Russian Bay, Poros', dia: 'Día 3', desc: 'Ruinas de base naval rusa del XIX. Paredes hundidas y ánforas (no tocar — ilegal sacar).', mejor: 'Media mañana' },
+    { lugar: 'Bisti, Hidra', dia: 'Día 4', desc: 'Cala sur de Hidra solo accesible en barco. Acantilados, pulpos en rocas.', mejor: 'Tarde tranquila' },
+    { lugar: 'Dokos', dia: 'Día 5', desc: 'Isla deshabitada. Pradera de posidonia, meros, sargos. Aguas cristalinas, la mejor inmersión del viaje.', mejor: 'Mediodía con sol' }
   ];
 
   const juegosNav = [

@@ -221,14 +221,7 @@ export default function SaronicoTrip() {
       'Botiquín personal (medicación habitual)',
       'Toalla de microfibra'
     ],
-    'Para traer de Barcelona': [
-      'Altavoz Bluetooth',
-      'Flotadores',
-      'Hitster (juego)',
-      'Gafas de snorkel',
-      'Tubo'
-    ],
-    'Equipo común (el grupo)': [
+    'Compra grupal': [
       'Protector solar SPF 50 reef-safe (2 botes mínimo)',
       'After-sun',
       'Pack agua: 6L/persona para los 5 días',
@@ -237,6 +230,13 @@ export default function SaronicoTrip() {
       'Bolsas de basura grandes',
       'Tupper para sobras',
       'Pinzas de la ropa (para tender toallas)'
+    ],
+    'Para traer de Barcelona': [
+      'Altavoz Bluetooth',
+      'Flotadores',
+      'Hitster (juego)',
+      'Gafas de snorkel (mínimo 6)',
+      'Tubo (mínimo 6)'
     ]
   };
 

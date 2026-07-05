@@ -36,9 +36,9 @@ export default function SaronicoTrip() {
   const dias = [
     {
       n: 0, fecha: '8 jul', ruta: 'BCN → Atenas → Alimos', millas: 0, horas: '—',
-      salida: '06:30 BCN', llegada: '~12:00 Alimos', viento: '—',
-      texto: 'Vuelo Barcelona–Atenas (06:30–10:30). Traslado al puerto de Alimos incluido con el charter (~45 min, contactar para solicitarlo). Check-in del barco: tomarse 60-90 minutos para el inventario. Compra de provisiones en el Sklavenitis. Tarde de chill en Alimos: paseo por la marina, primer baño, tomar algo al atardecer.',
-      hito: 'Inventario exhaustivo del barco al check-in',
+      salida: '06:30 BCN', llegada: 'Check-in 17:00', viento: '—',
+      texto: 'Vuelo Barcelona–Atenas (06:30–10:30). Traslado a Alimos (~1 h en taxi o bus E96). El check-in del barco es a partir de las 17:00: tomaos 60-90 min para el inventario y haced fotos/vídeo del estado (obligatorio por contrato — es vuestra protección). Compra de provisiones en el Sklavenitis. Tarde de chill en Alimos: paseo por la marina, primer baño, tomar algo al atardecer.',
+      hito: 'Inventario exhaustivo del barco + fotos del estado al check-in',
       alt: 'Cena griega en el paseo marítimo de Alimos'
     },
     {
@@ -70,32 +70,32 @@ export default function SaronicoTrip() {
       alt: 'Baño en Vlychos o Kamini (20-30 min a pie o water taxi). Si el puerto está lleno, fondeo en Mandraki'
     },
     {
-      n: 5, fecha: '13 jul', ruta: 'Hidra → Dokos', millas: 5, horas: '1h',
-      salida: '10:00', llegada: '11:00', viento: 'NE 10-15 kn',
-      texto: 'Isla deshabitada. Fondear y snorkel: agua cristalina y fauna marina interesante. Capillas abandonadas en tierra. Silencio total — no hay nada más que hacer, y eso es exactamente el punto.',
-      hito: 'Subir a la colina al atardecer con una botella de vino, como recomiendan los locales',
-      alt: 'Simplemente no hacer nada'
+      n: 5, fecha: '13 jul', ruta: 'Hidra → Spetses (vía Dokos)', millas: 17, horas: '3-4h',
+      salida: '10:00', llegada: '14:00', viento: 'NE 10-15 kn',
+      texto: 'Parada de baño en Dokos, isla deshabitada: fondeo, snorkel en agua cristalina y silencio total antes de seguir. Después, rumbo a Spetses, isla cosmopolita sin coches. Alquilar bici para recorrerla y pasear por el puerto viejo (Palio Limani), más bonito que el principal. Buena oferta gastronómica.',
+      hito: 'Snorkel en Dokos + Casa-Museo Bouboulina, heroína naval de la independencia griega',
+      alt: 'Playa de Agia Paraskevi o Agioi Anargyri (aguas muy limpias, en water taxi)'
     },
     {
-      n: 6, fecha: '14 jul', ruta: 'Dokos → Spetses', millas: 12, horas: '2-3h',
-      salida: '10:00', llegada: '13:00', viento: 'NE 10-15 kn',
-      texto: 'Isla cosmopolita sin coches. Alquilar bici para recorrer la isla. Pasear por el puerto viejo (Palio Limani), más tranquilo y bonito que el principal. Spetses tiene buena oferta gastronómica.',
-      hito: 'Casa-Museo Bouboulina, heroína naval de la independencia griega',
-      alt: 'Playa de Agia Paraskevi o Agioi Anargyri (aguas muy limpias, accesibles en water taxi)'
-    },
-    {
-      n: 7, fecha: '15 jul', ruta: 'Spetses → Alimos', millas: 50, horas: '9-10h',
-      salida: '07:00', llegada: '17:00', viento: 'Variable',
-      texto: 'Etapa larga de vuelta. Si el viento ayuda, izad todo el trapo. Devolución del barco al día siguiente a las 09:00. Última noche a bordo en la marina de Alimos.',
+      n: 6, fecha: '14 jul', ruta: 'Spetses → Alimos', millas: 50, horas: '9-10h',
+      salida: '07:00', llegada: '~17:00', viento: 'Variable',
+      texto: 'Etapa larga de vuelta, madrugad. Si el viento ayuda, izad todo el trapo. Última noche a bordo en la marina de Alimos: cena de despedida en el paseo. Preparad el barco para la entrega y recoged lo vuestro.',
       hito: 'Última navegación: disfrutad cada milla',
-      alt: 'Si el tiempo empeora, parada técnica en Methana o Egina'
+      alt: 'Si el tiempo empeora, parada técnica en Poros o Egina'
+    },
+    {
+      n: 7, fecha: '15 jul', ruta: 'Devolución + Atenas', millas: 0, horas: '—',
+      salida: 'Check-out 09:00', llegada: '—', viento: '—',
+      texto: 'Devolución del barco a las 09:00 (check-out por contrato). Fin del charter: traslado a Atenas y noche en la ciudad. Acrópolis, barrio de Plaka, museos o simplemente terraza con vistas y buena cena.',
+      hito: 'Acrópolis y Plaka',
+      alt: 'Museo de la Acrópolis o excursión a Cabo Sunion al atardecer'
     },
     {
       n: 8, fecha: '16 jul', ruta: 'Atenas → BCN', millas: 0, horas: '—',
       salida: '—', llegada: '22:50 → 01:00+1', viento: '—',
-      texto: 'Devolución del barco por la mañana (09:00). Día libre en Atenas hasta el vuelo nocturno. Visitar la ciudad, comprar recuerdos o simplemente descansar.',
+      texto: 'Último día en Atenas hasta el vuelo nocturno. Últimas compras, un baño en la Riviera ateniense o descansar antes de volar.',
       hito: 'Vuelo Atenas–Barcelona 22:50',
-      alt: 'Acrópolis, barrio de Plaka, o terraza con vistas'
+      alt: 'Barrio de Monastiraki para recuerdos, o playa en Glyfada'
     }
   ];
 
@@ -483,9 +483,9 @@ function RouteMap({ activeDay }) {
     { name: 'Agistri', lat: 37.692, lon: 23.343, d: 2, anchor: 'end' },
     { name: 'Poros', lat: 37.498, lon: 23.452, d: 3, anchor: 'start' },
     { name: 'Hidra', lat: 37.350, lon: 23.466, d: 4, anchor: 'start' },
-    { name: 'Dokos', lat: 37.328, lon: 23.325, d: 5, anchor: 'end' },
-    { name: 'Spetses', lat: 37.263, lon: 23.156, d: 6, anchor: 'end' },
-    { name: 'Alimos', lat: 37.910, lon: 23.705, d: 7 }
+    { name: 'Dokos', lat: 37.328, lon: 23.325, d: 4, anchor: 'end' },
+    { name: 'Spetses', lat: 37.263, lon: 23.156, d: 5, anchor: 'end' },
+    { name: 'Alimos', lat: 37.910, lon: 23.705, d: 6 }
   ];
   const { z, tile, x0, y0, width, height } = mapMeta;
   const n = 2 ** z;

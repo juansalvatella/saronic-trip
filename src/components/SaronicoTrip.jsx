@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, ShieldAlert, Check, Ship } from 'lucide-react';
+import { Map, BookOpen, Users, Package, ShieldAlert, Check, Ship } from 'lucide-react';
 import mapMeta from '../map-meta.json';
 
 export default function SaronicoTrip() {
@@ -105,11 +105,62 @@ export default function SaronicoTrip() {
   ];
 
   const nudos = [
-    { nombre: 'As de guía', uso: 'Hace una gaza fija que no se corre. El rey de los nudos: para amarrar a un noray, asegurar una persona, o cualquier lazo que no debe apretarse.', mnemo: 'El conejo sale del agujero, da la vuelta al árbol y vuelve al agujero', img: ['as-de-guia-1.gif'], nota: 'Animación: seguid el conejo (el chicote) paso a paso.' },
-    { nombre: 'Ballestrinque', uso: 'Para amarrar provisionalmente a un noray o un cabo a un pasamanos. Rápido de hacer y deshacer.', mnemo: 'Dos vueltas cruzadas, la segunda por debajo', img: ['ballestrinque-1.webp', 'ballestrinque-2.webp', 'ballestrinque-3.webp', 'ballestrinque-4.webp', 'ballestrinque-5.webp', 'ballestrinque-6.webp'] },
-    { nombre: 'Cote (medio nudo)', uso: 'Asegurar el ballestrinque o cualquier amarre. Casi siempre se hacen dos cotes seguidos.', mnemo: 'Vuelta sobre la propia firme', img: ['cote-1.webp', 'cote-2.webp', 'cote-3.webp'], nota: 'Aquí, dos cotes seguidos sobre la firme.' },
-    { nombre: 'Ocho', uso: 'Tope para que un cabo no se escape por una polea o pasacabos. Se hace al final de las escotas.', mnemo: 'Dibujar un 8 con el cabo', img: ['ocho-1.webp'], nota: 'El resultado final: la forma de 8.' },
-    { nombre: 'Vuelta de rezón', uso: 'Para tensar cabos contra una bita o cornamusa. Es el nudo de amarrar al muelle.', mnemo: 'Dos vueltas redondas + dos cotes invertidos', img: ['rezon-1.webp', 'rezon-2.webp', 'rezon-3.webp'] }
+    {
+      nombre: 'As de guía', uso: 'Hace una gaza fija que no se corre. El rey de los nudos: para amarrar a un noray, asegurar una persona, o cualquier lazo que no debe apretarse.',
+      mnemo: 'El conejo sale del agujero, da la vuelta al árbol y vuelve al agujero',
+      img: ['as-de-guia-1.gif'], nota: 'Animación: seguid al conejo (el chicote).',
+      pasos: [
+        'Haz una gaza pequeña (el "agujero") en la firme, dejando chicote de sobra.',
+        'Pasa el chicote por el agujero de abajo hacia arriba (el conejo sale).',
+        'Rodea la firme por detrás con el chicote (da la vuelta al árbol).',
+        'Vuelve a meter el chicote por el mismo agujero (el conejo vuelve a entrar).',
+        'Sujeta la gaza y cobra de la firme para apretar.'
+      ]
+    },
+    {
+      nombre: 'Ballestrinque', uso: 'Para amarrar provisionalmente a un noray o un cabo a un pasamanos. Rápido de hacer y deshacer.',
+      mnemo: 'Dos vueltas cruzadas, la segunda por debajo',
+      img: ['ballestrinque-1.webp', 'ballestrinque-2.webp', 'ballestrinque-3.webp', 'ballestrinque-4.webp', 'ballestrinque-5.webp', 'ballestrinque-6.webp'],
+      pasos: [
+        'Da una vuelta completa alrededor del noray o barra.',
+        'Cruza por encima y da una segunda vuelta en el mismo sentido.',
+        'Pasa el chicote por debajo de esa última vuelta (queda paralelo a la firme).',
+        'Aprieta tirando de firme y chicote a la vez.'
+      ]
+    },
+    {
+      nombre: 'Cote (medio nudo)', uso: 'Asegurar el ballestrinque o cualquier amarre. Casi siempre se hacen dos cotes seguidos.',
+      mnemo: 'Vuelta sobre la propia firme',
+      img: ['cote-1.webp', 'cote-2.webp', 'cote-3.webp'], nota: 'Aquí, dos cotes seguidos sobre la firme.',
+      pasos: [
+        'Pasa el chicote alrededor del punto de amarre.',
+        'Cruza el chicote sobre la firme y mételo por dentro del bucle formado (un cote).',
+        'Repite el mismo cote justo a continuación, en el mismo sentido (segundo cote).',
+        'Aprieta y desliza los dos cotes juntos contra el amarre.'
+      ]
+    },
+    {
+      nombre: 'Ocho', uso: 'Tope para que un cabo no se escape por una polea o pasacabos. Se hace al final de las escotas.',
+      mnemo: 'Dibujar un 8 con el cabo',
+      img: ['ocho-1.webp'], nota: 'El resultado: la forma de 8.',
+      pasos: [
+        'Cruza el chicote por encima de la firme formando un bucle.',
+        'Pasa el chicote por detrás de la firme.',
+        'Mételo por el bucle inicial desde arriba (has dibujado un 8).',
+        'Aprieta tirando de firme y chicote.'
+      ]
+    },
+    {
+      nombre: 'Vuelta de rezón', uso: 'Para tensar cabos contra una bita o cornamusa. Es el nudo de amarrar al muelle.',
+      mnemo: 'Dos vueltas redondas + dos cotes',
+      img: ['rezon-1.webp', 'rezon-2.webp', 'rezon-3.webp'],
+      pasos: [
+        'Da dos vueltas completas (vuelta redonda) alrededor del noray o argolla.',
+        'Pasa el chicote sobre la firme y por dentro: primer cote.',
+        'Repite en el mismo sentido: segundo cote.',
+        'Aprieta los cotes contra la vuelta redonda.'
+      ]
+    }
   ];
 
   const partes = [
@@ -451,13 +502,6 @@ export default function SaronicoTrip() {
             </div>
           </div>
           <div className="rule mt-6"></div>
-          <div className="flex items-center gap-4 mt-4 text-sm">
-            <span className="flex items-center gap-1"><Wind size={14} /> Meltemi flojo</span>
-            <span className="opacity-30">·</span>
-            <span className="flex items-center gap-1"><Anchor size={14} /> Marina Alimos</span>
-            <span className="opacity-30">·</span>
-            <span className="flex items-center gap-1"><Compass size={14} /> Rumbo SW</span>
-          </div>
         </div>
       </header>
 
@@ -838,6 +882,21 @@ function CursoSection({ nudos, activeKnot, setActiveKnot, partes, maniobras }) {
             )}
 
             <p className="mb-4 leading-relaxed">{nudos[activeKnot].uso}</p>
+
+            {nudos[activeKnot].pasos && (
+              <div className="mb-4">
+                <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-2">Paso a paso</div>
+                <ol className="space-y-2">
+                  {nudos[activeKnot].pasos.map((p, i) => (
+                    <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                      <span className="display-font font-semibold flex-shrink-0" style={{ color: '#8b2a14' }}>{i + 1}.</span>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
             <div className="mono-font text-xs uppercase opacity-60 mb-1">Truco mnemotécnico</div>
             <div className="display-font italic text-lg" style={{ color: '#8b2a14' }}>{nudos[activeKnot].mnemo}</div>
             <div className="mt-6 p-3 bg-stone-100" style={{ background: 'rgba(26, 49, 71, 0.05)' }}>

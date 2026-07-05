@@ -105,11 +105,11 @@ export default function SaronicoTrip() {
   ];
 
   const nudos = [
-    { nombre: 'As de guía', uso: 'Hace una gaza fija que no se corre. El rey de los nudos: para amarrar a un noray, asegurar una persona, o cualquier lazo que no debe apretarse.', mnemo: 'El conejo sale del agujero, da la vuelta al árbol y vuelve al agujero' },
-    { nombre: 'Ballestrinque', uso: 'Para amarrar provisionalmente a un noray o un cabo a un pasamanos. Rápido de hacer y deshacer.', mnemo: 'Dos vueltas cruzadas, la segunda por debajo' },
-    { nombre: 'Cote (medio nudo)', uso: 'Asegurar el ballestrinque o cualquier amarre. Casi siempre se hacen dos cotes seguidos.', mnemo: 'Vuelta sobre la propia firme' },
-    { nombre: 'Ocho', uso: 'Tope para que un cabo no se escape por una polea o pasacabos. Se hace al final de las escotas.', mnemo: 'Dibujar un 8 con el cabo' },
-    { nombre: 'Vuelta de rezón', uso: 'Para tensar cabos contra una bita o cornamusa. Es el nudo de amarrar al muelle.', mnemo: 'Dos vueltas redondas + dos cotes invertidos' }
+    { nombre: 'As de guía', uso: 'Hace una gaza fija que no se corre. El rey de los nudos: para amarrar a un noray, asegurar una persona, o cualquier lazo que no debe apretarse.', mnemo: 'El conejo sale del agujero, da la vuelta al árbol y vuelve al agujero', img: ['as-de-guia-1.gif'], nota: 'Animación: seguid el conejo (el chicote) paso a paso.' },
+    { nombre: 'Ballestrinque', uso: 'Para amarrar provisionalmente a un noray o un cabo a un pasamanos. Rápido de hacer y deshacer.', mnemo: 'Dos vueltas cruzadas, la segunda por debajo', img: ['ballestrinque-1.webp', 'ballestrinque-2.webp', 'ballestrinque-3.webp', 'ballestrinque-4.webp', 'ballestrinque-5.webp', 'ballestrinque-6.webp'] },
+    { nombre: 'Cote (medio nudo)', uso: 'Asegurar el ballestrinque o cualquier amarre. Casi siempre se hacen dos cotes seguidos.', mnemo: 'Vuelta sobre la propia firme', img: ['cote-1.webp', 'cote-2.webp', 'cote-3.webp'], nota: 'Aquí, dos cotes seguidos sobre la firme.' },
+    { nombre: 'Ocho', uso: 'Tope para que un cabo no se escape por una polea o pasacabos. Se hace al final de las escotas.', mnemo: 'Dibujar un 8 con el cabo', img: ['ocho-1.webp'], nota: 'El resultado final: la forma de 8.' },
+    { nombre: 'Vuelta de rezón', uso: 'Para tensar cabos contra una bita o cornamusa. Es el nudo de amarrar al muelle.', mnemo: 'Dos vueltas redondas + dos cotes invertidos', img: ['rezon-1.webp', 'rezon-2.webp', 'rezon-3.webp'] }
   ];
 
   const partes = [
@@ -818,6 +818,25 @@ function CursoSection({ nudos, activeKnot, setActiveKnot, partes, maniobras }) {
           <div className="p-6 border-2" style={{ borderColor: '#1a3147' }}>
             <div className="display-font text-3xl font-semibold mb-2">{nudos[activeKnot].nombre}</div>
             <div className="double-rule w-20 mb-4"></div>
+
+            {nudos[activeKnot].img && (
+              <div className="mb-4">
+                <div className={`grid gap-2 ${nudos[activeKnot].img.length > 1 ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-1'}`}>
+                  {nudos[activeKnot].img.map((f, i) => (
+                    <div key={f} className="relative border-2" style={{ borderColor: '#1a3147' }}>
+                      {nudos[activeKnot].img.length > 1 && (
+                        <div className="absolute top-1 left-1 mono-font text-xs px-1.5 py-0.5" style={{ background: '#1a3147', color: '#f1e8d4' }}>{i + 1}</div>
+                      )}
+                      <img src={`${import.meta.env.BASE_URL}nudos/${f}`} alt={`${nudos[activeKnot].nombre} — paso ${i + 1}`} className="w-full h-auto block" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+                <div className="mono-font text-[10px] opacity-50 mt-2">
+                  {nudos[activeKnot].nota ? nudos[activeKnot].nota + ' · ' : ''}© Wikimedia Commons
+                </div>
+              </div>
+            )}
+
             <p className="mb-4 leading-relaxed">{nudos[activeKnot].uso}</p>
             <div className="mono-font text-xs uppercase opacity-60 mb-1">Truco mnemotécnico</div>
             <div className="display-font italic text-lg" style={{ color: '#8b2a14' }}>{nudos[activeKnot].mnemo}</div>

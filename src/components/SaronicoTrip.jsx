@@ -911,6 +911,9 @@ function CursoSection({ nudos, activeKnot, setActiveKnot, partes, maniobras }) {
       <section className="mb-12">
         <h3 className="display-font text-2xl mb-2">II. Partes del barco</h3>
         <div className="rule mb-6"></div>
+        <div className="border-2 p-3 mb-6" style={{ borderColor: '#1a3147' }}>
+          <BoatDiagram />
+        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {partes.map((p, i) => (
             <div key={i} className="p-3 border-l-2" style={{ borderColor: '#8b2a14' }}>
@@ -1367,6 +1370,78 @@ function CabinCard({ num, pos, label, tip }) {
         </div>
       </div>
       <div className="text-sm opacity-80 leading-relaxed">{tip}</div>
+    </div>
+  );
+}
+
+function BoatDiagram() {
+  const ink = '#1a3147';
+  const paper = '#f1e8d4';
+  const red = '#8b2a14';
+  const sail = 'rgba(26,49,71,0.06)';
+  const lbl = { fill: ink, stroke: paper, strokeWidth: 5, paintOrder: 'stroke', fontFamily: 'Cormorant Garamond, Georgia, serif', fontStyle: 'italic', fontWeight: 600 };
+  const leader = { stroke: ink, strokeWidth: 1, opacity: 0.55 };
+  return (
+    <div>
+      <svg viewBox="0 0 820 520" className="w-full h-auto" role="img" aria-label="Esquema del velero con sus partes">
+        {/* Mar */}
+        <rect x="0" y="372" width="820" height="148" fill="rgba(26,49,71,0.05)" />
+        <line x1="20" y1="372" x2="800" y2="372" stroke={ink} strokeWidth="1" opacity="0.4" strokeDasharray="6 4" />
+
+        {/* Jarcia */}
+        <line x1="430" y1="70" x2="656" y2="352" stroke={ink} strokeWidth="1.2" opacity="0.7" />
+        <line x1="430" y1="70" x2="158" y2="360" stroke={ink} strokeWidth="1.2" opacity="0.7" />
+
+        {/* Velas */}
+        <path d="M430,86 L430,320 L256,332 Z" fill={sail} stroke={ink} strokeWidth="2" />
+        <path d="M430,100 L650,352 L452,352 Z" fill={sail} stroke={ink} strokeWidth="2" />
+
+        {/* Palo y botavara */}
+        <line x1="430" y1="356" x2="430" y2="66" stroke={ink} strokeWidth="5" strokeLinecap="round" />
+        <line x1="430" y1="322" x2="250" y2="334" stroke={ink} strokeWidth="5" strokeLinecap="round" />
+
+        {/* Casco */}
+        <path d="M150,360 L655,352 C692,350 692,382 650,400 C618,410 560,410 500,410 L250,410 C180,410 150,392 150,360 Z" fill={paper} stroke={ink} strokeWidth="3" />
+
+        {/* Orza y timón */}
+        <path d="M404,408 L438,408 L426,486 L416,486 Z" fill={ink} opacity="0.85" />
+        <path d="M242,408 L262,408 L256,458 L248,458 Z" fill={ink} opacity="0.85" />
+
+        {/* Etiquetas y guías */}
+        <line x1="672" y1="338" x2="676" y2="360" style={leader} />
+        <text x="662" y="330" textAnchor="middle" fontSize="21" style={lbl}>Proa</text>
+
+        <line x1="112" y1="348" x2="152" y2="358" style={leader} />
+        <text x="98" y="344" textAnchor="end" fontSize="21" style={lbl}>Popa</text>
+
+        <line x1="398" y1="150" x2="430" y2="150" style={leader} />
+        <text x="392" y="156" textAnchor="end" fontSize="20" style={lbl}>Mástil</text>
+
+        <text x="345" y="216" textAnchor="middle" fontSize="21" style={lbl}>Mayor</text>
+        <text x="524" y="262" textAnchor="middle" fontSize="20" style={lbl}>Génova</text>
+
+        <line x1="300" y1="306" x2="344" y2="327" style={leader} />
+        <text x="292" y="302" textAnchor="end" fontSize="20" style={lbl}>Botavara</text>
+
+        <line x1="205" y1="392" x2="235" y2="402" style={leader} />
+        <text x="150" y="392" textAnchor="middle" fontSize="20" style={lbl}>Casco</text>
+
+        <line x1="452" y1="452" x2="428" y2="452" style={leader} />
+        <text x="462" y="458" textAnchor="start" fontSize="20" style={lbl}>Orza (quilla)</text>
+
+        <line x1="205" y1="440" x2="250" y2="440" style={leader} />
+        <text x="150" y="446" textAnchor="middle" fontSize="20" style={lbl}>Timón</text>
+
+        <line x1="600" y1="366" x2="560" y2="356" style={leader} />
+        <text x="606" y="360" textAnchor="start" fontSize="16" style={lbl}>Cubierta</text>
+
+        <text x="30" y="366" textAnchor="start" fontSize="13" fill={ink} opacity="0.6" fontFamily="'Special Elite', monospace">línea de flotación</text>
+      </svg>
+      <div className="mono-font text-xs mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+        <span className="opacity-70">Mirando a proa:</span>
+        <span className="flex items-center gap-1"><span style={{ width: 12, height: 12, background: '#8b2a14', display: 'inline-block' }}></span> Babor = izquierda</span>
+        <span className="flex items-center gap-1"><span style={{ width: 12, height: 12, background: '#1f7a3f', display: 'inline-block' }}></span> Estribor = derecha</span>
+      </div>
     </div>
   );
 }

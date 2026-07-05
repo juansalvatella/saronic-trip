@@ -600,13 +600,7 @@ function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck 
             <DataBlock label="Llegada" value={dia.llegada} />
             <DataBlock label="Viento" value={dia.viento} />
           </div>
-          <p className="text-lg leading-relaxed mb-4">{dia.texto}</p>
-          {dia.alt && (
-            <div className="border-l-4 pl-4 mb-8" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
-              <div className="mono-font text-xs uppercase tracking-widest opacity-80 mb-1">Plan B</div>
-              <div className="display-font italic text-lg">{dia.alt}</div>
-            </div>
-          )}
+          <p className="text-lg leading-relaxed mb-8">{dia.texto}</p>
 
           {/* En tierra · ocio */}
           {dia.ocio && dia.ocio.length > 0 && (

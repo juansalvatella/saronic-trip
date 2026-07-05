@@ -228,7 +228,6 @@ export default function SaronicoTrip() {
       'Sal, aceite, vinagre, café, té (lo más caro a bordo)',
       'Papel higiénico (consumo brutal)',
       'Bolsas de basura grandes',
-      'Tupper para sobras',
       'Pinzas de la ropa (para tender toallas)'
     ],
     'Para traer de Barcelona': [

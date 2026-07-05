@@ -535,8 +535,7 @@ function daySections(dia) {
       'Chalecos accesibles en bañera',
       'Cocina y bodega: nada suelto que pueda volar',
       'Defensas y cabos revisados antes de salir'
-    ]},
-    { t: 'Durante el día', items: ['Zarpado', 'Amarrados / fondeados en destino', 'Hito del día completado', 'Bitácora del día anotada'] }
+    ]}
   ];
   return [];
 }

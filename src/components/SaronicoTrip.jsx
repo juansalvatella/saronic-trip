@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Anchor, Wind, Compass, LifeBuoy, Map, BookOpen, Users, Package, Radio, ShieldAlert, ChevronRight, Check, Ship, Fish, Gamepad2 } from 'lucide-react';
+import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, Radio, ShieldAlert, Check, Ship, Fish } from 'lucide-react';
 
 export default function SaronicoTrip() {
   const [activeSection, setActiveSection] = useState('barco');
@@ -130,24 +130,12 @@ export default function SaronicoTrip() {
   ];
 
   const rolesData = [
-    { rol: 'Patrón (Skipper)', tareas: 'Decisión final en meteo, ruta, maniobras de puerto y emergencias. Responsable legal del barco y la tripulación. No tiene turno de cocina ni limpieza.', persona: 'PER — Dani Yuste' },
-    { rol: 'Segundo de a bordo', tareas: 'Releva al patrón al timón en travesías largas. Lidera maniobras cuando el patrón descansa. Apoya en meteo del día siguiente y comunicación VHF.', persona: 'PER — Juan' },
-    { rol: 'Jefa de maniobra (Bosun)', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.', persona: 'PER — Rocío' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Marc' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Joan Pol' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Xavi' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Pilar' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Neus' },
-    { rol: 'Crew', tareas: 'Escotas, winches, proa, cocina, logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo aprenda.', persona: 'Judit' }
+    { rol: 'Patrón (Skipper)', persona: 'Dani Yuste', titulo: 'PER', tareas: 'Decisión final en meteo, ruta, maniobras de puerto y emergencias. Responsable legal del barco y la tripulación. No tiene turno de cocina ni limpieza.' },
+    { rol: 'Segundo de a bordo', persona: 'Juan', titulo: 'PER', tareas: 'Releva al patrón al timón en travesías largas. Lidera maniobras cuando el patrón descansa. Apoya en meteo del día siguiente y comunicación VHF.' },
+    { rol: 'Jefa de maniobra (Bosun)', persona: 'Rocío', titulo: 'PER', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.' }
   ];
 
-  const guardiasData = [
-    { tramo: '08:00 - 10:00', tipo: 'Timón Dani', tareas: 'Salida de puerto, primera ceñida del día' },
-    { tramo: '10:00 - 12:00', tipo: 'Timón Juan', tareas: 'Travesía principal, ajustes de rumbo' },
-    { tramo: '12:00 - 14:00', tipo: 'Timón Rocío', tareas: 'Aproximación a destino, fondeo o amarre' },
-    { tramo: '14:00 - 18:00', tipo: 'Fondeo / baño', tareas: 'Comida, snorkel, descanso. Patrón disponible' },
-    { tramo: '18:00 - 22:00', tipo: 'Puerto', tareas: 'Cena, paseo, briefing del día siguiente' }
-  ];
+  const tripulacion = ['Marc', 'Joan Pol', 'Xavi', 'Pilar', 'Neus', 'Judit'];
 
   const equipaje = {
     'Documentación': [
@@ -280,7 +268,7 @@ export default function SaronicoTrip() {
       case 'barco': return <BarcoSection checkedItems={checkedItems} toggleCheck={toggleCheck} />;
       case 'ruta': return <RutaSection dias={dias} activeDay={activeDay} setActiveDay={setActiveDay} />;
       case 'curso': return <CursoSection nudos={nudos} activeKnot={activeKnot} setActiveKnot={setActiveKnot} partes={partes} maniobras={maniobras} />;
-      case 'roles': return <RolesSection roles={rolesData} guardias={guardiasData} />;
+      case 'roles': return <RolesSection roles={rolesData} tripulacion={tripulacion} />;
       case 'equipaje': return <EquipajeSection equipaje={equipaje} compra={compraInicial} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
       case 'ocio': return <OcioSection />;
       case 'glosario': return <GlosarioSection glosario={glosario} vhf={vhfData} protocolos={protocolos} />;
@@ -388,8 +376,14 @@ export default function SaronicoTrip() {
       <footer className="mt-20 border-t-4 border-double pt-6 pb-12 px-6" style={{ borderColor: '#1a3147' }}>
         <div className="max-w-6xl mx-auto text-center">
           <div className="display-font italic text-lg mb-2">"Una vela no se ata, se asegura"</div>
-          <div className="mono-font text-xs opacity-60 tracking-widest uppercase">
+          <div className="mono-font text-xs opacity-60 tracking-widest uppercase mb-6">
             Egina · Agistri · Poros · Hidra · Dokos · Spetses
+          </div>
+          <div className="max-w-xl mx-auto p-4 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-2">Guárdala para el mar</div>
+            <div className="text-sm leading-relaxed">
+              Ábrela una vez con wifi en Alimos y funcionará <strong>sin cobertura</strong> durante toda la travesía. Para tenerla como app: en el móvil, <strong>Compartir → Añadir a pantalla de inicio</strong>.
+            </div>
           </div>
         </div>
       </footer>
@@ -407,6 +401,19 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
         <h2 className="display-font text-4xl font-semibold">La travesía</h2>
         <div className="mono-font text-xs tracking-widest uppercase opacity-70">
           {total} millas náuticas totales
+        </div>
+      </div>
+
+      {/* Meteo — enlaces vivos */}
+      <div className="mb-8 p-4 border-l-4 flex flex-wrap items-center gap-x-6 gap-y-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+        <div className="text-sm">
+          <span className="mono-font text-xs uppercase tracking-widest opacity-60 mr-2">Meteo</span>
+          Horas y vientos son <strong>orientativos</strong>. Confirmad cada mañana la previsión real:
+        </div>
+        <div className="flex flex-wrap gap-3 text-sm">
+          <a href="https://www.windy.com/?37.500,23.400,8" target="_blank" rel="noopener" className="underline display-font font-semibold" style={{ color: '#8b2a14' }}>Windy</a>
+          <a href="https://poseidon.hcmr.gr/weather-forecast/aegean" target="_blank" rel="noopener" className="underline display-font font-semibold" style={{ color: '#8b2a14' }}>Poseidon HCMR</a>
+          <a href="https://www.navily.com/" target="_blank" rel="noopener" className="underline display-font font-semibold" style={{ color: '#8b2a14' }}>Navily (fondeos)</a>
         </div>
       </div>
 
@@ -455,7 +462,10 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
       </div>
 
       <div className="rule mt-12 mb-6"></div>
-      <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-4">Carta de la travesía</div>
+      <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
+        <div className="mono-font text-xs uppercase tracking-widest opacity-60">Carta de la travesía</div>
+        <div className="mono-font text-xs opacity-50">Esquema orientativo · la navegación va en el plotter</div>
+      </div>
       <div className="border-2 p-4" style={{ borderColor: '#1a3147' }}>
         <RouteMap dias={dias} activeDay={activeDay} />
       </div>
@@ -627,48 +637,44 @@ function CursoSection({ nudos, activeKnot, setActiveKnot, partes, maniobras }) {
   );
 }
 
-function RolesSection({ roles, guardias }) {
+function RolesSection({ roles, tripulacion }) {
   return (
     <div>
       <h2 className="display-font text-4xl font-semibold mb-2">Tripulación</h2>
-      <div className="display-font italic opacity-70 mb-8">Asignación de roles y guardias</div>
+      <div className="display-font italic opacity-70 mb-8">Nueve a bordo · tres titulados PER</div>
 
       <section className="mb-12">
-        <h3 className="display-font text-2xl mb-2">Roles a bordo</h3>
+        <h3 className="display-font text-2xl mb-2">Roles fijos</h3>
         <div className="rule mb-6"></div>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-3 gap-4">
           {roles.map((r, i) => (
             <div key={i} className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
-              <div className="flex items-start justify-between mb-2">
-                <div className="display-font text-xl font-semibold">{r.rol}</div>
-                <div className="mono-font text-xs opacity-60">#{i + 1}</div>
-              </div>
-              <p className="mb-3 text-sm leading-relaxed">{r.tareas}</p>
-              <div className="mono-font text-xs uppercase opacity-60 border-t pt-2" style={{ borderColor: '#1a3147' }}>
-                Asignar a: <span style={{ color: '#8b2a14' }}>{r.persona}</span>
-              </div>
+              <div className="mono-font text-xs uppercase opacity-60 mb-1">{r.titulo}</div>
+              <div className="display-font text-xl font-semibold mb-1">{r.rol}</div>
+              <div className="display-font text-lg italic mb-3" style={{ color: '#8b2a14' }}>{r.persona}</div>
+              <p className="text-sm leading-relaxed border-t pt-3" style={{ borderColor: 'rgba(26,49,71,0.2)' }}>{r.tareas}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section>
-        <h3 className="display-font text-2xl mb-2">Sistema de guardias</h3>
+      <section className="mb-12">
+        <h3 className="display-font text-2xl mb-2">Tripulación de rotación</h3>
         <div className="rule mb-6"></div>
-        <div className="mb-4 text-sm leading-relaxed opacity-80">
-          Para 7 días de navegación diurna, basta con turnar el timón cada 1-2 horas. Si hay etapa nocturna (no es vuestro caso), sistema rotativo en bloques de 4h con mínimo 2 personas despiertas.
+        <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {tripulacion.map((nombre, i) => (
+              <span key={i} className="display-font text-lg px-3 py-1 border" style={{ borderColor: '#8b2a14', color: '#8b2a14' }}>{nombre}</span>
+            ))}
+          </div>
+          <p className="text-sm leading-relaxed opacity-80">
+            Escotas, winches, proa, cocina y logística — rotación diaria por todos los puestos. Cada día un rol distinto para que todo el mundo toque de todo y aprenda. El turno de cocina y limpieza también rota (el patrón queda exento).
+          </p>
         </div>
-        <div className="space-y-2">
-          {guardias.map((g, i) => (
-            <div key={i} className="flex items-center gap-4 p-3 border" style={{ borderColor: '#1a3147' }}>
-              <div className="mono-font text-sm w-32 opacity-80">{g.tramo}</div>
-              <div className="display-font text-lg font-semibold w-28">{g.tipo}</div>
-              <div className="text-sm opacity-80 flex-1">{g.tareas}</div>
-            </div>
-          ))}
-        </div>
+      </section>
 
-        <div className="mt-8 p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+      <section>
+        <div className="p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
           <div className="display-font text-lg font-semibold mb-2" style={{ color: '#8b2a14' }}>Regla de oro</div>
           <div className="display-font italic">
             El patrón puede delegar pero nunca desentenderse. Si alguien tiene dudas, despierta al patrón. Despertarlo por nada es mejor que no despertarlo cuando hace falta.
@@ -717,7 +723,7 @@ function EquipajeSection({ equipaje, compra, checkedItems, toggleCheck }) {
         <h3 className="display-font text-2xl mb-2">Compra inicial en Alimos</h3>
         <div className="rule mb-6"></div>
         <div className="text-sm opacity-80 mb-4 leading-relaxed">
-          Hay un Sklavenitis a 10 min andando de la marina. Calculad ~50€/persona para los 5 días. Comprad lo justo para 2-3 días y reponed en isla — el espacio en cocina es limitado y los frescos no aguantan.
+          Hay un <a href="https://www.google.com/maps/search/?api=1&query=Sklavenitis+Alimos" target="_blank" rel="noopener" className="underline">Sklavenitis</a> a 10 min andando de la marina. Calculad ~50€/persona para los 5 días. Comprad lo justo para 2-3 días y reponed en isla — el espacio en cocina es limitado y los frescos no aguantan.
         </div>
         <div className="space-y-3">
           {compra.map((c, i) => (
@@ -816,11 +822,12 @@ function SeguridadSection({ checklist, checkedItems, toggleCheck }) {
       </div>
 
       <div className="mt-12 p-6 border-4 border-double" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
-        <div className="display-font text-2xl font-semibold mb-3" style={{ color: '#8b2a14' }}>Teléfonos de emergencia · Grecia</div>
+        <div className="display-font text-2xl font-semibold mb-1" style={{ color: '#8b2a14' }}>Teléfonos de emergencia · Grecia</div>
+        <div className="mono-font text-xs opacity-60 mb-4">Toca el número para llamar</div>
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
-          <div><span className="mono-font opacity-70">Emergencia europea:</span> <span className="display-font text-lg font-semibold">112</span></div>
-          <div><span className="mono-font opacity-70">Guardacostas (Limenikó):</span> <span className="display-font text-lg font-semibold">108</span></div>
-          <div><span className="mono-font opacity-70">JRCC Pireo (rescate marítimo):</span> <span className="display-font text-lg font-semibold">+30 210 4112500</span></div>
+          <a href="tel:112" className="block"><span className="mono-font opacity-70">Emergencia europea:</span> <span className="display-font text-lg font-semibold underline">112</span></a>
+          <a href="tel:108" className="block"><span className="mono-font opacity-70">Guardacostas (Limenikó):</span> <span className="display-font text-lg font-semibold underline">108</span></a>
+          <a href="tel:+302104112500" className="block"><span className="mono-font opacity-70">JRCC Pireo (rescate marítimo):</span> <span className="display-font text-lg font-semibold underline">+30 210 4112500</span></a>
           <div><span className="mono-font opacity-70">VHF socorro:</span> <span className="display-font text-lg font-semibold">Canal 16</span></div>
         </div>
       </div>
@@ -850,12 +857,10 @@ function BarcoSection({ checkedItems, toggleCheck }) {
 
   const equipo = {
     'Navegación': ['Autopilot Raymarine', 'Plotter B&G GPS', 'Sonda + corredera Raymarine', 'Anemómetro', 'Bow thruster (hélice de proa)'],
-    'Seguridad incluida': ['12 chalecos salvavidas', 'EPIRB (radiobaliza de emergencia)', 'Bengalas en caja', 'Bocina de niebla', 'Botiquín'],
     'Comodidad confirmada': ['Sábanas y ropa de cama', 'Lazy bag y lazy jacks (recogida mayor)']
   };
 
   const verificarCheckin = [
-    { item: 'Balsa salvavidas con revisión en vigor (no aparece en la ficha)', critico: true },
     { item: 'Bimini y sprayhood (imprescindible en julio)', critico: true },
     { item: 'Dinghy/zodiac con motor fueraborda y combustible', critico: true },
     { item: 'Aire acondicionado en puerto y/o generador', critico: false },
@@ -874,7 +879,9 @@ function BarcoSection({ checkedItems, toggleCheck }) {
     <div>
       <h2 className="display-font text-4xl font-semibold mb-2">El barco</h2>
       <div className="display-font italic opacity-70 mb-2">Bénéteau Cyclades 50.5 — "Azzuro"</div>
-      <div className="mono-font text-xs opacity-60 mb-8">Marina Alimos · Atenas · Charter bareboat</div>
+      <div className="mono-font text-xs opacity-60 mb-8">
+        <a href="https://www.google.com/maps/search/?api=1&query=Alimos+Marina+Athens" target="_blank" rel="noopener" className="underline">Marina Alimos</a> · Atenas · Charter bareboat
+      </div>
 
       {/* Specs */}
       <section className="mb-12">
@@ -898,16 +905,16 @@ function BarcoSection({ checkedItems, toggleCheck }) {
         <h3 className="display-font text-2xl mb-2">Reparto de camarotes (sugerido)</h3>
         <div className="rule mb-6"></div>
         <div className="grid md:grid-cols-2 gap-4">
-          <CabinCard num="1" pos="Proa" label="Patrón / pareja" tip="La más estrecha pero privada. Acceso al pañol del ancla por escotilla." />
-          <CabinCard num="2" pos="Babor proa" label="Pareja" tip="Tamaño medio, buena ventilación." />
-          <CabinCard num="3" pos="Estribor proa" label="Pareja" tip="Equivalente a la #2." />
-          <CabinCard num="4" pos="Babor popa" label="Pareja" tip="Las popas son más anchas, más cómodas en marcha." />
-          <CabinCard num="5" pos="Estribor popa" label="Pareja" tip="Cerca del baño común." />
-          <CabinCard num="6" pos="Cabina marinero" label="Bonus (proa extrema)" tip="Pequeña. Útil para dormir 1 persona suelta, almacén o equipaje." />
+          <CabinCard num="1" pos="Proa" label="Doble · patrón" tip="La más estrecha pero privada. Acceso al pañol del ancla por escotilla." />
+          <CabinCard num="2" pos="Babor proa" label="Doble" tip="Tamaño medio, buena ventilación." />
+          <CabinCard num="3" pos="Estribor proa" label="Doble" tip="Equivalente a la #2." />
+          <CabinCard num="4" pos="Babor popa" label="Doble" tip="Las popas son más anchas, más cómodas en marcha." />
+          <CabinCard num="5" pos="Estribor popa" label="Doble" tip="Cerca del baño común." />
+          <CabinCard num="6" pos="Cabina marinero" label="Individual / equipaje" tip="Proa extrema, pequeña. Para quien quiera dormir solo, o como pañol de equipaje y compra." />
         </div>
         <div className="mt-4 p-4 border-l-4" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
           <div className="display-font italic text-sm">
-            Sugerencia: si vais 8 personas, usad las 4 cabinas dobles principales y dejad la #1 al patrón y la #6 vacía para equipaje. Más espacio común, mejor convivencia.
+            Sois 9: caben de sobra en los 5 camarotes dobles (10 plazas), con una litera libre. Repartid parejas e individuales como prefiráis y dejad la cabina de proa extrema (#6) para equipaje y compra. Quien madrugue al timón, mejor en las popas (#4/#5): más cómodas en marcha.
           </div>
         </div>
       </section>
@@ -916,7 +923,7 @@ function BarcoSection({ checkedItems, toggleCheck }) {
       <section className="mb-12">
         <h3 className="display-font text-2xl mb-2">Equipo incluido</h3>
         <div className="rule mb-6"></div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           {Object.entries(equipo).map(([cat, items]) => (
             <div key={cat} className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
               <div className="display-font text-lg font-semibold mb-3 pb-2 border-b" style={{ borderColor: '#1a3147' }}>{cat}</div>
@@ -1011,50 +1018,19 @@ function OcioSection() {
     { lugar: 'Dokos', dia: 'Día 5', desc: 'Isla deshabitada. Pradera de posidonia, meros, sargos. Aguas cristalinas, la mejor inmersión del viaje.', mejor: 'Mediodía con sol' }
   ];
 
-  const juegosNav = [
-    { n: 'Avistamiento', d: 'Sistema de puntos: delfines (10), tortugas (15), pez volador (20), pulpo (5). Quien gane al final del viaje elige restaurante en Atenas.' },
-    { n: 'Mafia / Hombre Lobo', d: 'Sin material, ideal para 6+. Una persona narra, los demás se acusan. Mejor jugado al atardecer.' },
-    { n: 'Cluedo náutico', d: 'Antes de zarpar, uno prepara un "asesinato" ficticio en el barco. Los demás resuelven durante la travesía recogiendo pistas.' },
-    { n: 'Cartas griegas', d: 'Compra una baraja en Alimos y aprende a jugar al "Bíriba" — el juego de cartas favorito de los abuelos griegos.' }
-  ];
-
-  const juegosFondeo = [
-    { n: 'Salto desde la cruceta', d: 'Solo si el patrón confirma profundidad mínima 4m y nadie debajo. Subida con arnés de mástil. Bautizo náutico clásico.' },
-    { n: 'Paddle surf', d: 'Si el charter lo incluye, brutal en calas tranquilas. Si no, alquílalo en Hidra o Spetses (~20€/día).' },
-    { n: 'Carrera alrededor del barco', d: 'Marca el tiempo, el más lento paga la siguiente ronda de ouzo.' },
-    { n: 'Apnea con boya', d: 'Quien aguanta más sumergido. Siempre con un compañero de seguridad — apnea sola mata.' }
-  ];
-
-  const juegosPuerto = [
-    { n: 'Tavli (backgammon)', d: 'EL juego griego. Lo juegan en todas las tavernas. Pide tablero prestado en cualquier kafenio y te enseñan en 10 min.' },
-    { n: 'Ouzo & meze maratón', d: 'Cada uno pide un meze (entrante pequeño) diferente y comparten. Ouzo, agua y hielo. Tradición griega pura.' },
-    { n: 'Bautizo náutico', d: 'Para quienes nunca han navegado: ouzo, agua de mar, un mote para el resto del viaje. Se elige al final del día 1.' },
-    { n: 'Premio Albatros', d: 'Última noche: votación al mejor maniobrante, peor cocinero, más mareado, más madrugador. Premio simbólico.' },
-    { n: 'Bitácora compartida', d: 'Cuaderno físico que pasa cada día a una persona distinta. Anota lo que quiera. Recuerdo irrepetible al volver.' }
-  ];
-
-  const pescaTecnicas = [
-    { n: 'Curricán navegando', cuando: 'Travesías a 4-6 nudos', captura: 'Bonito (palamida), llampuga, pequeños atunes', dificultad: 'Fácil — pesca sola' },
-    { n: 'Spinning desde el barco', cuando: 'Fondeo amanecer/atardecer', captura: 'Serranos, lubinas, palometas', dificultad: 'Media — requiere técnica' },
-    { n: 'Pesca a fondo', cuando: 'Bahía fondeada, mediodía', captura: 'Sargos, salpas, doradas pequeñas', dificultad: 'Muy fácil — infalible para novatos' }
+  const juegos = [
+    { n: 'Avistamiento', ctx: 'Travesía', d: 'Puntos por bicho: delfines (10), tortugas (15), pez volador (20), pulpo (5). Quien gane elige restaurante en Atenas.' },
+    { n: 'Mafia / Hombre Lobo', ctx: 'Travesía', d: 'Sin material, ideal para 9. Uno narra, los demás se acusan. Mejor al atardecer.' },
+    { n: 'Salto desde la cruceta', ctx: 'Fondeo', d: 'Solo con el OK del patrón: mínimo 4 m de fondo y nadie debajo. El bautizo náutico clásico.' },
+    { n: 'Tavli (backgammon)', ctx: 'Puerto', d: 'EL juego griego. En cualquier kafenio te prestan tablero y te enseñan en 10 min.' },
+    { n: 'Ouzo & meze', ctx: 'Puerto', d: 'Cada uno pide un meze distinto y se comparte. Ouzo, agua y hielo. Tradición pura.' },
+    { n: 'Premio Albatros', ctx: 'Última noche', d: 'Votación: mejor maniobrante, peor cocinero, más mareado, más madrugador. Premio simbólico.' }
   ];
 
   const pescaLegal = [
-    'La licencia se tramita por embarcación, no por persona. La gestiona el charter — pídela explícitamente al check-in.',
-    'Coste: ~10-15€/año. Suele estar incluida en charters serios.',
-    'Multa por pescar sin licencia: 300-1000€.',
-    'Límite legal: 5 kg/persona/día, o un solo pez si supera los 5 kg.',
-    'Prohibido: pesca con bombona, capturar tortugas/delfines/foca monje/coral, sacar objetos arqueológicos.',
-    'Prohibido: pescar en zonas marinas protegidas (parte del Sarónico oeste de Methana lo es).'
-  ];
-
-  const pescaMaterial = [
-    'Caña spinning desmontable 2,4-2,7m, acción 40-80g',
-    'Carrete 4000-5000 resistente a la sal (Daiwa BG, Shimano Nasci)',
-    'Línea trenzada 0,20-0,25mm + bajos de fluorocarbono',
-    'Cucharillas plateadas, vinilos, jigs 30-60g',
-    'Pinzas de desanzuelar y guantes',
-    'Cubo plegable y cuchillo dedicado a pescado'
+    'Licencia por embarcación (no por persona): pídela explícitamente al charter en el check-in. ~10-15€/año, suele ir incluida. Multa sin ella: 300-1000€.',
+    'Límite: 5 kg/persona/día. Prohibido pesca con bombona, capturar tortugas/delfines/foca monje/coral y sacar objetos arqueológicos.',
+    'Prohibido pescar en zonas marinas protegidas (parte del Sarónico al oeste de Methana lo es).'
   ];
 
   return (
@@ -1087,11 +1063,16 @@ function OcioSection() {
       <section className="mb-12">
         <h3 className="display-font text-2xl mb-2">Juegos y tradiciones</h3>
         <div className="rule mb-6"></div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <JuegoCol title="En travesía" subtitle="Travesías largas, poco viento" items={juegosNav} />
-          <JuegoCol title="En fondeo" subtitle="Paradas de baño y comida" items={juegosFondeo} />
-          <JuegoCol title="En puerto" subtitle="Tardes y noches en tierra" items={juegosPuerto} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {juegos.map((j, i) => (
+            <div key={i} className="border-l-4 pl-3 py-1" style={{ borderColor: '#8b2a14' }}>
+              <div className="flex items-baseline justify-between">
+                <div className="display-font text-lg font-semibold">{j.n}</div>
+                <div className="mono-font text-xs opacity-50 uppercase">{j.ctx}</div>
+              </div>
+              <div className="text-sm opacity-80 leading-relaxed mt-1">{j.d}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -1103,74 +1084,23 @@ function OcioSection() {
         </div>
         <div className="rule mb-6"></div>
 
-        <div className="mb-6 p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
-          <div className="display-font text-lg font-semibold mb-3" style={{ color: '#8b2a14' }}>Lo legal — léelo antes de cualquier otra cosa</div>
-          <ul className="space-y-2 text-sm">
-            {pescaLegal.map((l, i) => <li key={i} className="flex gap-2"><span style={{ color: '#8b2a14' }}>·</span><span>{l}</span></li>)}
-          </ul>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div>
-            <div className="display-font text-lg font-semibold mb-3">Material a llevar</div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
+            <div className="display-font text-lg font-semibold mb-3" style={{ color: '#8b2a14' }}>Lo legal — antes de nada</div>
             <ul className="space-y-2 text-sm">
-              {pescaMaterial.map((m, i) => (
-                <li key={i} className="flex gap-2 p-2 border-l-2" style={{ borderColor: '#1a3147' }}>
-                  <span>{m}</span>
-                </li>
-              ))}
+              {pescaLegal.map((l, i) => <li key={i} className="flex gap-2"><span style={{ color: '#8b2a14' }}>·</span><span>{l}</span></li>)}
             </ul>
           </div>
-          <div>
-            <div className="display-font text-lg font-semibold mb-3">Si solo quieres una opción</div>
-            <div className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
-              <div className="text-sm leading-relaxed">
-                Una <strong>caña de spinning desmontable</strong> + un <strong>set de curricán</strong>. Total: 80-150€ en cualquier tienda de pesca. Que quepa en funda dura tipo tubo.
-                <br/><br/>
-                Designa un <strong>responsable de pesca</strong> en los roles (alguien paciente que disfrute con esto). Pesca en travesías largas y al fondear.
-                <br/><br/>
-                Si pescas, cena a bordo. Si no, has entretenido tres horas mirando la caña.
-              </div>
+          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-lg font-semibold mb-2">En la práctica</div>
+            <div className="text-sm leading-relaxed">
+              Con una <strong>caña de spinning desmontable + set de curricán</strong> vais sobrados. Lo fácil que funciona en julio: <strong>curricán</strong> arrastrando el señuelo en travesía (bonito, llampuga) y <strong>pesca a fondo</strong> al fondear (sargos, doradas pequeñas — infalible).
+              <br/><br/>
+              Si cae algo, a la plancha con limón, aceite y orégano: uno de los mejores momentos del viaje. Comprad muchos limones en Alimos.
             </div>
-          </div>
-        </div>
-
-        <div className="display-font text-lg font-semibold mb-3">Las tres técnicas que funcionan en julio</div>
-        <div className="space-y-3 mb-8">
-          {pescaTecnicas.map((p, i) => (
-            <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-3 p-4 border" style={{ borderColor: '#1a3147' }}>
-              <div className="display-font text-lg font-semibold">{p.n}</div>
-              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Cuándo</span>{p.cuando}</div>
-              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Captura</span>{p.captura}</div>
-              <div className="text-sm"><span className="mono-font text-xs uppercase opacity-60 block">Dificultad</span>{p.dificultad}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
-          <div className="display-font text-lg font-semibold mb-2">Si pescas, cocínalo</div>
-          <div className="text-sm leading-relaxed">
-            Pescado a la plancha en el barco con limón, aceite y orégano griego es uno de los mejores momentos del charter. Necesitas: plancha del barco, muchos limones (compra en Alimos), sal gorda, aceite bueno. Practica eviscerar y descamar una vez en casa antes de embarcar. Si pescas algo y no sabes qué es, foto y pregunta en cualquier taverna: te lo identifican y te dicen si vale la pena. Peces buenos de la zona: bonito, llampuga, sargo, dorada, serrano.
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-function JuegoCol({ title, subtitle, items }) {
-  return (
-    <div>
-      <div className="display-font text-xl font-semibold">{title}</div>
-      <div className="mono-font text-xs uppercase opacity-60 mb-4">{subtitle}</div>
-      <div className="space-y-3">
-        {items.map((it, i) => (
-          <div key={i} className="border-l-4 pl-3 py-1" style={{ borderColor: '#8b2a14' }}>
-            <div className="display-font text-base font-semibold">{it.n}</div>
-            <div className="text-xs opacity-80 leading-relaxed mt-1">{it.d}</div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

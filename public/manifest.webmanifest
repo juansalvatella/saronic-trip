@@ -1,0 +1,17 @@
+{
+  "name": "Golfo Sarónico · Cuaderno de Bitácora",
+  "short_name": "Sarónico",
+  "description": "Cuaderno de bitácora de la travesía por el Golfo Sarónico, julio 2026.",
+  "start_url": ".",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f1e8d4",
+  "theme_color": "#1a3147",
+  "lang": "es",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

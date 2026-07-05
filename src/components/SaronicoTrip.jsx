@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, Radio, ShieldAlert, Check, Ship, Fish } from 'lucide-react';
+import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, Radio, ShieldAlert, Check, Ship } from 'lucide-react';
 
 export default function SaronicoTrip() {
   const [activeSection, setActiveSection] = useState('barco');
@@ -28,9 +28,8 @@ export default function SaronicoTrip() {
     { id: 'curso', label: 'Escuela de Mar', icon: BookOpen, num: 'III' },
     { id: 'roles', label: 'Tripulación', icon: Users, num: 'IV' },
     { id: 'equipaje', label: 'Pertrechos', icon: Package, num: 'V' },
-    { id: 'ocio', label: 'Ocio & Pesca', icon: Fish, num: 'VI' },
-    { id: 'glosario', label: 'Léxico & VHF', icon: Radio, num: 'VII' },
-    { id: 'seguridad', label: 'Seguridad', icon: ShieldAlert, num: 'VIII' },
+    { id: 'glosario', label: 'Léxico & VHF', icon: Radio, num: 'VI' },
+    { id: 'seguridad', label: 'Seguridad', icon: ShieldAlert, num: 'VII' },
   ];
 
   const dias = [
@@ -270,7 +269,6 @@ export default function SaronicoTrip() {
       case 'curso': return <CursoSection nudos={nudos} activeKnot={activeKnot} setActiveKnot={setActiveKnot} partes={partes} maniobras={maniobras} />;
       case 'roles': return <RolesSection roles={rolesData} tripulacion={tripulacion} />;
       case 'equipaje': return <EquipajeSection equipaje={equipaje} compra={compraInicial} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
-      case 'ocio': return <OcioSection />;
       case 'glosario': return <GlosarioSection glosario={glosario} vhf={vhfData} protocolos={protocolos} />;
       case 'seguridad': return <SeguridadSection checklist={checklistSeguridad} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
       default: return null;
@@ -1005,102 +1003,6 @@ function CabinCard({ num, pos, label, tip }) {
         </div>
       </div>
       <div className="text-sm opacity-80 leading-relaxed">{tip}</div>
-    </div>
-  );
-}
-
-function OcioSection() {
-  const snorkel = [
-    { lugar: 'Moni', dia: 'Día 2', desc: 'Isla deshabitada frente a Egina. Fondos 5-15m. Peces de roca, a veces tortugas Caretta. Aguas turquesas para saltos.', mejor: 'Cualquier hora' },
-    { lugar: 'Agistri', dia: 'Día 2', desc: 'Fondo marino muy bueno alrededor de la isla. Dragonera y Skala tienen buenos puntos de entrada.', mejor: 'Media mañana' },
-    { lugar: 'Russian Bay, Poros', dia: 'Día 3', desc: 'Ruinas de base naval rusa del XIX. Paredes hundidas y ánforas (no tocar — ilegal sacar).', mejor: 'Media mañana' },
-    { lugar: 'Bisti, Hidra', dia: 'Día 4', desc: 'Cala sur de Hidra solo accesible en barco. Acantilados, pulpos en rocas.', mejor: 'Tarde tranquila' },
-    { lugar: 'Dokos', dia: 'Día 5', desc: 'Isla deshabitada. Pradera de posidonia, meros, sargos. Aguas cristalinas, la mejor inmersión del viaje.', mejor: 'Mediodía con sol' }
-  ];
-
-  const juegos = [
-    { n: 'Avistamiento', ctx: 'Travesía', d: 'Puntos por bicho: delfines (10), tortugas (15), pez volador (20), pulpo (5). Quien gane elige restaurante en Atenas.' },
-    { n: 'Mafia / Hombre Lobo', ctx: 'Travesía', d: 'Sin material, ideal para 9. Uno narra, los demás se acusan. Mejor al atardecer.' },
-    { n: 'Salto desde la cruceta', ctx: 'Fondeo', d: 'Solo con el OK del patrón: mínimo 4 m de fondo y nadie debajo. El bautizo náutico clásico.' },
-    { n: 'Tavli (backgammon)', ctx: 'Puerto', d: 'EL juego griego. En cualquier kafenio te prestan tablero y te enseñan en 10 min.' },
-    { n: 'Ouzo & meze', ctx: 'Puerto', d: 'Cada uno pide un meze distinto y se comparte. Ouzo, agua y hielo. Tradición pura.' },
-    { n: 'Premio Albatros', ctx: 'Última noche', d: 'Votación: mejor maniobrante, peor cocinero, más mareado, más madrugador. Premio simbólico.' }
-  ];
-
-  const pescaLegal = [
-    'Licencia por embarcación (no por persona): pídela explícitamente al charter en el check-in. ~10-15€/año, suele ir incluida. Multa sin ella: 300-1000€.',
-    'Límite: 5 kg/persona/día. Prohibido pesca con bombona, capturar tortugas/delfines/foca monje/coral y sacar objetos arqueológicos.',
-    'Prohibido pescar en zonas marinas protegidas (parte del Sarónico al oeste de Methana lo es).'
-  ];
-
-  return (
-    <div>
-      <h2 className="display-font text-4xl font-semibold mb-2">Ocio & Pesca</h2>
-      <div className="display-font italic opacity-70 mb-8">Lo que se hace mientras no se navega</div>
-
-      {/* Snorkel */}
-      <section className="mb-12">
-        <h3 className="display-font text-2xl mb-2">Puntos de snorkel</h3>
-        <div className="rule mb-6"></div>
-        <div className="text-sm opacity-80 mb-4 leading-relaxed">
-          Cada uno trae su tubo + gafas + aletas (alquilar en isla sale caro). Boya de señalización flotante imprescindible si os alejáis del barco — los ferrys griegos no miran.
-        </div>
-        <div className="grid md:grid-cols-2 gap-4">
-          {snorkel.map((s, i) => (
-            <div key={i} className="p-4 border-2" style={{ borderColor: '#1a3147' }}>
-              <div className="flex items-baseline justify-between mb-1">
-                <div className="display-font text-xl font-semibold">{s.lugar}</div>
-                <div className="mono-font text-xs px-2 py-0.5" style={{ background: '#1a3147', color: '#f1e8d4' }}>{s.dia}</div>
-              </div>
-              <div className="text-sm opacity-80 mb-2 leading-relaxed">{s.desc}</div>
-              <div className="mono-font text-xs opacity-60">Mejor: {s.mejor}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Juegos */}
-      <section className="mb-12">
-        <h3 className="display-font text-2xl mb-2">Juegos y tradiciones</h3>
-        <div className="rule mb-6"></div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {juegos.map((j, i) => (
-            <div key={i} className="border-l-4 pl-3 py-1" style={{ borderColor: '#8b2a14' }}>
-              <div className="flex items-baseline justify-between">
-                <div className="display-font text-lg font-semibold">{j.n}</div>
-                <div className="mono-font text-xs opacity-50 uppercase">{j.ctx}</div>
-              </div>
-              <div className="text-sm opacity-80 leading-relaxed mt-1">{j.d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pesca */}
-      <section>
-        <div className="flex items-baseline justify-between mb-2">
-          <h3 className="display-font text-2xl">Pesca recreativa</h3>
-          <span className="mono-font text-xs opacity-60">CON LICENCIA</span>
-        </div>
-        <div className="rule mb-6"></div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-5 border-2" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
-            <div className="display-font text-lg font-semibold mb-3" style={{ color: '#8b2a14' }}>Lo legal — antes de nada</div>
-            <ul className="space-y-2 text-sm">
-              {pescaLegal.map((l, i) => <li key={i} className="flex gap-2"><span style={{ color: '#8b2a14' }}>·</span><span>{l}</span></li>)}
-            </ul>
-          </div>
-          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
-            <div className="display-font text-lg font-semibold mb-2">En la práctica</div>
-            <div className="text-sm leading-relaxed">
-              Con una <strong>caña de spinning desmontable + set de curricán</strong> vais sobrados. Lo fácil que funciona en julio: <strong>curricán</strong> arrastrando el señuelo en travesía (bonito, llampuga) y <strong>pesca a fondo</strong> al fondear (sargos, doradas pequeñas — infalible).
-              <br/><br/>
-              Si cae algo, a la plancha con limón, aceite y orégano: uno de los mejores momentos del viaje. Comprad muchos limones en Alimos.
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

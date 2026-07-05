@@ -38,42 +38,48 @@ export default function SaronicoTrip() {
       n: 0, fecha: '8 jul', ruta: 'BCN → Atenas → Alimos', millas: 0, horas: '—',
       salida: '06:30 BCN', llegada: 'Check-in 17:00', viento: '—',
       texto: 'Vuelo Barcelona–Atenas (06:30–10:30) y traslado a Alimos (~1 h, taxi o bus E96). Check-in a partir de las 17:00: inventario con calma (60-90 min) y fotos/vídeo del estado (obligatorio por contrato). Después, provisiones en el Sklavenitis.',
-      ocio: ['Paseo por la marina de Alimos', 'Primer baño', 'Tomar algo al atardecer', 'Cena griega en el paseo marítimo']
+      ocio: ['Paseo por la marina de Alimos', 'Primer baño', 'Tomar algo al atardecer', 'Cena griega en el paseo marítimo'],
+      fotos: ['dia0-alimos', 'dia0-athens']
     },
     {
       n: 1, fecha: '9 jul', ruta: 'Alimos → Egina', millas: 20, horas: '4h',
       salida: '10:00', llegada: '14:00', viento: 'N/NE 8-12 kn',
       texto: 'Briefing de seguridad a toda la tripulación antes de zarpar. Primera etapa corta para coger confianza con el barco; rumbo aprox. 220°. Amarre de popa con muerto en el puerto de Egina.',
       alt: 'Si el puerto de Egina está lleno, fondeo en la bahía o amarre en Agia Marina.',
-      ocio: ['Templo de Poseidón', 'Pasear el pueblo y probar los pistachos de Egina (D.O.)', 'Iglesia de Agios Nektarios, de los santos más venerados de Grecia', 'Bañarse en la playa de Agia Marina']
+      ocio: ['Templo de Afea (Aphaia), el mejor conservado de la isla', 'Pasear el pueblo y probar los pistachos de Egina (D.O.)', 'Iglesia de Agios Nektarios, de los santos más venerados de Grecia', 'Bañarse en la playa de Agia Marina'],
+      fotos: ['dia1-aphaia', 'dia1-aegina']
     },
     {
       n: 2, fecha: '10 jul', ruta: 'Egina → Agistri (vía Moni)', millas: 8, horas: '2h',
       salida: '10:00', llegada: '13:00', viento: 'N/NE 8-12 kn',
       texto: 'Etapa corta. Parada técnica de baño en Moni (deshabitada, fondeo libre) antes de seguir a Agistri; amarre en el puerto de Skala.',
       alt: 'Amarre en Skala o fondeo en Aponisos si entra swell.',
-      ocio: ['Parar en Moni: snorkel y saltos (isla deshabitada, fondeo libre)', 'Playa de Dragonera: cala pequeña de aguas turquesas casi sin gente', 'Playa de Skala, más animada y con chiringuito', 'Snorkel: el fondo marino aquí está muy bien', 'Alquilar bici y recorrer la isla', 'Isla para descansar, bañarse y desconectar']
+      ocio: ['Parar en Moni: snorkel y saltos (isla deshabitada, fondeo libre)', 'Playa de Dragonera: cala pequeña de aguas turquesas casi sin gente', 'Playa de Skala, más animada y con chiringuito', 'Snorkel: el fondo marino aquí está muy bien', 'Alquilar bici y recorrer la isla', 'Isla para descansar, bañarse y desconectar'],
+      fotos: ['dia2-agistri']
     },
     {
       n: 3, fecha: '11 jul', ruta: 'Agistri → Poros', millas: 18, horas: '3-4h',
       salida: '09:30', llegada: '14:00', viento: 'NE 10-15 kn',
       texto: 'Etapa de través, la más cómoda para aprender a trimar velas. Atención al tráfico de ferrys. Entrada al canal de Poros entre la isla y el Peloponeso, uno de los pasos más bonitos del Egeo.',
       alt: 'Amarre en el pueblo de Poros o fondeo en Russian Bay.',
-      ocio: ['Subir al Reloj, en lo alto del pueblo, para las mejores vistas del canal', 'Cruzar en barca a Galatas (5 min, 2€) y pasear el bosque de limoneros Lemonodasos', 'Pasear el estrecho canal entre la isla y el Peloponeso', 'Ruinas del Templo de Poseidón en los alrededores']
+      ocio: ['Subir al Reloj, en lo alto del pueblo, para las mejores vistas del canal', 'Cruzar en barca a Galatas (5 min, 2€) y pasear el bosque de limoneros Lemonodasos, muy especial', 'Pasear el estrecho canal entre la isla y el Peloponeso, precioso', 'Ruinas del Templo de Poseidón en los alrededores'],
+      fotos: ['dia3-poros']
     },
     {
       n: 4, fecha: '12 jul', ruta: 'Poros → Hidra', millas: 15, horas: '3h',
       salida: '10:00', llegada: '14:00', viento: 'NE 12-18 kn',
       texto: 'Rumbo a Hidra con viento algo más fresco. Puerto pequeño y muy solicitado: llegad temprano para tener sitio.',
       alt: 'Si el puerto de Hidra está lleno, fondeo en Mandraki o Vlychos.',
-      ocio: ['Pasear sin rumbo por las callejuelas (sin coches ni motos)', 'Puesta de sol desde el Cannoni (cañón en la entrada del puerto)', 'Fundación DESTE de arte contemporáneo (si hay exposición)', 'Cine Gardenia por la noche', 'Pirate Bar, ambiente local e internacional', 'Excursión a pie al Monasterio del Profeta Elías (1 h subiendo, vistas espectaculares)', 'Bañarse en Vlychos o Kamini (20-30 min a pie o en water taxi)']
+      ocio: ['Pasear sin rumbo por las callejuelas (sin coches ni motos)', 'Puesta de sol desde el Cannoni (cañón en la entrada del puerto)', 'Fundación DESTE de arte contemporáneo (si hay exposición)', 'Cine Gardenia por la noche', 'Pirate Bar, ambiente local e internacional', 'Excursión a pie al Monasterio del Profeta Elías (1 h subiendo, vistas espectaculares)', 'Bañarse en Vlychos o Kamini (20-30 min a pie o en water taxi)'],
+      fotos: ['dia4-hydra']
     },
     {
       n: 5, fecha: '13 jul', ruta: 'Hidra → Spetses (vía Dokos)', millas: 17, horas: '3-4h',
       salida: '10:00', llegada: '14:00', viento: 'NE 10-15 kn',
       texto: 'Parada de baño en Dokos (deshabitada, agua cristalina) de camino y después rumbo a Spetses; amarre en el puerto.',
       alt: 'Fondeo en Zogeria (Spetses) si el puerto está completo.',
-      ocio: ['Dokos: fondear y snorkel — agua cristalina y fauna marina', 'Dokos: subir a la colina al atardecer con una botella de vino, como los locales', 'Dokos: ver las capillas abandonadas en tierra', 'Spetses: alquilar bici y recorrer la isla (sin coches, como Hidra)', 'Spetses: puerto viejo (Palio Limani), más tranquilo y bonito que el principal', 'Spetses: bañarse en Agia Paraskevi o Agioi Anargyri (aguas muy limpias, water taxi)', 'Spetses: Casa-Museo Bouboulina, heroína naval de la independencia', 'Spetses: cenar bien — buena oferta gastronómica']
+      ocio: ['Dokos: fondear y snorkel — agua cristalina y fauna marina', 'Dokos: subir a la colina al atardecer con una botella de vino, como los locales', 'Dokos: ver las capillas abandonadas en tierra', 'Dokos: silencio total, no hay nada más que hacer, y ese es exactamente el punto', 'Spetses: alquilar bici y recorrer la isla (sin coches, como Hidra)', 'Spetses: puerto viejo (Palio Limani), más tranquilo y bonito que el principal', 'Spetses: bañarse en Agia Paraskevi o Agioi Anargyri (aguas muy limpias, water taxi)', 'Spetses: Casa-Museo Bouboulina, heroína naval de la independencia', 'Spetses: cenar bien — buena oferta gastronómica'],
+      fotos: ['dia5-spetses']
     },
     {
       n: 6, fecha: '14 jul', ruta: 'Spetses → Alimos', millas: 50, horas: '9-10h',
@@ -86,13 +92,15 @@ export default function SaronicoTrip() {
       n: 7, fecha: '15 jul', ruta: 'Devolución + Atenas', millas: 0, horas: '—',
       salida: 'Check-out 09:00', llegada: '—', viento: '—',
       texto: 'Devolución del barco a las 09:00 (check-out por contrato). Fin del charter: traslado a Atenas y noche en la ciudad.',
-      ocio: ['Acrópolis y Partenón', 'Museo de la Acrópolis', 'Barrio de Plaka', 'Atardecer en Cabo Sunion (Templo de Poseidón)']
+      ocio: ['Acrópolis y Partenón', 'Museo de la Acrópolis', 'Barrio de Plaka', 'Atardecer en Cabo Sunion (Templo de Poseidón)'],
+      fotos: ['dia7-acropolis', 'dia7-plaka']
     },
     {
       n: 8, fecha: '16 jul', ruta: 'Atenas → BCN', millas: 0, horas: '—',
       salida: '—', llegada: '22:50 → 01:00+1', viento: '—',
       texto: 'Último día en Atenas hasta el vuelo nocturno (Atenas–Barcelona 22:50).',
-      ocio: ['Barrio de Monastiraki para recuerdos', 'Baño en la Riviera ateniense / Glyfada', 'Descansar antes del vuelo']
+      ocio: ['Barrio de Monastiraki para recuerdos', 'Baño en la Riviera ateniense / Glyfada', 'Descansar antes del vuelo'],
+      fotos: ['dia8-monastiraki']
     }
   ];
 
@@ -541,6 +549,7 @@ function daySections(dia) {
 }
 
 function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck }) {
+  const [zoom, setZoom] = useState(null);
   const dia = dias.find(d => d.n === activeDay);
   const total = dias.reduce((sum, d) => sum + d.millas, 0);
   const secciones = daySections(dia);
@@ -589,6 +598,23 @@ function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck 
         <div className="lg:col-span-3">
           <div className="display-font text-3xl font-semibold mb-1">{dia.ruta}</div>
           <div className="double-rule mb-6 inline-block w-32"></div>
+
+          {/* Fotos · spoiler del destino */}
+          {dia.fotos && dia.fotos.length > 0 && (
+            <div className={`grid gap-2 mb-6 ${dia.fotos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+              {dia.fotos.map((f, i) => (
+                <button key={i} type="button" onClick={() => setZoom(f)} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
+                  <img
+                    src={`${import.meta.env.BASE_URL}dias/${f}.webp`}
+                    alt={dia.ruta}
+                    className="w-full border-2 object-cover"
+                    style={{ borderColor: '#1a3147', height: dia.fotos.length > 1 ? '150px' : '230px' }}
+                    loading="lazy"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Navegación */}
           <div className="mono-font text-xs uppercase tracking-widest mb-3" style={{ color: '#8b2a14' }}>Navegación</div>
@@ -653,6 +679,20 @@ function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck 
           </div>
         </div>
       </div>
+
+      {/* Otras islas con encanto */}
+      <div className="mt-10 p-4 border-l-4" style={{ borderColor: '#1a3147', opacity: 0.85 }}>
+        <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-1">Otras islas con encanto</div>
+        <div className="text-sm">Si el plan cambia o sobra tiempo: <strong>Ermioni</strong>, <strong>Nafplio</strong>, <strong>Leonidion</strong>, <strong>Methana</strong> y <strong>Moni</strong>.</div>
+      </div>
+
+      {/* Lightbox */}
+      {zoom && (
+        <div onClick={() => setZoom(null)} style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(26, 49, 71, 0.94)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem', cursor: 'zoom-out' }}>
+          <img src={`${import.meta.env.BASE_URL}dias/${zoom}.webp`} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', border: '2px solid #f1e8d4' }} />
+          <div className="mono-font" style={{ position: 'absolute', top: '1rem', right: '1.25rem', color: '#f1e8d4', fontSize: '1.75rem', lineHeight: 1 }}>×</div>
+        </div>
+      )}
     </div>
   );
 }

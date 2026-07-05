@@ -217,8 +217,6 @@ export default function SaronicoTrip() {
       'Escarpines para entrar al agua en calas con erizos'
     ],
     'Aseo y salud': [
-      'Protector solar SPF 50 reef-safe (2 botes mínimo)',
-      'After-sun',
       'Biodramina o pulseras anti-mareo',
       'Botiquín personal (medicación habitual)',
       'Toalla de microfibra'
@@ -231,6 +229,8 @@ export default function SaronicoTrip() {
       'Mochila pequeña para excursiones en isla'
     ],
     'Equipo común (el grupo)': [
+      'Protector solar SPF 50 reef-safe (2 botes mínimo)',
+      'After-sun',
       'Pack agua: 6L/persona para los 5 días',
       'Sal, aceite, vinagre, café, té (lo más caro a bordo)',
       'Papel higiénico (consumo brutal)',

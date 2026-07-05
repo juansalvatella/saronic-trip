@@ -845,6 +845,7 @@ function SeguridadSection({ checklist, vhf, protocolos, checkedItems, toggleChec
 }
 
 function BarcoSection({ checkedItems, toggleCheck }) {
+  const [zoom, setZoom] = useState(null);
   const specs = [
     { label: 'Modelo', value: 'Bénéteau Cyclades 50.5' },
     { label: 'Año / Refit', value: '2007 / 2018' },
@@ -894,26 +895,44 @@ function BarcoSection({ checkedItems, toggleCheck }) {
 
       {/* Galería */}
       <section className="mb-12">
-        <img
-          src={`${import.meta.env.BASE_URL}boat/azzuro-1.webp`}
-          alt="Velero Azzuro fondeado"
-          className="w-full border-2 object-cover"
-          style={{ borderColor: '#1a3147', maxHeight: '440px' }}
-          loading="lazy"
-        />
+        <button type="button" onClick={() => setZoom('azzuro-1')} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
+          <img
+            src={`${import.meta.env.BASE_URL}boat/azzuro-1.webp`}
+            alt="Velero Azzuro fondeado"
+            className="w-full border-2 object-cover"
+            style={{ borderColor: '#1a3147', maxHeight: '440px' }}
+            loading="lazy"
+          />
+        </button>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
           {['azzuro-2', 'azzuro-4', 'azzuro-3', 'azzuro-5'].map((f, i) => (
-            <img
-              key={i}
-              src={`${import.meta.env.BASE_URL}boat/${f}.webp`}
-              alt="Velero Azzuro"
-              className="w-full border-2 object-cover"
-              style={{ borderColor: '#1a3147', height: '110px' }}
-              loading="lazy"
-            />
+            <button key={i} type="button" onClick={() => setZoom(f)} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
+              <img
+                src={`${import.meta.env.BASE_URL}boat/${f}.webp`}
+                alt="Velero Azzuro"
+                className="w-full border-2 object-cover"
+                style={{ borderColor: '#1a3147', height: '110px' }}
+                loading="lazy"
+              />
+            </button>
           ))}
         </div>
       </section>
+
+      {/* Lightbox */}
+      {zoom && (
+        <div
+          onClick={() => setZoom(null)}
+          style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(26, 49, 71, 0.94)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem', cursor: 'zoom-out' }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}boat/${zoom}.webp`}
+            alt="Velero Azzuro"
+            style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', border: '2px solid #f1e8d4' }}
+          />
+          <div className="mono-font" style={{ position: 'absolute', top: '1rem', right: '1.25rem', color: '#f1e8d4', fontSize: '1.75rem', lineHeight: 1 }}>×</div>
+        </div>
+      )}
 
       {/* Charter */}
       <section className="mb-12">

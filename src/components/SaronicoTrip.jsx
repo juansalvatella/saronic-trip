@@ -846,6 +846,7 @@ function SeguridadSection({ checklist, vhf, protocolos, checkedItems, toggleChec
 
 function BarcoSection({ checkedItems, toggleCheck }) {
   const [zoom, setZoom] = useState(null);
+  const fotos = Array.from({ length: 32 }, (_, i) => `azzuro-${String(i + 1).padStart(2, '0')}`);
   const specs = [
     { label: 'Modelo', value: 'Bénéteau Cyclades 50.5' },
     { label: 'Año / Refit', value: '2007 / 2018' },
@@ -895,44 +896,54 @@ function BarcoSection({ checkedItems, toggleCheck }) {
 
       {/* Galería */}
       <section className="mb-12">
-        <button type="button" onClick={() => setZoom('azzuro-1')} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
+        <button type="button" onClick={() => setZoom(fotos[0])} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
           <img
-            src={`${import.meta.env.BASE_URL}boat/azzuro-1.webp`}
-            alt="Velero Azzuro fondeado"
+            src={`${import.meta.env.BASE_URL}boat/${fotos[0]}.webp`}
+            alt="Velero Azzuro"
             className="w-full border-2 object-cover"
             style={{ borderColor: '#1a3147', maxHeight: '440px' }}
             loading="lazy"
           />
         </button>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
-          {['azzuro-2', 'azzuro-4', 'azzuro-3', 'azzuro-5'].map((f, i) => (
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mt-2">
+          {fotos.slice(1).map((f, i) => (
             <button key={i} type="button" onClick={() => setZoom(f)} className="block w-full p-0 border-0 bg-transparent" style={{ cursor: 'zoom-in' }}>
               <img
                 src={`${import.meta.env.BASE_URL}boat/${f}.webp`}
                 alt="Velero Azzuro"
                 className="w-full border-2 object-cover"
-                style={{ borderColor: '#1a3147', height: '110px' }}
+                style={{ borderColor: '#1a3147', height: '84px' }}
                 loading="lazy"
               />
             </button>
           ))}
         </div>
+        <div className="mono-font text-[10px] opacity-40 text-right mt-2">32 fotos · toca para ampliar · © SamBoat</div>
       </section>
 
       {/* Lightbox */}
-      {zoom && (
-        <div
-          onClick={() => setZoom(null)}
-          style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(26, 49, 71, 0.94)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem', cursor: 'zoom-out' }}
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}boat/${zoom}.webp`}
-            alt="Velero Azzuro"
-            style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', border: '2px solid #f1e8d4' }}
-          />
-          <div className="mono-font" style={{ position: 'absolute', top: '1rem', right: '1.25rem', color: '#f1e8d4', fontSize: '1.75rem', lineHeight: 1 }}>×</div>
-        </div>
-      )}
+      {zoom && (() => {
+        const idx = fotos.indexOf(zoom);
+        const go = (delta, e) => { e.stopPropagation(); setZoom(fotos[(idx + delta + fotos.length) % fotos.length]); };
+        const navStyle = { position: 'absolute', top: '50%', transform: 'translateY(-50%)', color: '#f1e8d4', fontSize: '3rem', lineHeight: 1, background: 'none', border: 'none', cursor: 'pointer', padding: '0 1rem', userSelect: 'none' };
+        return (
+          <div
+            onClick={() => setZoom(null)}
+            style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(26, 49, 71, 0.94)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.25rem', cursor: 'zoom-out' }}
+          >
+            <button type="button" onClick={(e) => go(-1, e)} style={{ ...navStyle, left: 0 }}>‹</button>
+            <img
+              src={`${import.meta.env.BASE_URL}boat/${zoom}.webp`}
+              alt="Velero Azzuro"
+              onClick={(e) => e.stopPropagation()}
+              style={{ maxWidth: '85%', maxHeight: '100%', objectFit: 'contain', border: '2px solid #f1e8d4', cursor: 'default' }}
+            />
+            <button type="button" onClick={(e) => go(1, e)} style={{ ...navStyle, right: 0 }}>›</button>
+            <div className="mono-font" style={{ position: 'absolute', top: '1rem', right: '1.25rem', color: '#f1e8d4', fontSize: '1.75rem', lineHeight: 1 }}>×</div>
+            <div className="mono-font" style={{ position: 'absolute', bottom: '1rem', left: 0, right: 0, textAlign: 'center', color: '#f1e8d4', fontSize: '0.85rem', opacity: 0.8 }}>{idx + 1} / {fotos.length}</div>
+          </div>
+        );
+      })()}
 
       {/* Charter */}
       <section className="mb-12">

@@ -3,7 +3,7 @@ import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, ShieldAlert, Chec
 import mapMeta from '../map-meta.json';
 
 export default function SaronicoTrip() {
-  const [activeSection, setActiveSection] = useState('barco');
+  const [activeSection, setActiveSection] = useState('ruta');
   const [activeDay, setActiveDay] = useState(1);
   const [activeKnot, setActiveKnot] = useState(0);
   const [checkedItems, setCheckedItems] = useState({});
@@ -24,8 +24,8 @@ export default function SaronicoTrip() {
   };
 
   const sections = [
-    { id: 'barco', label: 'El Barco', icon: Ship, num: 'I' },
-    { id: 'ruta', label: 'La Travesía', icon: Map, num: 'II' },
+    { id: 'ruta', label: 'La Travesía', icon: Map, num: 'I' },
+    { id: 'barco', label: 'El Barco', icon: Ship, num: 'II' },
     { id: 'curso', label: 'Escuela de Mar', icon: BookOpen, num: 'III' },
     { id: 'roles', label: 'Tripulación', icon: Users, num: 'IV' },
     { id: 'equipaje', label: 'Pertrechos', icon: Package, num: 'V' },
@@ -192,24 +192,157 @@ export default function SaronicoTrip() {
     { cat: 'Frescos (cada 2 días)', items: 'Tomate, pepino, cebolla, limón, hierbas. Mejor comprar poco y reponer' }
   ];
 
-  const glosario = [
-    { t: 'Amura', d: 'Lado del barco respecto al viento. "Amura de babor" = viento entra por la izquierda' },
-    { t: 'Sotavento', d: 'El lado hacia donde sopla el viento (donde el viento se va)' },
-    { t: 'Barlovento', d: 'El lado de donde viene el viento' },
-    { t: 'Ceñida', d: 'Navegar lo más cerca del viento posible (aprox 45°)' },
-    { t: 'Través', d: 'Viento entrando perpendicular al barco. Rumbo más rápido' },
-    { t: 'Empopada', d: 'Viento por la popa' },
-    { t: 'Aparente', d: 'Viento que percibes a bordo (= real + el del movimiento del barco)' },
-    { t: 'Cabo', d: 'Cualquier cuerda en un barco. Nunca digas "cuerda"' },
-    { t: 'Drizar', d: 'Izar una vela' },
-    { t: 'Arriar', d: 'Bajar una vela o un cabo' },
-    { t: 'Cobrar', d: 'Tirar de un cabo para tensarlo' },
-    { t: 'Lascar', d: 'Aflojar un cabo de forma controlada' },
-    { t: 'Tomar rizos', d: 'Reducir superficie de la mayor cuando hay mucho viento' },
-    { t: 'Fondear', d: 'Echar el ancla' },
-    { t: 'Garrear', d: 'Cuando el ancla no agarra y el barco se desplaza' },
-    { t: 'Roca', d: 'En Grecia, atención: muchas calas tienen rocas a poca profundidad' }
-  ];
+  const glosario = {
+    'Casco y estructura': [
+      { t: 'Casco', d: 'Cuerpo o estructura principal del barco.' },
+      { t: 'Cubierta', d: 'Cierre superior del casco; el "suelo" por fuera.' },
+      { t: 'Obra viva', d: 'Parte del casco que va sumergida, bajo la flotación. También "carena".' },
+      { t: 'Obra muerta', d: 'Parte del casco por encima de la línea de flotación.' },
+      { t: 'Línea de flotación', d: 'Línea donde la superficie del agua corta el casco.' },
+      { t: 'Eslora', d: 'Longitud del barco, de proa a popa.' },
+      { t: 'Manga', d: 'Anchura máxima del barco.' },
+      { t: 'Calado', d: 'Profundidad de la parte sumergida; agua mínima que necesita para no tocar fondo.' },
+      { t: 'Puntal', d: 'Altura del casco, de la quilla a la cubierta.' },
+      { t: 'Francobordo', d: 'Altura del casco fuera del agua (de la flotación a la cubierta).' },
+      { t: 'Amura', d: 'Zona del costado próxima a la proa.' },
+      { t: 'Aleta', d: 'Zona del costado próxima a la popa.' },
+      { t: 'Sentina', d: 'Fondo interior del casco donde se acumula el agua.' },
+      { t: 'Espejo de popa', d: 'Superficie transversal de la popa (donde va el nombre).' },
+      { t: 'Roda / Codaste', d: 'Piezas que forman el perfil de la proa (roda) y de la popa (codaste).' },
+      { t: 'Regala', d: 'Borde superior del costado, a la altura de la cubierta.' }
+    ],
+    'Jarcia y cabos': [
+      { t: 'Cabo', d: 'Cualquier cuerda a bordo. Nunca se dice "cuerda".' },
+      { t: 'Jarcia firme', d: 'Cables fijos que sujetan el palo: obenques y estays.' },
+      { t: 'Jarcia de labor', d: 'Cabos que se manejan: drizas, escotas, amantillos…' },
+      { t: 'Obenque', d: 'Cable que sujeta el palo lateralmente.' },
+      { t: 'Estay', d: 'Cable que sujeta el palo hacia proa; el de popa es el "backstay".' },
+      { t: 'Cruceta', d: 'Brazo horizontal del palo que abre el ángulo de los obenques.' },
+      { t: 'Driza', d: 'Cabo que iza una vela (o una bandera).' },
+      { t: 'Escota', d: 'Cabo que caza (ajusta) una vela.' },
+      { t: 'Amantillo', d: 'Cabo que sostiene la botavara cuando no hay vela izada.' },
+      { t: 'Contra', d: 'Aparejo que tira de la botavara hacia abajo; controla la baluma.' },
+      { t: 'Cornamusa', d: 'Pieza de dos brazos donde se hacen firmes los cabos.' },
+      { t: 'Mordaza / stopper', d: 'Pieza que muerde y retiene un cabo bajo tensión.' },
+      { t: 'Gaza', d: 'Lazo hecho en el extremo de un cabo.' },
+      { t: 'Firme', d: 'Parte fija o principal de un cabo.' },
+      { t: 'Chicote', d: 'Extremo libre de un cabo.' },
+      { t: 'Seno', d: 'Curva o comba que forma un cabo flojo.' },
+      { t: 'Adujar', d: 'Recoger un cabo en vueltas ordenadas.' },
+      { t: 'Tomar vuelta', d: 'Dar vueltas a un cabo en cornamusa o bita para hacerlo firme.' }
+    ],
+    'Velas': [
+      { t: 'Mayor', d: 'Vela principal; enverga en el palo y la botavara.' },
+      { t: 'Génova / Foque', d: 'Vela de proa; el génova solapa el palo, el foque no.' },
+      { t: 'Spinnaker / Gennaker', d: 'Vela grande y ligera para rumbos portantes.' },
+      { t: 'Gratil', d: 'Borde de proa de la vela (va al palo o al estay).' },
+      { t: 'Baluma', d: 'Borde de popa de la vela.' },
+      { t: 'Pujamen', d: 'Borde inferior de la vela.' },
+      { t: 'Puño', d: 'Cada vértice de la vela: de driza, de escota y de amura.' },
+      { t: 'Sable', d: 'Varilla que tensa y da forma a la baluma.' },
+      { t: 'Rizo', d: 'Reducción de la superficie de la mayor cuando arrecia el viento.' },
+      { t: 'Enrollador', d: 'Sistema que recoge la génova enrollándola en el estay.' },
+      { t: 'Catavientos', d: 'Hilos que indican el flujo del viento sobre la vela.' }
+    ],
+    'Maniobra y rumbos': [
+      { t: 'Barlovento', d: 'El lado de donde viene el viento.' },
+      { t: 'Sotavento', d: 'El lado hacia donde va el viento (el resguardado).' },
+      { t: 'Amurado a…', d: 'Banda por la que se recibe el viento: amurado a babor o a estribor.' },
+      { t: 'Ceñida', d: 'Navegar lo más cerca posible del viento (~45°).' },
+      { t: 'Descuartelar', d: 'Rumbo entre la ceñida y el través (viento a ~60-70°).' },
+      { t: 'Través', d: 'Viento perpendicular (90°); rumbo cómodo y rápido.' },
+      { t: 'Largo', d: 'Viento entrando por la aleta; portante abierto.' },
+      { t: 'Empopada', d: 'Viento por la popa (180°).' },
+      { t: 'Portante', d: 'Rumbos con el viento abierto (largo y empopada).' },
+      { t: 'Orzar', d: 'Acercar la proa al viento.' },
+      { t: 'Arribar', d: 'Alejar la proa del viento.' },
+      { t: 'Cazar', d: 'Cobrar la escota para cerrar la vela.' },
+      { t: 'Lascar / Amollar', d: 'Aflojar la escota de forma controlada.' },
+      { t: 'Cobrar', d: 'Tirar de un cabo para tensarlo.' },
+      { t: 'Drizar / Arriar', d: 'Izar una vela (drizar) o bajarla (arriar).' },
+      { t: 'Virar por avante', d: 'Cambiar de amura pasando la proa por el viento.' },
+      { t: 'Trasluchar', d: 'Cambiar de amura pasando la popa por el viento (¡ojo a la botavara!).' },
+      { t: 'Capear', d: 'Aguantar el temporal con poca vela y proa al mar.' },
+      { t: 'Escorar / Adrizar', d: 'Inclinarse el barco por el viento (escorar) y recuperar la vertical (adrizar).' },
+      { t: 'Abatimiento', d: 'Desplazamiento lateral del barco empujado por el viento.' },
+      { t: 'Deriva', d: 'Desplazamiento provocado por la corriente.' },
+      { t: 'Tomar rizos', d: 'Reducir superficie de la mayor con mucho viento.' },
+      { t: 'Aparejo', d: 'Conjunto de palos, jarcia y velas.' }
+    ],
+    'Navegación': [
+      { t: 'Rumbo', d: 'Dirección hacia la que apunta la proa.' },
+      { t: 'Demora', d: 'Dirección en la que se ve un objeto desde el barco (respecto al norte).' },
+      { t: 'Marcación', d: 'Ángulo de un objeto respecto a la proa del barco.' },
+      { t: 'Enfilación', d: 'Dos puntos alineados que marcan una línea segura de posición.' },
+      { t: 'Declinación magnética', d: 'Ángulo entre el norte verdadero y el magnético (varía con lugar y año).' },
+      { t: 'Desvío', d: 'Error propio de la aguja por el magnetismo del barco (cambia con el rumbo).' },
+      { t: 'Corrección total (Ct)', d: 'Suma de declinación y desvío; pasa de rumbo de aguja a verdadero.' },
+      { t: 'Milla náutica', d: '1.852 m; equivale a un minuto de latitud.' },
+      { t: 'Nudo', d: 'Velocidad de una milla náutica por hora.' },
+      { t: 'Latitud / Longitud', d: 'Coordenadas: paralelos (N/S) y meridianos (E/W).' },
+      { t: 'Sonda', d: 'Profundidad del agua bajo la quilla o desde la superficie.' },
+      { t: 'Braza', d: 'Antigua unidad de sonda: ~1,83 m.' },
+      { t: 'Veril', d: 'Línea que une puntos de igual profundidad (isóbata) en la carta.' },
+      { t: 'Bajo', d: 'Fondo poco profundo y peligroso para la navegación.' },
+      { t: 'Estima', d: 'Cálculo de la posición por rumbo, velocidad y tiempo.' },
+      { t: 'Singladura', d: 'Distancia navegada en 24 horas (de mediodía a mediodía).' }
+    ],
+    'Balizamiento (IALA · región A)': [
+      { t: 'Lateral de babor', d: 'Roja y cilíndrica; se deja a babor al entrar a puerto.' },
+      { t: 'Lateral de estribor', d: 'Verde y cónica; se deja a estribor al entrar a puerto.' },
+      { t: 'Cardinal Norte', d: 'Se pasa por el norte; dos conos negros hacia arriba, luz blanca centelleante.' },
+      { t: 'Cardinal Sur', d: 'Se pasa por el sur; dos conos negros hacia abajo.' },
+      { t: 'Cardinal Este', d: 'Se pasa por el este; dos conos base con base.' },
+      { t: 'Cardinal Oeste', d: 'Se pasa por el oeste; dos conos punta con punta.' },
+      { t: 'Peligro aislado', d: 'Peligro con agua navegable alrededor; negra con franja roja y dos esferas negras.' },
+      { t: 'Aguas navegables', d: 'Marca de aguas seguras / recalada; franjas rojas y blancas verticales, esfera roja.' },
+      { t: 'Marca especial', d: 'Amarilla; señala zonas o instalaciones, no peligro de navegación.' },
+      { t: 'Boya / Baliza', d: 'La boya flota fondeada; la baliza va fija en el fondo o en tierra.' }
+    ],
+    'Luces y RIPA': [
+      { t: 'Luz de tope', d: 'Blanca, a proa, en un arco de 225° hacia delante.' },
+      { t: 'Luces de costado', d: 'Verde a estribor y roja a babor (112,5° cada una).' },
+      { t: 'Luz de alcance', d: 'Blanca a popa (135°).' },
+      { t: 'Todo horizonte', d: 'Luz visible en los 360°.' },
+      { t: 'Barco de vela', d: 'Lleva luces de costado y de alcance, pero NO de tope.' },
+      { t: 'Barco a motor', d: 'Añade la(s) luz(es) de tope blancas.' },
+      { t: 'Fondeado', d: 'Luz blanca todo horizonte (y de día una bola negra a proa).' },
+      { t: 'Sin gobierno', d: 'Dos luces rojas todo horizonte en vertical.' },
+      { t: 'Restringido para maniobrar', d: 'Rojo-blanco-rojo en vertical, todo horizonte.' },
+      { t: 'Vela: cruce', d: 'Amuras distintas: cede el amurado a babor. Misma amura: cede el de barlovento.' },
+      { t: 'Motor: cruce', d: 'Cede quien ve al otro por su estribor y lo deja pasar por su banda de estribor.' },
+      { t: 'Vuelta encontrada', d: 'De frente a motor: ambos caen a estribor.' },
+      { t: 'Alcance', d: 'El barco que alcanza a otro es el que debe apartarse.' }
+    ],
+    'Meteorología': [
+      { t: 'Meltemi', d: 'Viento fuerte del N/NE del Egeo en verano; en el Sarónico suele llegar flojo.' },
+      { t: 'Beaufort', d: 'Escala de fuerza del viento, de 0 a 12.' },
+      { t: 'Borrasca / Baja', d: 'Zona de baja presión; suele traer mal tiempo.' },
+      { t: 'Anticiclón / Alta', d: 'Zona de alta presión; tiempo estable y bueno.' },
+      { t: 'Isobaras', d: 'Líneas de igual presión; muy juntas = mucho viento.' },
+      { t: 'Racha', d: 'Aumento brusco y breve de la intensidad del viento.' },
+      { t: 'Rolar', d: 'Cambiar de dirección el viento.' },
+      { t: 'Arreciar / Amainar', d: 'Aumentar la fuerza del viento (arreciar) o disminuir (amainar).' },
+      { t: 'Mar de viento', d: 'Olas creadas por el viento local.' },
+      { t: 'Mar de fondo', d: 'Olas que llegan de lejos, sin viento local (mar tendida).' },
+      { t: 'Virazón / Terral', d: 'Brisas costeras: la virazón entra del mar de día; el terral sale de tierra de noche.' },
+      { t: 'Temporal', d: 'Viento de fuerza 8 o más en la escala Beaufort.' },
+      { t: 'Aparente', d: 'Viento que se siente a bordo = viento real + el del propio movimiento.' }
+    ],
+    'Fondeo, amarre y seguridad': [
+      { t: 'Fondear', d: 'Echar el ancla.' },
+      { t: 'Garrear', d: 'Cuando el ancla no agarra y el barco se desplaza.' },
+      { t: 'Filar', d: 'Dar cadena o cabo poco a poco.' },
+      { t: 'Amarre de popa', d: 'Entrar dando atrás, largar ancla y amarrar la popa al muelle (estándar en Grecia).' },
+      { t: 'Defensa', d: 'Protección que se cuelga del costado para no dañar el casco.' },
+      { t: 'Roca', d: 'En Grecia, ojo: muchas calas tienen piedras a poca profundidad.' },
+      { t: 'Achicar', d: 'Sacar el agua embarcada con la bomba de achique.' },
+      { t: 'Vía de agua', d: 'Entrada de agua en el casco por una avería.' },
+      { t: 'Arnés y línea de vida', d: 'Sujetan a la persona a la cubierta para no caer al agua.' },
+      { t: 'Hombre al agua (MOB)', d: 'Persona caída al mar; maniobra inmediata de rescate.' },
+      { t: 'Radiobaliza (EPIRB)', d: 'Emite la posición vía satélite en una emergencia.' }
+    ]
+  };
 
   const vhfData = [
     { canal: '16', uso: 'Emergencia y llamada internacional. Escucha permanente obligatoria' },
@@ -226,25 +359,6 @@ export default function SaronicoTrip() {
   ];
 
   const checklistSeguridad = [
-    { cat: 'Antes de zarpar (cada día)', items: [
-      'Parte meteorológico (Windy + Poseidon)',
-      'Nivel de combustible y agua',
-      'Briefing a la tripulación: ruta del día, viento esperado, hora estimada',
-      'Repaso de defensas y cabos antes de salir',
-      'Cocina y bodega: nada suelto que pueda volar',
-      'Chalecos accesibles en bañera'
-    ]},
-    { cat: 'Equipo de seguridad a bordo (verificar al check-in)', items: [
-      'Balsa salvavidas con caducidad vigente',
-      'Chalecos para todos + 1 extra (con luz y silbato)',
-      'Arneses y líneas de vida si hay navegación nocturna',
-      'Bengalas en vigor (revisar fecha)',
-      'Extintor por compartimento',
-      'Botiquín completo',
-      'VHF fijo + portátil con batería',
-      'Bocina de niebla',
-      'Aro salvavidas con luz auto-encendido'
-    ]},
     { cat: 'Hombre al agua', items: [
       'Gritar "¡HOMBRE AL AGUA POR [BABOR/ESTRIBOR]!"',
       'Tirar aro salvavidas y boya luminosa INMEDIATAMENTE',
@@ -266,7 +380,7 @@ export default function SaronicoTrip() {
   const renderContent = () => {
     switch(activeSection) {
       case 'barco': return <BarcoSection checkedItems={checkedItems} toggleCheck={toggleCheck} />;
-      case 'ruta': return <RutaSection dias={dias} activeDay={activeDay} setActiveDay={setActiveDay} />;
+      case 'ruta': return <RutaSection dias={dias} activeDay={activeDay} setActiveDay={setActiveDay} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
       case 'curso': return <CursoSection nudos={nudos} activeKnot={activeKnot} setActiveKnot={setActiveKnot} partes={partes} maniobras={maniobras} />;
       case 'roles': return <RolesSection roles={rolesData} tripulacion={tripulacion} />;
       case 'equipaje': return <EquipajeSection equipaje={equipaje} compra={compraInicial} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
@@ -390,9 +504,43 @@ export default function SaronicoTrip() {
   );
 }
 
-function RutaSection({ dias, activeDay, setActiveDay }) {
+function dailyLog(dia) {
+  if (dia.n === 0) return [
+    'Recoger el barco y hacer inventario',
+    'Fotos/vídeo del estado (obligatorio, contrato)',
+    'Firmar el inventario de entrega',
+    'Balsa salvavidas con caducidad vigente',
+    'Chalecos para todos + 1 extra (con luz y silbato)',
+    'Bengalas en vigor (revisar fecha)',
+    'Extintor por compartimento',
+    'Botiquín completo',
+    'VHF fijo + portátil con batería',
+    'Bocina de niebla y aro salvavidas con luz',
+    'Arneses y líneas de vida (si hay nav. nocturna)',
+    'Compra de provisiones (Sklavenitis)',
+    'Bitácora del día anotada'
+  ];
+  if (dia.n === 7) return ['Barco preparado para la entrega', 'Check-out / devolución (09:00)', 'Recoger todo lo de a bordo', 'Bitácora del día anotada'];
+  if (dia.millas > 0) return [
+    'Parte meteo (Windy + Poseidon)',
+    'Nivel de combustible y agua',
+    'Briefing: ruta, viento y hora estimada',
+    'Chalecos accesibles en bañera',
+    'Cocina y bodega: nada suelto que pueda volar',
+    'Defensas y cabos revisados antes de salir',
+    'Zarpado',
+    'Amarrados / fondeados en destino',
+    'Hito del día completado',
+    'Bitácora del día anotada'
+  ];
+  return ['Plan del día acordado', 'Bitácora del día anotada'];
+}
+
+function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck }) {
   const dia = dias.find(d => d.n === activeDay);
   const total = dias.reduce((sum, d) => sum + d.millas, 0);
+  const log = dailyLog(dia);
+  const doneCount = log.filter((_, i) => checkedItems[`dia-${dia.n}-${i}`]).length;
 
   return (
     <div>
@@ -432,11 +580,22 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
         ))}
       </div>
 
-      {/* Day detail */}
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
+      {/* Content left · Map right */}
+      <div className="grid lg:grid-cols-5 gap-8 items-start">
+        {/* LEFT */}
+        <div className="lg:col-span-3">
           <div className="display-font text-3xl font-semibold mb-1">{dia.ruta}</div>
           <div className="double-rule mb-6 inline-block w-32"></div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 mb-6">
+            <DataBlock label="Fecha" value={dia.fecha} />
+            <DataBlock label="Distancia" value={`${dia.millas} mn`} />
+            <DataBlock label="Tiempo" value={dia.horas} />
+            <DataBlock label="Salida" value={dia.salida} />
+            <DataBlock label="Llegada" value={dia.llegada} />
+            <DataBlock label="Viento" value={dia.viento} />
+          </div>
+
           <p className="text-lg leading-relaxed mb-6">{dia.texto}</p>
 
           <div className="border-l-4 pl-4 mb-4" style={{ borderColor: '#8b2a14' }}>
@@ -444,31 +603,41 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
             <div className="display-font italic text-lg">{dia.hito}</div>
           </div>
 
-          <div className="border-l-4 pl-4" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
+          <div className="border-l-4 pl-4 mb-8" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
             <div className="mono-font text-xs uppercase tracking-widest opacity-80 mb-1">Plan B</div>
             <div className="display-font italic text-lg">{dia.alt}</div>
           </div>
+
+          {/* Bitácora del día */}
+          <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
+            <div className="flex items-baseline justify-between mb-3">
+              <div className="mono-font text-xs uppercase tracking-widest opacity-60">Bitácora del día {dia.n}</div>
+              <div className="mono-font text-xs opacity-60">{doneCount}/{log.length}</div>
+            </div>
+            <ul className="space-y-2">
+              {log.map((item, i) => {
+                const id = `dia-${dia.n}-${i}`;
+                const checked = checkedItems[id];
+                return (
+                  <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
+                    <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
+                      {checked && <Check size={14} strokeWidth={3} />}
+                    </div>
+                    <span className={`text-sm ${checked ? 'line-through opacity-50' : ''}`}>{item}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
 
-        <div className="space-y-4">
-          <DataBlock label="Fecha" value={dia.fecha} />
-          <DataBlock label="Distancia" value={`${dia.millas} mn`} />
-          <DataBlock label="Tiempo estimado" value={dia.horas} />
-          <DataBlock label="Salida" value={dia.salida} />
-          <DataBlock label="Llegada prevista" value={dia.llegada} />
-          <DataBlock label="Viento esperado" value={dia.viento} />
-        </div>
-      </div>
-
-      <div className="rule mt-12 mb-6"></div>
-      <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-        <div className="mono-font text-xs uppercase tracking-widest opacity-60">Carta de la travesía</div>
-        <div className="mono-font text-xs opacity-50">Ruta sobre carta real · la navegación va en el plotter</div>
-      </div>
-      <div className="text-center">
-        <div className="border-2 p-2 inline-block" style={{ borderColor: '#1a3147' }}>
-          <RouteMap activeDay={activeDay} />
-          <div className="mono-font text-[10px] opacity-40 text-right mt-1 pr-1">© OpenStreetMap · CARTO</div>
+        {/* RIGHT · map */}
+        <div className="lg:col-span-2 lg:sticky" style={{ top: '4.5rem' }}>
+          <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-2">Carta de la travesía</div>
+          <div className="border-2 p-2" style={{ borderColor: '#1a3147' }}>
+            <RouteMap activeDay={activeDay} />
+            <div className="mono-font text-[10px] opacity-40 text-right mt-1 pr-1">© OpenStreetMap · CARTO · la nav va en el plotter</div>
+          </div>
         </div>
       </div>
     </div>
@@ -496,12 +665,11 @@ function RouteMap({ activeDay }) {
   };
 
   return (
-    <div style={{ position: 'relative', lineHeight: 0, display: 'inline-block', maxWidth: '100%' }}>
+    <div style={{ position: 'relative', lineHeight: 0 }}>
       <img
         src={`${import.meta.env.BASE_URL}route-map.webp`}
         alt="Carta náutica del Golfo Sarónico con la ruta de la travesía"
-        className="block"
-        style={{ maxHeight: '82vh', maxWidth: '100%', width: 'auto', height: 'auto' }}
+        className="w-full h-auto block"
         loading="lazy"
       />
       <svg
@@ -746,23 +914,29 @@ function EquipajeSection({ equipaje, compra, checkedItems, toggleCheck }) {
 }
 
 function GlosarioSection({ glosario }) {
+  const total = Object.values(glosario).reduce((s, arr) => s + arr.length, 0);
   return (
     <div>
-      <h2 className="display-font text-4xl font-semibold mb-2">Léxico</h2>
-      <div className="display-font italic opacity-70 mb-8">Vocabulario náutico esencial</div>
+      <div className="flex items-baseline justify-between mb-2 flex-wrap gap-4">
+        <h2 className="display-font text-4xl font-semibold">Léxico</h2>
+        <div className="mono-font text-xs tracking-widest uppercase opacity-70">{total} términos · nivel PER</div>
+      </div>
+      <div className="display-font italic opacity-70 mb-8">Vocabulario náutico para toda la tripulación</div>
 
-      <section>
-        <h3 className="display-font text-2xl mb-2">Glosario</h3>
-        <div className="rule mb-6"></div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {glosario.map((g, i) => (
-            <div key={i} className="p-3 border" style={{ borderColor: '#1a3147' }}>
-              <div className="display-font text-lg font-semibold">{g.t}</div>
-              <div className="text-sm opacity-80 mt-1">{g.d}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {Object.entries(glosario).map(([cat, terms]) => (
+        <section className="mb-10" key={cat}>
+          <h3 className="display-font text-2xl mb-2">{cat}</h3>
+          <div className="rule mb-6"></div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {terms.map((g, i) => (
+              <div key={i} className="p-3 border" style={{ borderColor: '#1a3147' }}>
+                <div className="display-font text-lg font-semibold">{g.t}</div>
+                <div className="text-sm opacity-80 mt-1">{g.d}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
@@ -771,7 +945,7 @@ function SeguridadSection({ checklist, vhf, protocolos, checkedItems, toggleChec
   return (
     <div>
       <h2 className="display-font text-4xl font-semibold mb-2">Seguridad</h2>
-      <div className="display-font italic opacity-70 mb-8">Checklists, radio VHF y protocolos de emergencia</div>
+      <div className="display-font italic opacity-70 mb-8">Protocolos de emergencia, radio VHF y teléfonos</div>
 
       <div className="space-y-8">
         {checklist.map((section, sIdx) => (

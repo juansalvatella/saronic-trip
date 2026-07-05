@@ -135,7 +135,7 @@ export default function SaronicoTrip() {
     { rol: 'Jefa de maniobra (Bosun)', persona: 'Rocío', titulo: 'PER', tareas: 'En puerto va a proa: ancla, cabos de amarre, defensas. En vela dirige cambios de génova, izado/arriado de mayor y rizos. Da las órdenes durante las maniobras.' }
   ];
 
-  const tripulacion = ['Marc', 'Joan Pol', 'Xavi', 'Pilar', 'Neus', 'Judit'];
+  const tripulacion = ['Neus', 'Judit', 'Marc', 'Joan Pol', 'Xavi', 'Pilar'];
 
   const equipaje = {
     'Documentación': [
@@ -220,8 +220,8 @@ export default function SaronicoTrip() {
   ];
 
   const protocolos = [
-    { tipo: 'MAYDAY', cuando: 'Peligro inminente de muerte (hundimiento, incendio, hombre al agua sin recuperar)', formula: '"MAYDAY MAYDAY MAYDAY, este es velero [NOMBRE], posición [LAT/LON], naturaleza del peligro [...], personas a bordo [...], cambio"' },
-    { tipo: 'PAN-PAN', cuando: 'Urgencia sin peligro vital inmediato (avería grave, médica no crítica)', formula: '"PAN-PAN PAN-PAN PAN-PAN, a todas las estaciones, este es velero [NOMBRE]..."' },
+    { tipo: 'MAYDAY', cuando: 'Peligro inminente de muerte (hundimiento, incendio, hombre al agua sin recuperar)', formula: '"MAYDAY MAYDAY MAYDAY, este es velero Azzuro, Azzuro, Azzuro, posición [LAT/LON], naturaleza del peligro [...], personas a bordo [...], cambio"' },
+    { tipo: 'PAN-PAN', cuando: 'Urgencia sin peligro vital inmediato (avería grave, médica no crítica)', formula: '"PAN-PAN PAN-PAN PAN-PAN, a todas las estaciones, este es velero Azzuro..."' },
     { tipo: 'SÉCURITÉ', cuando: 'Aviso de seguridad para otros (objeto a la deriva, meteo)', formula: '"SÉCURITÉ SÉCURITÉ SÉCURITÉ, a todas las estaciones..."' }
   ];
 
@@ -465,39 +465,10 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
         <div className="mono-font text-xs uppercase tracking-widest opacity-60">Carta de la travesía</div>
         <div className="mono-font text-xs opacity-50">Ruta sobre carta real · la navegación va en el plotter</div>
       </div>
-      <div className="grid md:grid-cols-2 gap-6 items-start">
-        <div className="border-2 p-2" style={{ borderColor: '#1a3147' }}>
+      <div className="text-center">
+        <div className="border-2 p-2 inline-block" style={{ borderColor: '#1a3147' }}>
           <RouteMap activeDay={activeDay} />
           <div className="mono-font text-[10px] opacity-40 text-right mt-1 pr-1">© OpenStreetMap · CARTO</div>
-        </div>
-        <div>
-          <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-3">Etapas · toca para ver el día</div>
-          <div className="space-y-2">
-            {dias.filter(d => d.n >= 1 && d.n <= 7).map(d => {
-              const active = activeDay === d.n;
-              return (
-                <button
-                  key={d.n}
-                  onClick={() => setActiveDay(d.n)}
-                  className="w-full text-left flex items-center gap-4 p-3 border-2 transition-all"
-                  style={{ borderColor: '#1a3147', background: active ? '#1a3147' : 'transparent', color: active ? '#f1e8d4' : '#1a3147' }}
-                >
-                  <div className="text-center flex-shrink-0" style={{ width: '2.5rem' }}>
-                    <div className="display-font italic text-xs opacity-60">Día</div>
-                    <div className="display-font text-2xl font-semibold leading-none">{d.n}</div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="display-font text-lg font-semibold truncate">{d.ruta}</div>
-                    <div className="mono-font text-xs opacity-60">{d.fecha}</div>
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    <div className="display-font text-xl font-semibold leading-none">{d.millas}<span className="text-xs"> mn</span></div>
-                    <div className="mono-font text-xs opacity-60">{d.horas}</div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
@@ -525,11 +496,12 @@ function RouteMap({ activeDay }) {
   };
 
   return (
-    <div style={{ position: 'relative', lineHeight: 0 }}>
+    <div style={{ position: 'relative', lineHeight: 0, display: 'inline-block', maxWidth: '100%' }}>
       <img
         src={`${import.meta.env.BASE_URL}route-map.webp`}
         alt="Carta náutica del Golfo Sarónico con la ruta de la travesía"
-        className="w-full h-auto block"
+        className="block"
+        style={{ maxHeight: '82vh', maxWidth: '100%', width: 'auto', height: 'auto' }}
         loading="lazy"
       />
       <svg

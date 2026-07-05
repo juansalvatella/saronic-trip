@@ -37,65 +37,62 @@ export default function SaronicoTrip() {
     {
       n: 0, fecha: '8 jul', ruta: 'BCN → Atenas → Alimos', millas: 0, horas: '—',
       salida: '06:30 BCN', llegada: 'Check-in 17:00', viento: '—',
-      texto: 'Vuelo Barcelona–Atenas (06:30–10:30). Traslado a Alimos (~1 h en taxi o bus E96). El check-in del barco es a partir de las 17:00: tomaos 60-90 min para el inventario y haced fotos/vídeo del estado (obligatorio por contrato — es vuestra protección). Compra de provisiones en el Sklavenitis. Tarde de chill en Alimos: paseo por la marina, primer baño, tomar algo al atardecer.',
-      hito: 'Inventario exhaustivo del barco + fotos del estado al check-in',
-      alt: 'Cena griega en el paseo marítimo de Alimos'
+      texto: 'Vuelo Barcelona–Atenas (06:30–10:30) y traslado a Alimos (~1 h, taxi o bus E96). Check-in a partir de las 17:00: inventario con calma (60-90 min) y fotos/vídeo del estado (obligatorio por contrato). Después, provisiones en el Sklavenitis.',
+      ocio: ['Paseo por la marina de Alimos', 'Primer baño', 'Tomar algo al atardecer', 'Cena griega en el paseo marítimo']
     },
     {
       n: 1, fecha: '9 jul', ruta: 'Alimos → Egina', millas: 20, horas: '4h',
       salida: '10:00', llegada: '14:00', viento: 'N/NE 8-12 kn',
-      texto: 'Briefing de seguridad a toda la tripulación antes de zarpar. Primera etapa corta para coger confianza con el barco. Rumbo aprox. 220°. Amarre de popa con muerto en el puerto de Egina.',
-      hito: 'Templo de Poseidón + probar los pistachos de Egina (denominación de origen)',
-      alt: 'Iglesia de Agios Nektarios (uno de los santos más venerados de Grecia). Playa de Agia Marina'
+      texto: 'Briefing de seguridad a toda la tripulación antes de zarpar. Primera etapa corta para coger confianza con el barco; rumbo aprox. 220°. Amarre de popa con muerto en el puerto de Egina.',
+      alt: 'Si el puerto de Egina está lleno, fondeo en la bahía o amarre en Agia Marina.',
+      ocio: ['Templo de Poseidón', 'Pasear el pueblo y probar los pistachos de Egina (D.O.)', 'Iglesia de Agios Nektarios, de los santos más venerados de Grecia', 'Bañarse en la playa de Agia Marina']
     },
     {
       n: 2, fecha: '10 jul', ruta: 'Egina → Agistri (vía Moni)', millas: 8, horas: '2h',
       salida: '10:00', llegada: '13:00', viento: 'N/NE 8-12 kn',
-      texto: 'Parada en la isla de Moni: deshabitada, aguas turquesas, fondeo libre. Snorkel, saltos, naturaleza. Después rumbo a Agistri (puerto de Skala). Isla para descansar, bañarse y desconectar.',
-      hito: 'Playa de Dragonera — cala pequeña de aguas turquesas casi sin gente',
-      alt: 'Playa de Skala (más animada, con chiringuito). Pasear en bici por la isla (se alquilan fácilmente)'
+      texto: 'Etapa corta. Parada técnica de baño en Moni (deshabitada, fondeo libre) antes de seguir a Agistri; amarre en el puerto de Skala.',
+      alt: 'Amarre en Skala o fondeo en Aponisos si entra swell.',
+      ocio: ['Parar en Moni: snorkel y saltos (isla deshabitada, fondeo libre)', 'Playa de Dragonera: cala pequeña de aguas turquesas casi sin gente', 'Playa de Skala, más animada y con chiringuito', 'Snorkel: el fondo marino aquí está muy bien', 'Alquilar bici y recorrer la isla', 'Isla para descansar, bañarse y desconectar']
     },
     {
       n: 3, fecha: '11 jul', ruta: 'Agistri → Poros', millas: 18, horas: '3-4h',
       salida: '09:30', llegada: '14:00', viento: 'NE 10-15 kn',
-      texto: 'Etapa de través, la más cómoda para aprender a trimar velas. Atención al tráfico de ferrys. Entrada al canal de Poros entre la isla y el Peloponeso — uno de los pasos más bonitos del Egeo.',
-      hito: 'Subir al Reloj en lo alto del pueblo para las mejores vistas del canal',
-      alt: 'Cruzar en barca a Galatas (5 min, 2€) y pasear por el bosque de limoneros Lemonodasos. Ruinas del Templo de Poseidón'
+      texto: 'Etapa de través, la más cómoda para aprender a trimar velas. Atención al tráfico de ferrys. Entrada al canal de Poros entre la isla y el Peloponeso, uno de los pasos más bonitos del Egeo.',
+      alt: 'Amarre en el pueblo de Poros o fondeo en Russian Bay.',
+      ocio: ['Subir al Reloj, en lo alto del pueblo, para las mejores vistas del canal', 'Cruzar en barca a Galatas (5 min, 2€) y pasear el bosque de limoneros Lemonodasos', 'Pasear el estrecho canal entre la isla y el Peloponeso', 'Ruinas del Templo de Poseidón en los alrededores']
     },
     {
       n: 4, fecha: '12 jul', ruta: 'Poros → Hidra', millas: 15, horas: '3h',
       salida: '10:00', llegada: '14:00', viento: 'NE 12-18 kn',
-      texto: 'Día estrella. Hidra no permite ni coches ni motos: solo burros, gatos y barcos. Puerto pequeño, llegad temprano. Pasear sin rumbo por las callejuelas. Fundación DESTE de arte contemporáneo. Cine Gardenia por la noche. Pirate Bar con ambiente local e internacional.',
-      hito: 'Puesta de sol desde el Cannoni (cañón en la entrada del puerto). Excursión al Monasterio del Profeta Elías (1h subiendo, vistas espectaculares)',
-      alt: 'Baño en Vlychos o Kamini (20-30 min a pie o water taxi). Si el puerto está lleno, fondeo en Mandraki'
+      texto: 'Rumbo a Hidra con viento algo más fresco. Puerto pequeño y muy solicitado: llegad temprano para tener sitio.',
+      alt: 'Si el puerto de Hidra está lleno, fondeo en Mandraki o Vlychos.',
+      ocio: ['Pasear sin rumbo por las callejuelas (sin coches ni motos)', 'Puesta de sol desde el Cannoni (cañón en la entrada del puerto)', 'Fundación DESTE de arte contemporáneo (si hay exposición)', 'Cine Gardenia por la noche', 'Pirate Bar, ambiente local e internacional', 'Excursión a pie al Monasterio del Profeta Elías (1 h subiendo, vistas espectaculares)', 'Bañarse en Vlychos o Kamini (20-30 min a pie o en water taxi)']
     },
     {
       n: 5, fecha: '13 jul', ruta: 'Hidra → Spetses (vía Dokos)', millas: 17, horas: '3-4h',
       salida: '10:00', llegada: '14:00', viento: 'NE 10-15 kn',
-      texto: 'Parada de baño en Dokos, isla deshabitada: fondeo, snorkel en agua cristalina y silencio total antes de seguir. Después, rumbo a Spetses, isla cosmopolita sin coches. Alquilar bici para recorrerla y pasear por el puerto viejo (Palio Limani), más bonito que el principal. Buena oferta gastronómica.',
-      hito: 'Snorkel en Dokos + Casa-Museo Bouboulina, heroína naval de la independencia griega',
-      alt: 'Playa de Agia Paraskevi o Agioi Anargyri (aguas muy limpias, en water taxi)'
+      texto: 'Parada de baño en Dokos (deshabitada, agua cristalina) de camino y después rumbo a Spetses; amarre en el puerto.',
+      alt: 'Fondeo en Zogeria (Spetses) si el puerto está completo.',
+      ocio: ['Dokos: fondear y snorkel — agua cristalina y fauna marina', 'Dokos: subir a la colina al atardecer con una botella de vino, como los locales', 'Dokos: ver las capillas abandonadas en tierra', 'Spetses: alquilar bici y recorrer la isla (sin coches, como Hidra)', 'Spetses: puerto viejo (Palio Limani), más tranquilo y bonito que el principal', 'Spetses: bañarse en Agia Paraskevi o Agioi Anargyri (aguas muy limpias, water taxi)', 'Spetses: Casa-Museo Bouboulina, heroína naval de la independencia', 'Spetses: cenar bien — buena oferta gastronómica']
     },
     {
       n: 6, fecha: '14 jul', ruta: 'Spetses → Alimos', millas: 50, horas: '9-10h',
       salida: '07:00', llegada: '~17:00', viento: 'Variable',
-      texto: 'Etapa larga de vuelta, madrugad. Si el viento ayuda, izad todo el trapo. Última noche a bordo en la marina de Alimos: cena de despedida en el paseo. Preparad el barco para la entrega y recoged lo vuestro.',
-      hito: 'Última navegación: disfrutad cada milla',
-      alt: 'Si el tiempo empeora, parada técnica en Poros o Egina'
+      texto: 'Etapa larga de vuelta, madrugad (salida 07:00). Si el viento ayuda, izad todo el trapo. Última noche a bordo en Alimos; dejad el barco listo para la entrega.',
+      alt: 'Si el tiempo empeora, parada técnica en Poros o Egina.',
+      ocio: ['Última cena de despedida en el paseo marítimo de Alimos']
     },
     {
       n: 7, fecha: '15 jul', ruta: 'Devolución + Atenas', millas: 0, horas: '—',
       salida: 'Check-out 09:00', llegada: '—', viento: '—',
-      texto: 'Devolución del barco a las 09:00 (check-out por contrato). Fin del charter: traslado a Atenas y noche en la ciudad. Acrópolis, barrio de Plaka, museos o simplemente terraza con vistas y buena cena.',
-      hito: 'Acrópolis y Plaka',
-      alt: 'Museo de la Acrópolis o excursión a Cabo Sunion al atardecer'
+      texto: 'Devolución del barco a las 09:00 (check-out por contrato). Fin del charter: traslado a Atenas y noche en la ciudad.',
+      ocio: ['Acrópolis y Partenón', 'Museo de la Acrópolis', 'Barrio de Plaka', 'Atardecer en Cabo Sunion (Templo de Poseidón)']
     },
     {
       n: 8, fecha: '16 jul', ruta: 'Atenas → BCN', millas: 0, horas: '—',
       salida: '—', llegada: '22:50 → 01:00+1', viento: '—',
-      texto: 'Último día en Atenas hasta el vuelo nocturno. Últimas compras, un baño en la Riviera ateniense o descansar antes de volar.',
-      hito: 'Vuelo Atenas–Barcelona 22:50',
-      alt: 'Barrio de Monastiraki para recuerdos, o playa en Glyfada'
+      texto: 'Último día en Atenas hasta el vuelo nocturno (Atenas–Barcelona 22:50).',
+      ocio: ['Barrio de Monastiraki para recuerdos', 'Baño en la Riviera ateniense / Glyfada', 'Descansar antes del vuelo']
     }
   ];
 
@@ -504,43 +501,50 @@ export default function SaronicoTrip() {
   );
 }
 
-function dailyLog(dia) {
+function daySections(dia) {
   if (dia.n === 0) return [
-    'Recoger el barco y hacer inventario',
-    'Fotos/vídeo del estado (obligatorio, contrato)',
-    'Firmar el inventario de entrega',
-    'Balsa salvavidas con caducidad vigente',
-    'Chalecos para todos + 1 extra (con luz y silbato)',
-    'Bengalas en vigor (revisar fecha)',
-    'Extintor por compartimento',
-    'Botiquín completo',
-    'VHF fijo + portátil con batería',
-    'Bocina de niebla y aro salvavidas con luz',
-    'Arneses y líneas de vida (si hay nav. nocturna)',
-    'Compra de provisiones (Sklavenitis)',
-    'Bitácora del día anotada'
+    { t: 'Comprobación en la entrega', items: [
+      'Inventario del barco con el charter',
+      'Fotos/vídeo del estado (obligatorio, contrato)',
+      'Firmar el inventario de entrega',
+      'Confirmar que NO bloquean fianza en tarjeta',
+      'Bimini y sprayhood (imprescindible en julio)',
+      'Dinghy/zodiac con motor fueraborda y combustible',
+      'Balsa salvavidas con caducidad vigente',
+      'Chalecos para todos + 1 extra (con luz y silbato)',
+      'Bengalas en vigor (revisar fecha)',
+      'Extintor por compartimento y botiquín completo',
+      'VHF fijo + portátil con batería',
+      'Bocina de niebla y aro salvavidas con luz',
+      'Aire acondicionado / generador en puerto',
+      'WiFi/4G router a bordo',
+      'Horas de motor desde el último servicio',
+      'Inventario de cocina (fuegos, horno, nevera, congelador)',
+      'Material de snorkel / paddle (si está incluido)',
+      'Provisiones (Sklavenitis)'
+    ]}
   ];
-  if (dia.n === 7) return ['Barco preparado para la entrega', 'Check-out / devolución (09:00)', 'Recoger todo lo de a bordo', 'Bitácora del día anotada'];
+  if (dia.n === 7) return [
+    { t: 'Entrega del barco', items: ['Barco preparado para la entrega', 'Estado revisado con el charter', 'Check-out / devolución (09:00)', 'Recoger todo lo de a bordo'] }
+  ];
   if (dia.millas > 0) return [
-    'Parte meteo (Windy + Poseidon)',
-    'Nivel de combustible y agua',
-    'Briefing: ruta, viento y hora estimada',
-    'Chalecos accesibles en bañera',
-    'Cocina y bodega: nada suelto que pueda volar',
-    'Defensas y cabos revisados antes de salir',
-    'Zarpado',
-    'Amarrados / fondeados en destino',
-    'Hito del día completado',
-    'Bitácora del día anotada'
+    { t: 'Antes de zarpar', items: [
+      'Parte meteo (Windy + Poseidon)',
+      'Nivel de combustible y agua',
+      'Briefing: ruta, viento y hora estimada',
+      'Chalecos accesibles en bañera',
+      'Cocina y bodega: nada suelto que pueda volar',
+      'Defensas y cabos revisados antes de salir'
+    ]},
+    { t: 'Durante el día', items: ['Zarpado', 'Amarrados / fondeados en destino', 'Hito del día completado', 'Bitácora del día anotada'] }
   ];
-  return ['Plan del día acordado', 'Bitácora del día anotada'];
+  return [];
 }
 
 function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck }) {
   const dia = dias.find(d => d.n === activeDay);
   const total = dias.reduce((sum, d) => sum + d.millas, 0);
-  const log = dailyLog(dia);
-  const doneCount = log.filter((_, i) => checkedItems[`dia-${dia.n}-${i}`]).length;
+  const secciones = daySections(dia);
 
   return (
     <div>
@@ -587,6 +591,8 @@ function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck 
           <div className="display-font text-3xl font-semibold mb-1">{dia.ruta}</div>
           <div className="double-rule mb-6 inline-block w-32"></div>
 
+          {/* Navegación */}
+          <div className="mono-font text-xs uppercase tracking-widest mb-3" style={{ color: '#8b2a14' }}>Navegación</div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-3 mb-6">
             <DataBlock label="Fecha" value={dia.fecha} />
             <DataBlock label="Distancia" value={`${dia.millas} mn`} />
@@ -595,40 +601,54 @@ function RutaSection({ dias, activeDay, setActiveDay, checkedItems, toggleCheck 
             <DataBlock label="Llegada" value={dia.llegada} />
             <DataBlock label="Viento" value={dia.viento} />
           </div>
-
-          <p className="text-lg leading-relaxed mb-6">{dia.texto}</p>
-
-          <div className="border-l-4 pl-4 mb-4" style={{ borderColor: '#8b2a14' }}>
-            <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-1">Hito del día</div>
-            <div className="display-font italic text-lg">{dia.hito}</div>
-          </div>
-
-          <div className="border-l-4 pl-4 mb-8" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
-            <div className="mono-font text-xs uppercase tracking-widest opacity-80 mb-1">Plan B</div>
-            <div className="display-font italic text-lg">{dia.alt}</div>
-          </div>
-
-          {/* Bitácora del día */}
-          <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
-            <div className="flex items-baseline justify-between mb-3">
-              <div className="mono-font text-xs uppercase tracking-widest opacity-60">Bitácora del día {dia.n}</div>
-              <div className="mono-font text-xs opacity-60">{doneCount}/{log.length}</div>
+          <p className="text-lg leading-relaxed mb-4">{dia.texto}</p>
+          {dia.alt && (
+            <div className="border-l-4 pl-4 mb-8" style={{ borderColor: '#1a3147', opacity: 0.6 }}>
+              <div className="mono-font text-xs uppercase tracking-widest opacity-80 mb-1">Plan B</div>
+              <div className="display-font italic text-lg">{dia.alt}</div>
             </div>
-            <ul className="space-y-2">
-              {log.map((item, i) => {
-                const id = `dia-${dia.n}-${i}`;
-                const checked = checkedItems[id];
-                return (
-                  <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
-                    <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
-                      {checked && <Check size={14} strokeWidth={3} />}
-                    </div>
-                    <span className={`text-sm ${checked ? 'line-through opacity-50' : ''}`}>{item}</span>
+          )}
+
+          {/* En tierra · ocio */}
+          {dia.ocio && dia.ocio.length > 0 && (
+            <div className="mb-8">
+              <div className="mono-font text-xs uppercase tracking-widest mb-3" style={{ color: '#8b2a14' }}>En tierra · qué hacer</div>
+              <ul className="space-y-2">
+                {dia.ocio.map((o, i) => (
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed">
+                    <span style={{ color: '#8b2a14' }}>·</span><span>{o}</span>
                   </li>
-                );
-              })}
-            </ul>
-          </div>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Checklists del día */}
+          {secciones.map((sec, si) => {
+            const done = sec.items.filter((_, ii) => checkedItems[`dia-${dia.n}-${si}-${ii}`]).length;
+            return (
+              <div key={si} className="border-2 p-5 mb-4" style={{ borderColor: '#1a3147' }}>
+                <div className="flex items-baseline justify-between mb-3">
+                  <div className="mono-font text-xs uppercase tracking-widest opacity-60">{sec.t}</div>
+                  <div className="mono-font text-xs opacity-60">{done}/{sec.items.length}</div>
+                </div>
+                <ul className="space-y-2">
+                  {sec.items.map((item, ii) => {
+                    const id = `dia-${dia.n}-${si}-${ii}`;
+                    const checked = checkedItems[id];
+                    return (
+                      <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
+                        <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
+                          {checked && <Check size={14} strokeWidth={3} />}
+                        </div>
+                        <span className={`text-sm ${checked ? 'line-through opacity-50' : ''}`}>{item}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
 
         {/* RIGHT · map */}
@@ -1045,21 +1065,6 @@ function BarcoSection({ checkedItems, toggleCheck }) {
     'Comodidad confirmada': ['Sábanas y ropa de cama', 'Lazy bag y lazy jacks (recogida mayor)']
   };
 
-  const verificarCheckin = [
-    { item: 'Bimini y sprayhood (imprescindible en julio)', critico: true },
-    { item: 'Dinghy/zodiac con motor fueraborda y combustible', critico: true },
-    { item: 'Aire acondicionado en puerto y/o generador', critico: false },
-    { item: 'Documento de licencia de pesca a bordo', critico: false },
-    { item: 'WiFi/4G router a bordo', critico: false },
-    { item: '13º chaleco de cortesía (12 = justos)', critico: false },
-    { item: 'Edad real de mayor y génova', critico: false },
-    { item: 'Horas de motor desde último servicio', critico: false },
-    { item: 'Confirmar fianza/franquicia (€0 declarado es raro)', critico: true },
-    { item: 'Inventario de cocina (fuegos, horno, nevera, congelador)', critico: false },
-    { item: 'Inverter 220V para cargadores', critico: false },
-    { item: 'Material snorkel y/o paddle (si está incluido)', critico: false }
-  ];
-
   return (
     <div>
       <h2 className="display-font text-4xl font-semibold mb-2">El barco</h2>
@@ -1207,30 +1212,13 @@ function BarcoSection({ checkedItems, toggleCheck }) {
 
       {/* Check al recibir el barco */}
       <section>
-        <h3 className="display-font text-2xl mb-2">Lo que debéis verificar al check-in</h3>
+        <h3 className="display-font text-2xl mb-2">Notas del check-in</h3>
         <div className="rule mb-6"></div>
-        <div className="text-sm opacity-80 mb-4 leading-relaxed">
-          La entrega es el momento clave. Tomaos 60-90 minutos. Lo que no anotéis en el inventario, después os lo cobran como daño. Marcad lo verificado.
-        </div>
-        <div className="border-2 p-5" style={{ borderColor: '#1a3147' }}>
-          <ul className="space-y-3">
-            {verificarCheckin.map((v, i) => {
-              const id = `barco-check-${i}`;
-              const checked = checkedItems[id];
-              return (
-                <li key={id} className="flex items-start gap-3 cursor-pointer" onClick={() => toggleCheck(id)}>
-                  <div className="w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center mt-0.5" style={{ borderColor: '#1a3147' }}>
-                    {checked && <Check size={14} strokeWidth={3} />}
-                  </div>
-                  <span className={`flex-1 ${checked ? 'line-through opacity-50' : ''}`}>{v.item}</span>
-                  {v.critico && <span className="mono-font text-xs px-2 py-0.5" style={{ background: '#8b2a14', color: '#f1e8d4' }}>CRÍTICO</span>}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="text-sm opacity-80 mb-6 leading-relaxed">
+          La entrega es el momento clave. Tomaos 60-90 minutos. Lo que no anotéis en el inventario, después os lo cobran como daño. El <strong>checklist de comprobación en la entrega</strong> está en <strong>La Travesía → Día 0</strong>, para irlo marcando allí mismo.
         </div>
 
-        <div className="mt-8 grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
             <div className="display-font text-lg font-semibold mb-2">Nota sobre la fianza</div>
             <div className="text-sm leading-relaxed">

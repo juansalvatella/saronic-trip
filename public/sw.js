@@ -1,6 +1,6 @@
 // Service worker del Cuaderno de Bitácora — offline-first.
 // Sube el número de versión para forzar recarga de caché tras un deploy.
-const VERSION = 'saronico-v8';
+const VERSION = 'saronico-v9';
 const START_URL = new URL('./', self.location).href;
 
 self.addEventListener('install', (event) => {

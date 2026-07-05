@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, Radio, ShieldAlert, Check, Ship } from 'lucide-react';
+import mapMeta from '../map-meta.json';
 
 export default function SaronicoTrip() {
   const [activeSection, setActiveSection] = useState('barco');
@@ -462,89 +463,125 @@ function RutaSection({ dias, activeDay, setActiveDay }) {
       <div className="rule mt-12 mb-6"></div>
       <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
         <div className="mono-font text-xs uppercase tracking-widest opacity-60">Carta de la travesía</div>
-        <div className="mono-font text-xs opacity-50">Esquema orientativo · la navegación va en el plotter</div>
+        <div className="mono-font text-xs opacity-50">Ruta sobre carta real · la navegación va en el plotter</div>
       </div>
-      <div className="border-2 p-4" style={{ borderColor: '#1a3147' }}>
-        <RouteMap dias={dias} activeDay={activeDay} />
+      <div className="grid md:grid-cols-2 gap-6 items-start">
+        <div className="border-2 p-2" style={{ borderColor: '#1a3147' }}>
+          <RouteMap activeDay={activeDay} />
+          <div className="mono-font text-[10px] opacity-40 text-right mt-1 pr-1">© OpenStreetMap · CARTO</div>
+        </div>
+        <div>
+          <div className="mono-font text-xs uppercase tracking-widest opacity-60 mb-3">Etapas · toca para ver el día</div>
+          <div className="space-y-2">
+            {dias.filter(d => d.n >= 1 && d.n <= 7).map(d => {
+              const active = activeDay === d.n;
+              return (
+                <button
+                  key={d.n}
+                  onClick={() => setActiveDay(d.n)}
+                  className="w-full text-left flex items-center gap-4 p-3 border-2 transition-all"
+                  style={{ borderColor: '#1a3147', background: active ? '#1a3147' : 'transparent', color: active ? '#f1e8d4' : '#1a3147' }}
+                >
+                  <div className="text-center flex-shrink-0" style={{ width: '2.5rem' }}>
+                    <div className="display-font italic text-xs opacity-60">Día</div>
+                    <div className="display-font text-2xl font-semibold leading-none">{d.n}</div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="display-font text-lg font-semibold truncate">{d.ruta}</div>
+                    <div className="mono-font text-xs opacity-60">{d.fecha}</div>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <div className="display-font text-xl font-semibold leading-none">{d.millas}<span className="text-xs"> mn</span></div>
+                    <div className="mono-font text-xs opacity-60">{d.horas}</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function RouteMap({ dias, activeDay }) {
-  // Coords aprox de cada hito (lat, lon) -> normalizadas al SVG
+function RouteMap({ activeDay }) {
+  // Waypoints reales (lat, lon). d = orden en la ruta.
   const points = [
-    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 0 },
-    { name: 'Egina', lat: 37.74, lon: 23.42, d: 1 },
-    { name: 'Agistri', lat: 37.69, lon: 23.33, d: 2 },
-    { name: 'Poros', lat: 37.50, lon: 23.45, d: 3 },
-    { name: 'Hidra', lat: 37.35, lon: 23.47, d: 4 },
-    { name: 'Dokos', lat: 37.33, lon: 23.35, d: 5 },
-    { name: 'Spetses', lat: 37.27, lon: 23.15, d: 6 },
-    { name: 'Alimos', lat: 37.91, lon: 23.70, d: 7 }
+    { name: 'Alimos', lat: 37.910, lon: 23.705, d: 0, anchor: 'end' },
+    { name: 'Egina', lat: 37.745, lon: 23.427, d: 1, anchor: 'end' },
+    { name: 'Agistri', lat: 37.692, lon: 23.343, d: 2, anchor: 'end' },
+    { name: 'Poros', lat: 37.498, lon: 23.452, d: 3, anchor: 'start' },
+    { name: 'Hidra', lat: 37.350, lon: 23.466, d: 4, anchor: 'start' },
+    { name: 'Dokos', lat: 37.328, lon: 23.325, d: 5, anchor: 'end' },
+    { name: 'Spetses', lat: 37.263, lon: 23.156, d: 6, anchor: 'end' },
+    { name: 'Alimos', lat: 37.910, lon: 23.705, d: 7 }
   ];
-  const minLat = 37.20, maxLat = 38.00;
-  const minLon = 23.05, maxLon = 23.85;
-  const W = 600, H = 400;
-  const toX = (lon) => ((lon - minLon) / (maxLon - minLon)) * W;
-  const toY = (lat) => H - ((lat - minLat) / (maxLat - minLat)) * H;
+  const { z, tile, x0, y0, width, height } = mapMeta;
+  const n = 2 ** z;
+  const px = (lon) => ((lon + 180) / 360 * n - x0) * tile;
+  const py = (lat) => {
+    const r = lat * Math.PI / 180;
+    return ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * n - y0) * tile;
+  };
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" style={{ background: '#e8dcc0' }}>
-      <defs>
-        <pattern id="waves" patternUnits="userSpaceOnUse" width="30" height="20">
-          <path d="M0,10 Q7.5,5 15,10 T30,10" stroke="#1a3147" strokeWidth="0.3" fill="none" opacity="0.2" />
-        </pattern>
-      </defs>
-      <rect width={W} height={H} fill="url(#waves)" />
-
-      {/* Compass rose */}
-      <g transform={`translate(${W - 60} 50)`}>
-        <circle cx="0" cy="0" r="28" fill="none" stroke="#1a3147" strokeWidth="0.5" />
-        <circle cx="0" cy="0" r="20" fill="none" stroke="#1a3147" strokeWidth="0.5" />
-        <path d="M0,-25 L4,0 L0,25 L-4,0 Z" fill="#1a3147" />
-        <path d="M-25,0 L0,-4 L25,0 L0,4 Z" fill="#1a3147" opacity="0.4" />
-        <text x="0" y="-32" textAnchor="middle" fontSize="10" fill="#1a3147" fontFamily="Cormorant Garamond">N</text>
-      </g>
-
-      {/* Route lines */}
-      {points.slice(0, -1).map((p, i) => {
-        const next = points[i + 1];
-        const isActive = activeDay === p.d + 1 || activeDay === next.d;
-        return (
-          <line
-            key={i}
-            x1={toX(p.lon)} y1={toY(p.lat)}
-            x2={toX(next.lon)} y2={toY(next.lat)}
-            stroke="#1a3147"
-            strokeWidth={isActive ? 2 : 1}
-            strokeDasharray="4 3"
-            opacity={isActive ? 1 : 0.4}
-          />
-        );
-      })}
-
-      {/* Points */}
-      {points.slice(0, -1).map((p, i) => {
-        const isActive = activeDay === p.d + 1 || (i > 0 && activeDay === p.d);
-        return (
-          <g key={i}>
-            <circle cx={toX(p.lon)} cy={toY(p.lat)} r={isActive ? 6 : 4} fill="#1a3147" />
-            <circle cx={toX(p.lon)} cy={toY(p.lat)} r={isActive ? 9 : 0} fill="none" stroke="#8b2a14" strokeWidth="1.5" />
-            <text
-              x={toX(p.lon) + 10} y={toY(p.lat) + 4}
-              fontSize="13"
-              fill="#1a3147"
-              fontFamily="Cormorant Garamond"
-              fontStyle="italic"
-              fontWeight={isActive ? 600 : 400}
-            >
-              {p.name}
-            </text>
-          </g>
-        );
-      })}
-    </svg>
+    <div style={{ position: 'relative', lineHeight: 0 }}>
+      <img
+        src={`${import.meta.env.BASE_URL}route-map.webp`}
+        alt="Carta náutica del Golfo Sarónico con la ruta de la travesía"
+        className="w-full h-auto block"
+        loading="lazy"
+      />
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        preserveAspectRatio="none"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+      >
+        {/* Route legs */}
+        {points.slice(0, -1).map((p, i) => {
+          const next = points[i + 1];
+          const isActive = activeDay === p.d + 1;
+          const isReturn = i === points.length - 2;
+          return (
+            <line
+              key={i}
+              x1={px(p.lon)} y1={py(p.lat)} x2={px(next.lon)} y2={py(next.lat)}
+              stroke={isActive ? '#8b2a14' : '#1a3147'}
+              strokeWidth={isActive ? 16 : 9}
+              strokeLinecap="round"
+              strokeDasharray={isReturn ? '2 26' : undefined}
+              opacity={isActive ? 1 : 0.75}
+            />
+          );
+        })}
+        {/* Waypoints */}
+        {points.slice(0, -1).map((p, i) => {
+          const isActive = activeDay === p.d + 1 || (i > 0 && activeDay === p.d);
+          const end = p.anchor === 'end';
+          return (
+            <g key={i}>
+              <circle cx={px(p.lon)} cy={py(p.lat)} r={isActive ? 24 : 15} fill={isActive ? '#8b2a14' : '#1a3147'} stroke="#f1e8d4" strokeWidth="5" />
+              <text
+                x={px(p.lon) + (end ? -30 : 30)}
+                y={py(p.lat) + 22}
+                textAnchor={end ? 'end' : 'start'}
+                fontSize="62"
+                fill="#1a3147"
+                fontFamily="Cormorant Garamond, Georgia, serif"
+                fontStyle="italic"
+                fontWeight={isActive ? 700 : 600}
+                stroke="#f1e8d4"
+                strokeWidth="9"
+                paintOrder="stroke"
+                strokeLinejoin="round"
+              >
+                {p.name}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </div>
   );
 }
 

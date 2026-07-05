@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, Radio, ShieldAlert, Check, Ship } from 'lucide-react';
+import { Anchor, Wind, Compass, Map, BookOpen, Users, Package, ShieldAlert, Check, Ship } from 'lucide-react';
 import mapMeta from '../map-meta.json';
 
 export default function SaronicoTrip() {
@@ -29,7 +29,7 @@ export default function SaronicoTrip() {
     { id: 'curso', label: 'Escuela de Mar', icon: BookOpen, num: 'III' },
     { id: 'roles', label: 'Tripulación', icon: Users, num: 'IV' },
     { id: 'equipaje', label: 'Pertrechos', icon: Package, num: 'V' },
-    { id: 'glosario', label: 'Léxico & VHF', icon: Radio, num: 'VI' },
+    { id: 'glosario', label: 'Léxico', icon: BookOpen, num: 'VI' },
     { id: 'seguridad', label: 'Seguridad', icon: ShieldAlert, num: 'VII' },
   ];
 
@@ -270,8 +270,8 @@ export default function SaronicoTrip() {
       case 'curso': return <CursoSection nudos={nudos} activeKnot={activeKnot} setActiveKnot={setActiveKnot} partes={partes} maniobras={maniobras} />;
       case 'roles': return <RolesSection roles={rolesData} tripulacion={tripulacion} />;
       case 'equipaje': return <EquipajeSection equipaje={equipaje} compra={compraInicial} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
-      case 'glosario': return <GlosarioSection glosario={glosario} vhf={vhfData} protocolos={protocolos} />;
-      case 'seguridad': return <SeguridadSection checklist={checklistSeguridad} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
+      case 'glosario': return <GlosarioSection glosario={glosario} />;
+      case 'seguridad': return <SeguridadSection checklist={checklistSeguridad} vhf={vhfData} protocolos={protocolos} checkedItems={checkedItems} toggleCheck={toggleCheck} />;
       default: return null;
     }
   };
@@ -745,14 +745,14 @@ function EquipajeSection({ equipaje, compra, checkedItems, toggleCheck }) {
   );
 }
 
-function GlosarioSection({ glosario, vhf, protocolos }) {
+function GlosarioSection({ glosario }) {
   return (
     <div>
-      <h2 className="display-font text-4xl font-semibold mb-2">Léxico & VHF</h2>
-      <div className="display-font italic opacity-70 mb-8">Vocabulario náutico y protocolos de radio</div>
+      <h2 className="display-font text-4xl font-semibold mb-2">Léxico</h2>
+      <div className="display-font italic opacity-70 mb-8">Vocabulario náutico esencial</div>
 
-      <section className="mb-12">
-        <h3 className="display-font text-2xl mb-2">Glosario esencial</h3>
+      <section>
+        <h3 className="display-font text-2xl mb-2">Glosario</h3>
         <div className="rule mb-6"></div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {glosario.map((g, i) => (
@@ -763,45 +763,15 @@ function GlosarioSection({ glosario, vhf, protocolos }) {
           ))}
         </div>
       </section>
-
-      <section className="mb-12">
-        <h3 className="display-font text-2xl mb-2">Canales VHF</h3>
-        <div className="rule mb-6"></div>
-        <div className="space-y-2">
-          {vhf.map((v, i) => (
-            <div key={i} className="flex items-center gap-4 p-3 border" style={{ borderColor: '#1a3147' }}>
-              <div className="display-font text-3xl font-semibold w-20 text-center" style={{ color: '#8b2a14' }}>{v.canal}</div>
-              <div className="text-sm flex-1">{v.uso}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h3 className="display-font text-2xl mb-2">Protocolos de emergencia VHF</h3>
-        <div className="rule mb-6"></div>
-        <div className="space-y-4">
-          {protocolos.map((p, i) => (
-            <div key={i} className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
-              <div className="flex items-baseline gap-3 mb-2">
-                <div className="display-font text-2xl font-semibold" style={{ color: '#8b2a14' }}>{p.tipo}</div>
-                <div className="mono-font text-xs opacity-70 uppercase tracking-widest">Canal 16</div>
-              </div>
-              <div className="text-sm opacity-80 mb-3">{p.cuando}</div>
-              <div className="mono-font text-xs bg-stone-100 p-3" style={{ background: 'rgba(26, 49, 71, 0.05)' }}>{p.formula}</div>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
 
-function SeguridadSection({ checklist, checkedItems, toggleCheck }) {
+function SeguridadSection({ checklist, vhf, protocolos, checkedItems, toggleCheck }) {
   return (
     <div>
       <h2 className="display-font text-4xl font-semibold mb-2">Seguridad</h2>
-      <div className="display-font italic opacity-70 mb-8">Checklists y protocolos de emergencia</div>
+      <div className="display-font italic opacity-70 mb-8">Checklists, radio VHF y protocolos de emergencia</div>
 
       <div className="space-y-8">
         {checklist.map((section, sIdx) => (
@@ -828,14 +798,46 @@ function SeguridadSection({ checklist, checkedItems, toggleCheck }) {
         ))}
       </div>
 
+      <section className="mt-12">
+        <h3 className="display-font text-2xl mb-2">Canales VHF</h3>
+        <div className="rule mb-6"></div>
+        <div className="space-y-2">
+          {vhf.map((v, i) => (
+            <div key={i} className="flex items-center gap-4 p-3 border" style={{ borderColor: '#1a3147' }}>
+              <div className="display-font text-3xl font-semibold w-20 text-center" style={{ color: '#8b2a14' }}>{v.canal}</div>
+              <div className="text-sm flex-1">{v.uso}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12">
+        <h3 className="display-font text-2xl mb-2">Protocolos de emergencia VHF</h3>
+        <div className="rule mb-6"></div>
+        <div className="space-y-4">
+          {protocolos.map((p, i) => (
+            <div key={i} className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+              <div className="flex items-baseline gap-3 mb-2">
+                <div className="display-font text-2xl font-semibold" style={{ color: '#8b2a14' }}>{p.tipo}</div>
+                <div className="mono-font text-xs opacity-70 uppercase tracking-widest">Canal 16</div>
+              </div>
+              <div className="text-sm opacity-80 mb-3">{p.cuando}</div>
+              <div className="mono-font text-xs bg-stone-100 p-3" style={{ background: 'rgba(26, 49, 71, 0.05)' }}>{p.formula}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <div className="mt-12 p-6 border-4 border-double" style={{ borderColor: '#8b2a14', background: 'rgba(139, 42, 20, 0.05)' }}>
-        <div className="display-font text-2xl font-semibold mb-1" style={{ color: '#8b2a14' }}>Teléfonos de emergencia · Grecia</div>
+        <div className="display-font text-2xl font-semibold mb-1" style={{ color: '#8b2a14' }}>Teléfonos de emergencia</div>
         <div className="mono-font text-xs opacity-60 mb-4">Toca el número para llamar</div>
         <div className="grid sm:grid-cols-2 gap-3 text-sm">
           <a href="tel:112" className="block"><span className="mono-font opacity-70">Emergencia europea:</span> <span className="display-font text-lg font-semibold underline">112</span></a>
           <a href="tel:108" className="block"><span className="mono-font opacity-70">Guardacostas (Limenikó):</span> <span className="display-font text-lg font-semibold underline">108</span></a>
           <a href="tel:+302104112500" className="block"><span className="mono-font opacity-70">JRCC Pireo (rescate marítimo):</span> <span className="display-font text-lg font-semibold underline">+30 210 4112500</span></a>
           <div><span className="mono-font opacity-70">VHF socorro:</span> <span className="display-font text-lg font-semibold">Canal 16</span></div>
+          <a href="tel:+306946572903" className="block"><span className="mono-font opacity-70">Charter · urgencias (Dimitris):</span> <span className="display-font text-lg font-semibold underline">+30 694 657 2903</span></a>
+          <a href="tel:+306944341708" className="block"><span className="mono-font opacity-70">Charter · base (Agapitos):</span> <span className="display-font text-lg font-semibold underline">+30 694 434 1708</span></a>
         </div>
       </div>
     </div>
@@ -889,6 +891,63 @@ function BarcoSection({ checkedItems, toggleCheck }) {
       <div className="mono-font text-xs opacity-60 mb-8">
         <a href="https://www.google.com/maps/search/?api=1&query=Alimos+Marina+Athens" target="_blank" rel="noopener" className="underline">Marina Alimos</a> · Atenas · Charter bareboat
       </div>
+
+      {/* Galería */}
+      <section className="mb-12">
+        <img
+          src={`${import.meta.env.BASE_URL}boat/azzuro-1.webp`}
+          alt="Velero Azzuro fondeado"
+          className="w-full border-2 object-cover"
+          style={{ borderColor: '#1a3147', maxHeight: '440px' }}
+          loading="lazy"
+        />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
+          {['azzuro-2', 'azzuro-4', 'azzuro-3', 'azzuro-5'].map((f, i) => (
+            <img
+              key={i}
+              src={`${import.meta.env.BASE_URL}boat/${f}.webp`}
+              alt="Velero Azzuro"
+              className="w-full border-2 object-cover"
+              style={{ borderColor: '#1a3147', height: '110px' }}
+              loading="lazy"
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Charter */}
+      <section className="mb-12">
+        <div className="flex items-baseline justify-between mb-2">
+          <h3 className="display-font text-2xl">El charter</h3>
+          <span className="mono-font text-xs opacity-60">CONTRATO</span>
+        </div>
+        <div className="rule mb-6"></div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-lg font-semibold mb-3">Vastardis Yachting</div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Amarre</span><span className="text-right">Alimos (Kalamaki) · Pier 3, puesto 348</span></div>
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Check-in</span><span className="text-right">8 jul · 17:00</span></div>
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Check-out</span><span className="text-right">15 jul · 09:00</span></div>
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Precio</span><span className="text-right">3.990 € · IVA incl.</span></div>
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Fianza</span><span className="text-right" style={{ color: '#8b2a14' }}>0 € · confirmada en contrato</span></div>
+              <div className="flex justify-between gap-4"><span className="mono-font text-xs uppercase opacity-60">Registro</span><span className="text-right">N.Π. 11846 · Pireo</span></div>
+            </div>
+          </div>
+          <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
+            <div className="display-font text-lg font-semibold mb-3">Contacto & marina</div>
+            <div className="space-y-1.5 text-sm mb-3">
+              <a href="tel:+306944341708" className="block"><span className="mono-font text-xs uppercase opacity-60">Base (Agapitos) </span><span className="underline">+30 694 434 1708</span></a>
+              <a href="tel:+306946572903" className="block"><span className="mono-font text-xs uppercase opacity-60">Urgencias (Dimitris) </span><span className="underline">+30 694 657 2903</span></a>
+              <a href="tel:+302109848099" className="block"><span className="mono-font text-xs uppercase opacity-60">Oficina </span><span className="underline">+30 210 984 8099</span></a>
+              <a href="mailto:info@vastardisyachting.gr" className="block underline">info@vastardisyachting.gr</a>
+            </div>
+            <div className="text-sm opacity-80 leading-relaxed border-t pt-3" style={{ borderColor: 'rgba(26,49,71,0.2)' }}>
+              Servicios: agua y luz, gasoil (fuel wagon), duchas, ATM, café y supermercados cerca. Desde el aeropuerto: ~1 h en taxi o bus <strong>E96</strong> (cada 15 min).
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Specs */}
       <section className="mb-12">
@@ -971,15 +1030,9 @@ function BarcoSection({ checkedItems, toggleCheck }) {
           <div className="p-5 border-2" style={{ borderColor: '#1a3147' }}>
             <div className="display-font text-lg font-semibold mb-2">Nota sobre la fianza</div>
             <div className="text-sm leading-relaxed">
-              La ficha indica <strong>€0 de fianza</strong>, lo cual es muy poco habitual. Suele significar uno de estos casos:
+              El contrato fija <strong>fianza de 0 €</strong> (cláusula "Deposit and Guaranty"). Es poco habitual y una buena noticia.
               <br/><br/>
-              · El charter incluye un seguro de franquicia completo (excelente).
-              <br/>
-              · La fianza se gestiona aparte y no aparece en la ficha pública.
-              <br/>
-              · Es un gancho comercial y al firmar bloquearán igualmente 2.000-3.000€ en tarjeta.
-              <br/><br/>
-              Pregúntalo por escrito antes de pagar.
+              Aun así, en el check-in confirmad de palabra que <strong>no bloquearán importe en tarjeta</strong> como garantía. Y recordad la obligación del contrato: hacer <strong>fotos/vídeo del estado del barco</strong> y firmar el inventario en la entrega — eso es vuestra protección.
             </div>
           </div>
 

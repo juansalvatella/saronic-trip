@@ -221,12 +221,12 @@ export default function SaronicoTrip() {
       'Botiquín personal (medicación habitual)',
       'Toalla de microfibra'
     ],
-    'A bordo (lo que cada uno aporta)': [
-      'Linterna frontal con luz roja (no daña visión nocturna)',
-      'Cargador y power bank',
-      'Bolsa estanca para móvil',
-      'Auriculares (camarotes pequeños)',
-      'Mochila pequeña para excursiones en isla'
+    'Para traer de Barcelona': [
+      'Altavoz Bluetooth',
+      'Flotadores',
+      'Hitster (juego)',
+      'Gafas de snorkel',
+      'Tubo'
     ],
     'Equipo común (el grupo)': [
       'Protector solar SPF 50 reef-safe (2 botes mínimo)',
